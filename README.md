@@ -159,7 +159,7 @@ PCD_CST_ID | 가맹점 ID |  | O
 PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 |  | O
 PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | | O
 PCD_PAY_REQKEY | 결제생성후 승인을 위한 키 | | O 
-PCD_PAY_COFURL | 결제생성후 승인을 위한 URL | O 
+PCD_PAY_COFURL | 결제생성, 승인후 리턴 URL | | O 
 PCD_PAY_TYPE | 결제수단(transfer=계좌 / card=카드) | O |  
 PCD_PAY_WORK | 결제요청방식(CERT=결제생성 후 승인 / PAY=즉시승인) | O |  
 PCD_PAYER_ID | 결제고객 고유 ID | | O 
@@ -398,7 +398,7 @@ PCD_PAY_RST | 결제요청 결과 | success / error
 PCD_PAY_MSG | 결제요청 결과 메세지 | 출금이체완료 / 실패 등 
 PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | a688ccb3... 
 PCD_PAY_REQKEY | 결제생성후 승인을 위한 키 | RmFBWWFBTWNS9qNTgzU2xdd2XRNHR2
-PCD_PAY_COFURL | 결제생성후 승인을 위한 URL | https://cpay.payple.kr/php/PayConfirmAct.php 
+PCD_PAY_COFURL | 결제생성, 승인후 리턴 URL | https://cpay.payple.kr/php/PayConfirmAct.php 
 PCD_PAY_OID | 주문번호 | test201804000001
 PCD_PAY_TYPE | 결제수단 | transfer / card
 PCD_PAY_WORK | 결제요청방식 | CERT / PAY 
@@ -507,6 +507,14 @@ PCD_PAY_BANKNUM | 결제 계좌번호 | 2881204040404
 PCD_PAY_TIME | 결제완료 시간 | 20180110152911
 PCD_TAXSAVE_RST | 현금영수증 발행 결과 | Y / N 
 PCD_REGULER_FLAG | 정기결제 여부 | Y / N
+
+## 서비스가능 은행 및 점검시간 
+
+은행명 | 코드 | 평일, 토요일 | 공휴일
+:----: | :----: | :----: | :----:
+국민은행 | 004 | 23:40 ~ 00:10 | 23:40 ~ 00:10 
+농협 | 011 | 00:00 ~ 00:30 | 00:00 ~ 00:30 
+신한은행 | 088 | 23:40 ~ 00:10 | 23:40 ~ 00:10
 
 ## 문의  
 * 기술문의 : help@payple.kr 을 통해 보다 자세한 문의가 가능합니다.
