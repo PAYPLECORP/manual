@@ -361,7 +361,6 @@ PCD_SIMPLE_FLAG | 간편결제 여부 | O |
 PCD_PAYER_EMAIL | 결제고객 이메일 | O |
 
 ## 결제결과 수신  
-### 1. 단건결제 
 * 아래 소스코드를 가맹점 결제완료 페이지에 추가하고 가맹점 환경에 맞는 개발언어로 수정해주세요.
 * 자세한 내용은 [order_result.html 샘플](/sample/order_result.html)을 참고하시면 됩니다. 
 ```php
