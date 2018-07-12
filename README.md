@@ -12,6 +12,91 @@ SSL 보안통신 필수 <br>
 > 가급적 폴더명 변경없이 이용해주세요. 
 ## 샘플 페이지 
 참고 가능한 [샘플 페이지](/sample) 폴더입니다. 
+## 가맹점 인증 
+* Payple 서비스를 이용하기 위해서는 가맹점 계약을 통한 인증이 필요하지만 계약 전 테스트 계정을 통해 개발진행이 가능합니다. 계약 완료 후 Payple 에서 가맹점에 아래의 키를 발급합니다. 
+  * cst_id (가맹점 식별을 위한 가맹점 ID)
+  * custKey (API 통신전문 변조를 방지하기 위한 비밀키)
+* 키가 탈취되는 일이 없도록 가맹점 서버사이드 스크립트 (PHP, ASP, JSP 등) 에서 API를 호출하시기 바랍니다.
+
+#### 호출정보
+구분 | 테스트 | 운영
+---- | ---- | ----
+URL | https://testcpay.payple.kr/php/auth.php | https://cpay.payple.kr/php/auth.php
+ID | cst_id : test | cst_id : 가맹점 운영 ID 
+KEY | custKey : abcd1234567890 | custKey : ID 매칭 Key
+비고 | 인증은 진행되지만 출금은 되지 않습니다. | 실제 출금이 되며, 최소금액 1,000원부터 출금 가능합니다. 수수료도 발생합니다. 
+
+#### 호출예시 
+* 단건결제 - Request 
+```html
+POST /php/auth.php HTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "cst_id": "test",
+  "custKey": "abcd1234567890"
+}
+```
+* 단건결제 - Response
+```html
+{
+  "result": "success",
+  "result_msg": "사용자 인증완료",
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
+  "return_url": "https://cpay.payple.kr/php/PayAct.php?ACT_=PAYM"
+}
+```
+* 정기결제 - Request 
+```html
+POST /php/auth.php HTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "PCD_REGULER_FLAG": "Y"
+}
+```
+* 정기결제 - Response
+```html
+{
+  "result": "success",
+  "result_msg": "사용자 인증완료",
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
+  "return_url": "https://cpay.payple.kr/php/RePayAct.php?ACT_=PAYM"
+}
+```
+* 간편결제 - Request 
+```html
+POST /php/auth.php HTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "PCD_SIMPLE_FLAG": "Y"
+}
+
+```
+* 간편결제 - Response
+```html
+{
+  "result": "success",
+  "result_msg": "사용자 인증완료",
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
+   "return_url": "https://cpay.payple.kr/php/SimplePayAct.php?ACT_=PAYM"
+}
+```
+
 ## 결제요청 
 ### 1. 단건결제 
 * HTML Form Submission 을 이용합니다. <br>
@@ -67,3 +152,34 @@ $(document).ready( function () {
   <iframe id="cpay_ifr" name="cpay_ifr" style="width:450px; height:100%; position:absolute; z-index:200; background:white;" frameborder="0" scrolling="auto"></iframe>
 </div>
 ```
+
+파라미터 ID | 설명 | 가맹점 | PAYPLE
+:----: | :----: | :----: | :----:
+PCD_CST_ID | 가맹점 ID |  | O
+PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 |  | O
+PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | | O
+PCD_PAY_REQKEY | 결제생성후 승인을 위한 키 | | O 
+PCD_PAY_COFURL | 결제생성후 승인을 위한 URL | O 
+PCD_PAY_TYPE | 결제수단(transfer=계좌 / card=카드) | O |  
+PCD_PAY_WORK | 결제요청방식(CERT=결제생성 후 승인 / PAY=즉시승인) | O |  
+PCD_PAYER_ID | 결제고객 고유 ID | | O 
+PCD_PAYER_NO | 결제고객 고유 번호 | O | 
+PCD_PAYER_NAME | 결제고객명 | O | 
+PCD_PAYER_HP | 결제고객 휴대폰번호 | O |  
+PCD_PAYER_EMAIL | 결제고객 이메일 | O |  
+PCD_PAY_GOODS | 상품명 | O |  
+PCD_PAY_YEAR | 정기결제 적용연도(정기결제만 해당) | O |  
+PCD_PAY_MONTH | 정기결제 적용월(정기결제만 해당) | O |  
+PCD_PAY_TOTAL | 결제금액 | O |  
+PCD_PAY_OID | 주문번호 | O |  
+PCD_TAXSAVE_FLAG | 현금영수증 발행여부(Y=발행 / N=미발행) | O |  
+PCD_REGULER_FLAG | 정기결제 여부(Y=정기 / N=단건) | O | 
+PCD_PAY_BANK | 결제 은행 |  | O 
+PCD_PAY_BANKNUM | 결제 계좌번호 |  | O 
+PCD_PAY_TIME | 결제완료시간(예: 20180110152911) |  | O 
+PCD_RST_URL | 가맹점 결제완료 페이지 경로(형식은 가맹점 URL을 제외한 /결과받을경로/파일명) | O |  
+PCD_RST_URL | 가맹점 결제완료 페이지 경로(형식은 가맹점 URL을 제외한 /결과받을경로/파일명) | O |  
+PCD_PAY_RST | 결제 성공여부(Y / N) |  | O 
+PCD_PAY_MSG | 결과메세지 |  | O 
+PCD_TAXSAVE_RST | 현금영수증 발행결과 |  | O 
+REMOTE_IP | 결제고객 접속 IP |  | O 
