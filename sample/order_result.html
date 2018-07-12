@@ -1,0 +1,61 @@
+<?
+$PCD_PAY_RST = (isset($_POST['PCD_PAY_RST'])) ? $_POST['PCD_PAY_RST'] : "";                 // 결제요청 결과
+$PCD_PAY_MSG = (isset($_POST['PCD_PAY_MSG'])) ? $_POST['PCD_PAY_MSG'] : "";                 // 결제요청 결과 메세지
+$PCD_PAY_OID = (isset($_POST['PCD_PAY_OID'])) ? $_POST['PCD_PAY_OID'] : "";                 // 상품 주문번호
+$PCD_PAY_TYPE = (isset($_POST['PCD_PAY_TYPE'])) ? $_POST['PCD_PAY_TYPE'] : "";              // 결제 방식 (transfer | card)
+$PCD_PAYER_NAME = (isset($_POST['PCD_PAYER_NAME'])) ? $_POST['PCD_PAYER_NAME'] : "";        // 결제자명
+$PCD_PAYER_HP = (isset($_POST['PCD_PAYER_HP'])) ? $_POST['PCD_PAYER_HP'] : "";              // 결제자 휴대폰번호
+$PCD_PAYER_EMAIL = (isset($_POST['PCD_PAYER_EMAIL'])) ? $_POST['PCD_PAYER_EMAIL'] : "";     // 결제자 Email
+$PCD_REGULER_FLAG = (isset($_POST['PCD_REGULER_FLAG'])) ? $_POST['PCD_REGULER_FLAG'] : "";	// 정기결제 Y|N
+$PCD_PAY_YEAR = (isset($_POST['PCD_PAY_YEAR'])) ? $_POST['PCD_PAY_YEAR'] : "";  			// 정기결제 구분 년도
+$PCD_PAY_MONTH = (isset($_POST['PCD_PAY_MONTH'])) ? $_POST['PCD_PAY_MONTH'] : "";			// 정기결제 구분 월 
+$PCD_PAY_GOODS = (isset($_POST['PCD_PAY_GOODS'])) ? $_POST['PCD_PAY_GOODS'] : "";           // 결제상품명
+$PCD_PAY_TOTAL = (isset($_POST['PCD_PAY_TOTAL'])) ? $_POST['PCD_PAY_TOTAL'] : "";           // 결제금액
+$PCD_PAY_BANK = (isset($_POST['PCD_PAY_BANK'])) ? $_POST['PCD_PAY_BANK'] : "";              // 결제은행
+$PCD_PAY_BANKNUM = (isset($_POST['PCD_PAY_BANKNUM'])) ? $_POST['PCD_PAY_BANKNUM'] : "";     // 결제계좌번호
+$PCD_PAY_TIME = (isset($_POST['PCD_PAY_TIME'])) ? $_POST['PCD_PAY_TIME'] : "";              // 결제시간
+$PCD_TAXSAVE_FLAG = (isset($_POST['PCD_TAXSAVE_FLAG'])) ? $_POST['PCD_TAXSAVE_FLAG'] : "";  // 현금영수증 발행요청 Y|N
+$PCD_TAXSAVE_RST = (isset($_POST['PCD_TAXSAVE_RST'])) ? $_POST['PCD_TAXSAVE_RST'] : "";     // 현금영수증 발행결과 Y|N
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+PCD_PAY_RST = <?=$PCD_PAY_RST?>
+<br>
+PCD_PAY_MSG = <?=$PCD_PAY_MSG?>
+<br>
+PCD_PAY_OID = <?=$PCD_PAY_OID?>
+<br>
+PCD_PAY_TYPE = <?=$PCD_PAY_TYPE?>
+<br>
+PCD_PAYER_NAME = <?=$PCD_PAYER_NAME?>
+<br>
+PCD_PAYER_HP = <?=$PCD_PAYER_HP?>
+<br>
+PCD_PAYER_EMAIL = <?=$PCD_PAYER_EMAIL?>
+<br>
+PCD_REGULER_FLAG = <?=$PCD_REGULER_FLAG?>	<!-- 정기결제 Y|N -->
+<br>
+PCD_PAY_YEAR = <?=$PCD_PAY_YEAR?>			<!-- 정기결제 구분 년도 -->
+<br>
+PCD_PAY_MONTH = <?=$PCD_PAY_MONTH?>			<!-- 정기결제 구분 월 -->
+<br>
+PCD_PAY_GOODS = <?=$PCD_PAY_GOODS?>
+<br>
+PCD_PAY_TOTAL = <?=$PCD_PAY_TOTAL?>
+<br>
+PCD_PAY_BANK = <?=$PCD_PAY_BANK?>
+<br>
+PCD_PAY_BANKNUM = <?=$PCD_PAY_BANKNUM?>
+<br>
+PCD_PAY_TIME = <?=$PCD_PAY_TIME?>
+<br>
+PCD_TAXSAVE_FLAG = <?=$PCD_TAXSAVE_FLAG?>   <!-- 현금영수증 발행요청 Y|N -->
+<br>
+PCD_TAXSAVE_RST = <?=$PCD_TAXSAVE_RST?>		<!-- 현금영수증 발행결과 Y|N -->
+</body>
+</html>

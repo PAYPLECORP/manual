@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<title>Insert title here</title>
+<style>
+
+input {
+    width: 300px;
+    height: 20px;
+    border: 1px solid gray
+}
+</style>
+<script src="/js/jquery-3.2.1.min.js"></script>
+
+<script src="https://testcpay.payple.kr/js/cpay.payple.1.0.0.js"></script> <!-- TEST -->
+<script>
+$(document).ready( function () {
+	
+	$('#orderFormSubmit').on('click', function (event) {
+		
+		var orderForm = $('#orderForm')[0];
+		
+		PaypleCpayAuthCheck(orderForm);
+		
+		event.preventDefault();
+		
+	});
+
+    $('#taxsave_flag').on({
+		'keyup' : function () {
+			$("#PCD_TAXSAVE_FLAG").val($(this).val());
+		},
+		'mousemove' : function () {
+			$("#PCD_TAXSAVE_FLAG").val($(this).val());
+		}
+	});
+
+	$('#buyer_email').on({
+		'keyup' : function () {
+			$("#PCD_PAYER_EMAIL").val($(this).val());
+		},
+		'mousemove' : function () {
+			$("#PCD_PAYER_EMAIL").val($(this).val());
+		}
+	});
+
+	// 현금영수증 발행 여부
+	$('#is_taxsave').on('change', function () {
+		$('#PCD_TAXSAVE_FLAG').val($(this).val());
+	});
+	
+	// 정기결제 여부
+	$('#is_reguler').on('change', function () {
+		$('#PCD_REGULER_FLAG').val($(this).val());
+	});
+
+	$('#pay_year').on('change', function () {
+		$('#PCD_PAY_YEAR').val($(this).val());
+	});
+
+	$('#pay_month').on('change', function () {
+		$('#PCD_PAY_MONTH').val($(this).val());
+	});
+	
+});
+</script>
+</head>
+<body>
+<?
+$buyer_name = "홍길동";
+$buyer_hp = "01077772222";
+$buyer_email = "test@payple.co.kr";
+$buy_goods = "휴대폰";
+$buy_total = "1000";
+$order_num = preg_replace("/([^0-9a-zA-Z]+)/", "", "test".microtime());
+?>
+	<form id="orderForm" name="orderForm">
+	  <div>
+	  	<label for="payer_name">구매자 이름</label>
+	    <input type="text" name="buyer_name" id="buyer_name" value="<?=$buyer_name?>">
+	  </div>
+	  <div>
+	    <label for="buyer_hp">구매자 휴대폰번호</label>
+	    <input type="text" name="buyer_hp" id="buyer_hp" value="<?=$buyer_hp?>">
+	  </div>
+	  <div>
+	    <label for="buyer_hp">구매자 Email</label>
+	    <input type="text" name="buyer_email" id="buyer_email" value="<?=$buyer_email?>">
+	  </div>
+	  <div>
+	    <label for="buy_goods">구매상품</label>
+	    <input type="text" name="buy_goods" id="buy_goods" value="<?=$buy_goods?>">
+	  </div>	  
+	  <div>
+	  	<label for="buy_total">결제금액</label>
+	  	<input type="text" name="buy_total" id="buy_total" value="<?=$buy_total?>">
+	  </div>
+	  <div>
+	  	<label for="order_num">주문번호</label>
+	  	<input type="text" name="order_num" id="order_num" value="<?=$order_num?>">
+	  </div>
+	  <div>
+	  	<label for="is_reguler">정기결제</label>
+	  	<select id="is_reguler" name="is_reguler">
+	  		<option value="N">N</option>
+	  		<option value="Y">Y</option>
+	  	</select>
+	  </div>
+	  <div>
+	  	<label for="pay_year">정기결제 구분년도</label>
+	  	<select id="pay_year" name="pay_year">
+	  	    <option value="">===</option>
+	  		<option value="2018">2018</option>
+	  		<option value="2017">2017</option>
+	  	</select>	  
+	  </div>
+	  <div>
+	  	<label for="pay_month">정기결제 구분월</label>
+	  	<select id="pay_month" name="pay_month">
+	  	    <option value="">===</option>
+	  		<option value="12">12</option>
+	  		<option value="11">11</option>
+	  		<option value="10">10</option>
+	  		<option value="9">9</option>
+	  		<option value="8">8</option>
+	  		<option value="7">7</option>
+	  		<option value="6">6</option>
+	  		<option value="5">5</option>
+	  		<option value="4">4</option>
+	  		<option value="3">3</option>
+	  		<option value="2">2</option>
+	  		<option value="1">1</option>	  		
+	  	</select>	  
+	  </div>
+	  <div>
+	  	<label for="is_taxsave">현금영수증</label>
+	  	<select id="is_taxsave" name="is_taxsave">
+	  		<option value="N">N</option>
+	  		<option value="Y">Y</option>
+	  	</select>
+	  </div>
+	</form>
+    <button id="orderFormSubmit">결제하기</button>
+    
+    <form id="CpayForm" name="CpayForm" action="" method="post">
+	<input type="hidden" name="PCD_CST_ID" 			id="PCD_CST_ID">									<!-- 가맹점 ID -->
+	<input type="hidden" name="PCD_CUST_KEY" 		id="PCD_CUST_KEY">									<!-- 가맹점 고유키 -->
+	<input type="hidden" name="PCD_AUTH_KEY" 		id="PCD_AUTH_KEY">									<!-- 결제용 인증키 -->
+	<input type="hidden" name="PCD_PAY_TYPE" 		id="PCD_PAY_TYPE" 		value="transfer">			<!-- 결제 방식 (transfer | card) -->
+	<input type="hidden" name="PCD_PAYER_NAME" 		id="PCD_PAYER_NAME" 	value="<?=$buyer_name?>">   <!-- 결제자 명 -->
+	<input type="hidden" name="PCD_PAYER_HP" 		id="PCD_PAYER_HP" 		value="<?=$buyer_hp?>">     <!-- 결제자 휴대폰 번호 -->
+	<input type="hidden" name="PCD_PAYER_EMAIL" 	id="PCD_PAYER_EMAIL" 	value="<?=$buyer_email?>">  <!-- 결제자 Email -->
+	<input type="hidden" name="PCD_PAY_GOODS" 		id="PCD_PAY_GOODS" 		value="<?=$buy_goods?>">	<!-- 결제 상품 -->
+	<input type="hidden" name="PCD_PAY_YEAR"		id="PCD_PAY_YEAR">									<!-- 결제구분 년도 -->
+	<input type="hidden" name="PCD_PAY_MONTH"		id="PCD_PAY_MONTH">									<!-- 결제구분 월 -->
+	<input type="hidden" name="PCD_PAY_TOTAL" 		id="PCD_PAY_TOTAL" 		value="<?=$buy_total?>">	<!-- 결제 금액 -->
+	<input type="hidden" name="PCD_PAY_OID" 		id="PCD_PAY_OID" 		value="<?=$order_num?>">	<!-- 주문번호 -->
+	<input type="hidden" name="PCD_TAXSAVE_FLAG" 	id="PCD_TAXSAVE_FLAG" 	value="N">					<!-- 현금영수증 발행 -->
+	<input type="hidden" name="PCD_REGULER_FLAG" 	id="PCD_REGULER_FLAG" 	value="N"> 					<!-- 정기결제 -->
+	<input type="hidden" name="PCD_PAY_BANK" 		id="PCD_PAY_BANK">									<!-- 결제은행 -->
+	<input type="hidden" name="PCD_PAY_BANKNUM" 	id="PCD_PAY_BANKNUM">								<!-- 결제계좌번호 -->
+	<input type="hidden" name="PCD_PAY_TIME" 		id="PCD_PAY_TIME">									<!-- 결제시간 -->	
+	<input type="hidden" name="PCD_RST_URL" 		id="PCD_RST_URL" 		value="/order_result.html"> <!-- 결제내용 RETUN URL -->
+	<input type="hidden" name="PCD_PAY_RST" 		id="PCD_PAY_RST">									<!-- 결제성공 여부 (Y|N) -->
+	<input type="hidden" name="PCD_PAY_MSG" 		id="PCD_PAY_MSG">									<!-- 결제결과 메세지 -->
+	<input type="hidden" name="PCD_TAXSAVE_RST"	    id="PCD_TAXSAVE_RST">								<!-- 현금영수증 발행 결과 -->
+	<input type="hidden" name="REMOTE_IP" 			id="REMOTE_IP">										<!-- 결제자 접속 IP -->
+	</form>
+
+    <div id="layer_cpay" name="layer_cpay" style="position:absolute;z-index:100;display:none;width:$(window).width();height:$(window).height();top:0;left:0;margin-top:0px;margin-left:0px;">
+		<iframe id="cpay_ifr" name="cpay_ifr" style="width:450px; height:100%; position:absolute; z-index:200; background:white;" frameborder="0" scrolling="auto"></iframe>
+	</div>
+</body>
+</html>
