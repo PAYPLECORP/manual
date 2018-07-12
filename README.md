@@ -168,7 +168,7 @@ PCD_PAYER_NAME | 결제고객명 | O |
 PCD_PAYER_HP | 결제고객 휴대폰번호 | O |  
 PCD_PAYER_EMAIL | 결제고객 이메일 | O |  
 PCD_PAY_GOODS | 상품명 | O |  
-PCD_PAY_YEAR | 정기결제 적용연도(정기결제만 해당) | O |  
+PCD_PAY_YEAR | 정기결제 적용연도<br>(정기결제만 해당) | O |  
 PCD_PAY_MONTH | 정기결제 적용월(정기결제만 해당) | O |  
 PCD_PAY_TOTAL | 결제금액 | O |  
 PCD_PAY_OID | 주문번호 | O |  
