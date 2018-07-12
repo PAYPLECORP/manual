@@ -17,6 +17,6 @@ SSL 보안통신 필수 <br>
 * HTML Form Submission 을 이용합니다. <br>
 * 아래 소스코드를 가맹점 주문페이지에 추가합니다.
 * 자세한 내용은 [order.html 샘플](/sample/order.html)을 참고하시면 됩니다. 
-<code>
+<pre><code>
 <meta charset="UTF-8">
-</code>
+</code></pre>
