@@ -420,3 +420,94 @@ PCD_PAY_TIME | 결제완료 시간 | 20180110152911
 PCD_TAXSAVE_FLAG | 현금영수증 발행 여부 | Y / N
 PCD_TAXSAVE_RST | 현금영수증 발행 결과 | Y / N 
 
+## 결제 결과조회  
+* 결제에 대한 결과조회는 REST Request 방식으로 진행합니다.
+* Request 예시 
+```html
+POST /php/auth.php HTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "PCD_PAYCHK_FLAG": "Y"
+}
+
+POST /php/PayChkAct.php HTTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+   "PCD_CST_ID": "test",
+   "PCD_CUST_KEY": "abcd1234567890",
+   "PCD_AUTH_KEY": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
+   "PCD_PAYCHK_FLAG": "Y",
+   "PCD_PAY_TYPE": "transfer",
+   "PCD_REGULER_FLAG": "Y",							
+   "PCD_PAY_YEAR": "2018",	
+   "PCD_PAY_MONTH": "04",	
+   "PCD_PAY_OID": "test201804000001",
+   "PCD_PAY_DATE": 20180502
+}
+```
+* Request 파라미터 설명 
+
+파라미터 ID | 설명 | 필수 | 비고
+:----: | :----: | :----: | :----:
+PCD_CST_ID | 가맹점 ID | O | 
+PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
+PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
+PCD_PAYCHK_FLAG | 결과조회 여부 | O | 
+PCD_PAY_TYPE | 결제수단(transfer = 계좌 / card = 카드) | O | 
+PCD_REGULER_FLAG | 정기결제 여부 |  | 
+PCD_PAY_YEAR | 정기결제 과금연도 |  | 
+PCD_PAY_MONTH | 정기결제 과금월 |  | 
+PCD_PAY_OID | 주문번호 | O | 
+PCD_PAY_DATE | 결제요청일자(YYYYMMDD) | O | 
+
+* Response 예시 
+```html
+{
+   "PCD_PAY_RST": "success",
+   "PCD_PAY_MSG": "출금이체완료",
+   "PCD_PAY_OID": "test201804000001",
+   "PCD_PAY_TYPE": "transfer",
+   "PCD_PAYER_NO": "1234",
+   "PCD_PAYER_NAME": "홍길동",
+   "PCD_PAYER_HP": "01022224444",
+   "PCD_PAYER_BIRTH": "19900211",
+   "PCD_PAY_YEAR" => "2018",
+   "PCD_PAY_MONTH" => "05",
+   "PCD_PAY_GOODS": "간편상품",
+   "PCD_PAY_TOTAL": "1000",
+   "PCD_PAY_BANK": "081",
+   "PCD_PAY_BANKNUM": "2881204040404",
+   "PCD_PAY_TIME" => "20180423130201",
+   "PCD_TAXSAVE_RST": "Y",
+   "PCD_REGULER_FLAG": "Y"
+}
+```
+* Response 파라미터 설명 
+
+파라미터 ID | 설명 | 필수 | 비고
+:----: | :----: | :----: | :----:
+PCD_PAY_RST | 결제요청 결과 | success / error 
+PCD_PAY_MSG | 결제요청 결과 메세지 | 출금이체완료 / 실패 등 
+PCD_PAY_OID | 주문번호 | test201804000001
+PCD_PAY_TYPE | 결제수단 | transfer / card
+PCD_PAYER_NO | 결제고객 고유번호 | 1234 
+PCD_PAYER_NAME | 결제고객명 | 홍길동 
+PCD_PAYER_HP | 결제고객 휴대폰번호 | 01012345678
+PCD_PAYER_BIRTH | 결제고객 생년월일 8자리 | 19900108
+PCD_PAY_YEAR | 과금연도(정기결제만 해당) | 2018 
+PCD_PAY_MONTH | 과금월(정기결제만 해당) | 08
+PCD_PAY_GOODS | 상품명 | 정기구독 
+PCD_PAY_TOTAL | 결제금액 | 1000
+PCD_PAY_BANK | 결제 은행코드 | 081
+PCD_PAY_BANKNUM | 결제 계좌번호 | 2881204040404
+PCD_PAY_TIME | 결제완료 시간 | 20180110152911
+PCD_TAXSAVE_RST | 현금영수증 발행 결과 | Y / N 
+PCD_REGULER_FLAG | 정기결제 여부 | Y / N
+
+
