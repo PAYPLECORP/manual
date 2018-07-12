@@ -178,7 +178,6 @@ PCD_PAY_BANK | 결제 은행 |  | O
 PCD_PAY_BANKNUM | 결제 계좌번호 |  | O 
 PCD_PAY_TIME | 결제완료시간(예: 20180110152911) |  | O 
 PCD_RST_URL | 가맹점 결제완료 페이지 경로(형식은 가맹점 URL을 제외한 /결과받을경로/파일명) | O |  
-PCD_RST_URL | 가맹점 결제완료 페이지 경로(형식은 가맹점 URL을 제외한 /결과받을경로/파일명) | O |  
 PCD_PAY_RST | 결제 성공여부(Y / N) |  | O 
 PCD_PAY_MSG | 결과메세지 |  | O 
 PCD_TAXSAVE_RST | 현금영수증 발행결과 |  | O 
