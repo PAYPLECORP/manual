@@ -160,8 +160,8 @@ PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 |  | O
 PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | | O
 PCD_PAY_REQKEY | 결제생성후 승인을 위한 키 | | O 
 PCD_PAY_COFURL | 결제생성, 승인후 리턴 URL | | O 
-PCD_PAY_TYPE | 결제수단(transfer=계좌 / card=카드) | O |  
-PCD_PAY_WORK | 결제요청방식(CERT=결제생성 후 승인 / PAY=즉시승인) | O |  
+PCD_PAY_TYPE | 결제수단<br>(transfer=계좌 / card=카드) | O |  
+PCD_PAY_WORK | 결제요청방식<br>(CERT=결제생성 후 승인 / PAY=즉시승인) | O |  
 PCD_PAYER_ID | 결제고객 고유 ID | | O 
 PCD_PAYER_NO | 결제고객 고유 번호 | O | 
 PCD_PAYER_NAME | 결제고객명 | O | 
@@ -169,16 +169,16 @@ PCD_PAYER_HP | 결제고객 휴대폰번호 | O |
 PCD_PAYER_EMAIL | 결제고객 이메일 | O |  
 PCD_PAY_GOODS | 상품명 | O |  
 PCD_PAY_YEAR | 정기결제 적용연도<br>(정기결제만 해당) | O |  
-PCD_PAY_MONTH | 정기결제 적용월(정기결제만 해당) | O |  
+PCD_PAY_MONTH | 정기결제 적용월<br>(정기결제만 해당) | O |  
 PCD_PAY_TOTAL | 결제금액 | O |  
 PCD_PAY_OID | 주문번호 | O |  
-PCD_TAXSAVE_FLAG | 현금영수증 발행여부(Y=발행 / N=미발행) | O |  
-PCD_REGULER_FLAG | 정기결제 여부(Y=정기 / N=단건) | O | 
+PCD_TAXSAVE_FLAG | 현금영수증 발행여부<br>(Y=발행 / N=미발행) | O |  
+PCD_REGULER_FLAG | 정기결제 여부<br>(Y=정기 / N=단건) | O | 
 PCD_PAY_BANK | 결제 은행 |  | O 
 PCD_PAY_BANKNUM | 결제 계좌번호 |  | O 
-PCD_PAY_TIME | 결제완료시간(예: 20180110152911) |  | O 
-PCD_RST_URL | 가맹점 결제완료 페이지 경로(형식은 가맹점 URL을 제외한 /결과받을경로/파일명) | O |  
-PCD_PAY_RST | 결제 성공여부(Y / N) |  | O 
+PCD_PAY_TIME | 결제완료시간<br>(예: 20180110152911) |  | O 
+PCD_RST_URL | 가맹점 결제완료 페이지 경로<br>(형식은 가맹점 URL을 제외한 /결과받을경로/파일명) | O |  
+PCD_PAY_RST | 결제 성공여부<br>(Y / N) |  | O 
 PCD_PAY_MSG | 결과메세지 |  | O 
 PCD_TAXSAVE_RST | 현금영수증 발행결과 |  | O 
 REMOTE_IP | 결제고객 접속 IP |  | O 
@@ -274,9 +274,9 @@ Cache-Control: no-cache
 PCD_CST_ID | 가맹점 ID | O | 
 PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
 PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
-PCD_PAY_TYPE | 결제수단(transfer = 계좌 / card = 카드) | O | 
+PCD_PAY_TYPE | 결제수단<br>(transfer = 계좌 / card = 카드) | O | 
 PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | 
-PCD_PAYER_ID | 결제 빌링키(해당 키를 통해 정기, 간편결제 시 결제요청) | O | 
+PCD_PAYER_ID | 결제 빌링키<br>(해당 키를 통해 정기, 간편결제 시 결제요청) | O | 
 PCD_PAYER_NAME | 결제고객명 | ▵ | PCD_PAYER_ID 미입력시 필수 
 PCD_PAYER_HP | 결제고객 휴대폰번호 | ▵ | PCD_PAYER_ID 미입력시 필수 
 PCD_PAYER_BIRTH | 결제고객 생년월일 8자리 | ▵ | PCD_PAYER_ID 미입력시 필수 
@@ -287,9 +287,9 @@ PCD_PAY_YEAR | 과금연도 | O |
 PCD_PAY_MONTH | 과금월 | O | 
 PCD_PAY_TOTAL | 결제금액 | O | 
 PCD_PAY_OID | 주문번호 | O | 
-PCD_TAXSAVE_FLAG | 현금영수증 발행 여부(Y=발행 / N=미발행) | O | 
-PCD_TAXSAVE_TRADE | 현금영수증 발행 타입(personal=소득공제 / company=지출증빙) |  |  
-PCD_TAXSAVE_IDNUM | 현금영수증 발행 번호(휴대폰번호, 사업자번호) |  | 
+PCD_TAXSAVE_FLAG | 현금영수증 발행 여부<br>(Y=발행 / N=미발행) | O | 
+PCD_TAXSAVE_TRADE | 현금영수증 발행 타입<br>(personal=소득공제 / company=지출증빙) |  |  
+PCD_TAXSAVE_IDNUM | 현금영수증 발행 번호<br>(휴대폰번호, 사업자번호) |  | 
 PCD_REGULER_FLAG | 정기결제 여부 | O | 
 PCD_PAYER_EMAIL | 결제고객 이메일 | O | 
 
@@ -342,9 +342,9 @@ Cache-Control: no-cache
 PCD_CST_ID | 가맹점 ID | O | 
 PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
 PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
-PCD_PAY_TYPE | 결제수단(transfer = 계좌 / card = 카드) | O | 
+PCD_PAY_TYPE | 결제수단<br>(transfer = 계좌 / card = 카드) | O | 
 PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | 
-PCD_PAYER_ID | 결제 빌링키(해당 키를 통해 정기, 간편결제 시 결제요청) | O | 
+PCD_PAYER_ID | 결제 빌링키<br>(해당 키를 통해 정기, 간편결제 시 결제요청) | O | 
 PCD_PAYER_NAME | 결제고객명 | ▵ | PCD_PAYER_ID 미입력시 필수 
 PCD_PAYER_HP | 결제고객 휴대폰번호 | ▵ | PCD_PAYER_ID 미입력시 필수 
 PCD_PAYER_BIRTH | 결제고객 생년월일 8자리 | ▵ | PCD_PAYER_ID 미입력시 필수 
@@ -353,9 +353,9 @@ PCD_PAY_BANKNUM | 결제 계좌번호 | ▵ | PCD_PAYER_ID 미입력시 필수
 PCD_PAY_GOODS | 상품명 | O | 
 PCD_PAY_TOTAL | 결제금액 | O | 
 PCD_PAY_OID | 주문번호 | O | 
-PCD_TAXSAVE_FLAG | 현금영수증 발행 여부(Y=발행 / N=미발행) | O | 
-PCD_TAXSAVE_TRADE | 현금영수증 발행 타입(personal=소득공제 / company=지출증빙) |  |  
-PCD_TAXSAVE_IDNUM | 현금영수증 발행 번호(휴대폰번호, 사업자번호) |  | 
+PCD_TAXSAVE_FLAG | 현금영수증 발행 여부<br>(Y=발행 / N=미발행) | O | 
+PCD_TAXSAVE_TRADE | 현금영수증 발행 타입<br>(personal=소득공제 / company=지출증빙) |  |  
+PCD_TAXSAVE_IDNUM | 현금영수증 발행 번호<br>(휴대폰번호, 사업자번호) |  | 
 PCD_SIMPLE_FLAG | 간편결제 여부 | O | 
 PCD_PAYER_EMAIL | 결제고객 이메일 | O |
 
@@ -402,14 +402,14 @@ PCD_PAY_COFURL | 결제생성, 승인후 리턴 URL | https://cpay.payple.kr/php
 PCD_PAY_OID | 주문번호 | test201804000001
 PCD_PAY_TYPE | 결제수단 | transfer / card
 PCD_PAY_WORK | 결제요청방식 | CERT / PAY 
-PCD_PAYER_ID | 결제 빌링키(정기결제, 간편결제만 해당) | NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09
+PCD_PAYER_ID | 결제 빌링키<br>(정기결제, 간편결제만 해당) | NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09
 PCD_PAYER_NO | 결제고객 고유번호 | 1234 
 PCD_PAYER_NAME | 결제고객명 | 홍길동 
 PCD_PAYER_HP | 결제고객 휴대폰번호 | 01012345678
 PCD_PAYER_EMAIL | 결제고객 이메일 | help@payple.kr 
 PCD_REGULER_FLAG | 정기결제 여부 | Y / N
-PCD_PAY_YEAR | 과금연도(정기결제만 해당) | 2018 
-PCD_PAY_MONTH | 과금월(정기결제만 해당) | 08
+PCD_PAY_YEAR | 과금연도<br>(정기결제만 해당) | 2018 
+PCD_PAY_MONTH | 과금월<br>(정기결제만 해당) | 08
 PCD_PAY_GOODS | 상품명 | 정기구독 
 PCD_PAY_TOTAL | 결제금액 | 1000
 PCD_PAY_BANK | 결제 은행코드 | 081
@@ -457,7 +457,7 @@ PCD_CST_ID | 가맹점 ID | O |
 PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
 PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
 PCD_PAYCHK_FLAG | 결과조회 여부 | O | 
-PCD_PAY_TYPE | 결제수단(transfer = 계좌 / card = 카드) | O | 
+PCD_PAY_TYPE | 결제수단<br>(transfer = 계좌 / card = 카드) | O | 
 PCD_REGULER_FLAG | 정기결제 여부 |  | 
 PCD_PAY_YEAR | 정기결제 과금연도 |  | 
 PCD_PAY_MONTH | 정기결제 과금월 |  | 
@@ -498,8 +498,8 @@ PCD_PAYER_NO | 결제고객 고유번호 | 1234
 PCD_PAYER_NAME | 결제고객명 | 홍길동 
 PCD_PAYER_HP | 결제고객 휴대폰번호 | 01012345678
 PCD_PAYER_BIRTH | 결제고객 생년월일 8자리 | 19900108
-PCD_PAY_YEAR | 과금연도(정기결제만 해당) | 2018 
-PCD_PAY_MONTH | 과금월(정기결제만 해당) | 08
+PCD_PAY_YEAR | 과금연도<br>(정기결제만 해당) | 2018 
+PCD_PAY_MONTH | 과금월<br>(정기결제만 해당) | 08
 PCD_PAY_GOODS | 상품명 | 정기구독 
 PCD_PAY_TOTAL | 결제금액 | 1000
 PCD_PAY_BANK | 결제 은행코드 | 081
