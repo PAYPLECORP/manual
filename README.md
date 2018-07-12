@@ -509,5 +509,5 @@ PCD_TAXSAVE_RST | 현금영수증 발행 결과 | Y / N
 PCD_REGULER_FLAG | 정기결제 여부 | Y / N
 
 ## 문의  
-help@payple.kr 을 통해 보다 자세한 문의가 가능합니다.
-가입문의는 페이플 웹사이트 [가입문의하기](https://www.payple.kr) 를 통하시면 가장 빠르게 안내 받으실 수 있습니다. 
+* 기술문의 : help@payple.kr 을 통해 보다 자세한 문의가 가능합니다.
+* 가입문의 : 페이플 웹사이트 [가입문의하기](https://www.payple.kr) 를 통하시면 가장 빠르게 안내 받으실 수 있습니다. 
