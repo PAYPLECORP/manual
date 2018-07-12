@@ -183,3 +183,43 @@ PCD_PAY_RST | 결제 성공여부(Y / N) |  | O
 PCD_PAY_MSG | 결과메세지 |  | O 
 PCD_TAXSAVE_RST | 현금영수증 발행결과 |  | O 
 REMOTE_IP | 결제고객 접속 IP |  | O 
+
+#### 1-1. 결제생성 후 승인(PCD_PAY_WORK : CERT) 
+* 가맹점의 최종 승인 후에 결제를 진행하며 REST Request 방식으로 진행합니다. 
+* Request 예시 
+```html
+<!-- 가맹점 인증 -->
+POST /php/auth.php HTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "cst_id": "test",
+  "custKey": "abcd1234567890"
+}
+
+<!-- 결제요청 -->
+POST /php/PayConfirmAct.php?ACT_=PAYM HTTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "PCD_CST_ID": "test",										
+  "PCD_CUST_KEY": "abcd1234567890",								
+  "PCD_AUTH_KEY": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d", 
+  "PCD_PAY_REQKEY": "RmFBWWFBTWNS9qNTgzU2xdd2XRNHR2",					
+  "PCD_PAYER_ID": "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09"
+}
+```
+* Request 파라미터 설명 
+
+파라미터 ID | 설명 | 필수 | 비고
+:----: | :----: | :----: | :----:
+PCD_CST_ID | 가맹점 ID | O | 
+PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
+PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
+PCD_PAY_REQKEY | 최종 승인요청용 키 | O | 
+PCD_PAYER_ID | 결제고객 고유 ID | O | 
+
+#### 1-2. 즉시 승인(PCD_PAY_WORK : PAY) 
+* 가맹점의 최종 승인없이 즉시 결제를 진행하며 별도 Request 는 없습니다.  
