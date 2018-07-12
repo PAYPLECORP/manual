@@ -121,8 +121,8 @@ $(document).ready( function () {
   <input type="hidden" name="PCD_CST_ID" id="PCD_CST_ID">  <!-- 가맹점 ID -->
   <input type="hidden" name="PCD_CUST_KEY" id="PCD_CUST_KEY">  <!-- 가맹점 고유키 -->
   <input type="hidden" name="PCD_AUTH_KEY" id="PCD_AUTH_KEY">  <!-- 결제용 인증키 -->
-  <input type="hidden" name="PCD_PAY_REQKEY" id="PCD_PAY_REQKEY">  <!-- 결제요청 고유KEY (결제요청 완료시 RETURN) -->
-  <input type="hidden" name="PCD_PAY_COFURL" id="PCD_PAY_COFURL">  <!-- 결제승인요청 URL -->
+  <input type="hidden" name="PCD_PAY_REQKEY" id="PCD_PAY_REQKEY">  <!-- 결제생성후 승인을 위한 키 (결제요청 완료시 RETURN) -->
+  <input type="hidden" name="PCD_PAY_COFURL" id="PCD_PAY_COFURL">  <!-- 결제생성후 승인을 위한 URL -->
   <input type="hidden" name="PCD_PAY_TYPE" id="PCD_PAY_TYPE" value="transfer">  <!-- 결제 방식 (transfer | card) -->
   <input type="hidden" name="PCD_PAY_WORK" id="PCD_PAY_WORK" value="CERT">  <!-- 결제요청 업무구분 (CERT: 최종승인후결제, PAY: 승인없이결제 ) -->
   <input type="hidden" name="PCD_PAYER_ID" id="PCD_PAYER_ID">  <!-- 결제자 고유ID (결제요청 완료시 RETURN) -->
@@ -238,6 +238,7 @@ Cache-Control: no-cache
   "custKey": "abcd1234567890",
   "PCD_REGULER_FLAG": "Y"
 }
+
 <!-- 결제요청  -->
 POST /php/RePayAct.php?ACT_=PAYM HTTTP/1.1
 Host: testcpay.payple.kr
@@ -293,5 +294,129 @@ PCD_TAXSAVE_IDNUM | 현금영수증 발행 번호(휴대폰번호, 사업자번�
 PCD_REGULER_FLAG | 정기결제 여부 | O | 
 PCD_PAYER_EMAIL | 결제고객 이메일 | O | 
 
+### 3. 계좌등록 간편결제 
+* 최초 1회 결제는 1. 단건결제와 동일하며 이후 결제는 REST Request 방식으로 진행합니다.
+* Request 예시 
+```html
+<!-- 가맹점 인증 -->
+POST /php/auth.php HTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "PCD_SIMPLE_FLAG": "Y"
+}
 
+<!-- 결제요청  -->
+POST /php/SimplePayAct.php?ACT_=PAYM HTTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+   "PCD_CST_ID": "test",
+   "PCD_CUST_KEY": "abcd1234567890",
+   "PCD_AUTH_KEY": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
+   "PCD_PAY_TYPE": "transfer",							
+   "PCD_PAYER_NO": "2324",
+   "PCD_PAYER_ID": "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09",
+   "PCD_PAYER_NAME": "홍길동",
+   "PCD_PAYER_HP": "01022224444",
+   "PCD_PAYER_BIRTH": "19900211",
+   "PCD_PAY_BANK": "081",
+   "PCD_PAY_BANKNUM": "2881204040404",
+   "PCD_PAY_GOODS": "정기구독",
+   "PCD_PAY_TOTAL": "1000",
+   "PCD_PAY_OID": "test201804000001",
+   "PCD_TAXSAVE_FLAG": "Y",
+   "PCD_TAXSAVE_TRADE": "personal",
+   "PCD_TAXSAVE_IDNUM": "01022224444",
+   "PCD_SIMPLE_FLAG": "Y",
+   "PCD_PAYER_EMAIL": "test@test.com"
+}
+```
+* Request 파라미터 설명 
+
+파라미터 ID | 설명 | 필수 | 비고
+:----: | :----: | :----: | :----:
+PCD_CST_ID | 가맹점 ID | O | 
+PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
+PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
+PCD_PAY_TYPE | 결제수단(transfer = 계좌 / card = 카드) | O | 
+PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | 
+PCD_PAYER_ID | 결제 빌링키(해당 키를 통해 정기, 간편결제 시 결제요청) | O | 
+PCD_PAYER_NAME | 결제고객명 | ▵ | PCD_PAYER_ID 미입력시 필수 
+PCD_PAYER_HP | 결제고객 휴대폰번호 | ▵ | PCD_PAYER_ID 미입력시 필수 
+PCD_PAYER_BIRTH | 결제고객 생년월일 8자리 | ▵ | PCD_PAYER_ID 미입력시 필수 
+PCD_PAY_BANK | 결제 은행코드 | ▵ | PCD_PAYER_ID 미입력시 필수 
+PCD_PAY_BANKNUM | 결제 계좌번호 | ▵ | PCD_PAYER_ID 미입력시 필수 
+PCD_PAY_GOODS | 상품명 | O | 
+PCD_PAY_TOTAL | 결제금액 | O | 
+PCD_PAY_OID | 주문번호 | O | 
+PCD_TAXSAVE_FLAG | 현금영수증 발행 여부(Y=발행 / N=미발행) | O | 
+PCD_TAXSAVE_TRADE | 현금영수증 발행 타입(personal=소득공제 / company=지출증빙) |  |  
+PCD_TAXSAVE_IDNUM | 현금영수증 발행 번호(휴대폰번호, 사업자번호) |  | 
+PCD_SIMPLE_FLAG | 간편결제 여부 | O | 
+PCD_PAYER_EMAIL | 결제고객 이메일 | O |
+
+## 결제결과 
+### 1. 단건결제 
+* 아래 소스코드를 가맹점 결제완료 페이지에 추가하고 가맹점 환경에 맞는 개발언어로 수정해주세요.
+* 자세한 내용은 [order_result.html 샘플](/sample/order_result.html)을 참고하시면 됩니다. 
+```php
+<?
+$PCD_PAY_RST = (isset($_POST['PCD_PAY_RST'])) ? $_POST['PCD_PAY_RST'] : "";                 // 결제요청 결과
+$PCD_PAY_MSG = (isset($_POST['PCD_PAY_MSG'])) ? $_POST['PCD_PAY_MSG'] : "";                 // 결제요청 결과 메세지
+$PCD_AUTH_KEY = (isset($_POST['PCD_AUTH_KEY'])) ? $_POST['PCD_AUTH_KEY'] : "";              // 결제요청을 위한 Transaction 키
+$PCD_PAY_REQKEY = (isset($_POST['PCD_PAY_REQKEY'])) ? $_POST['PCD_PAY_REQKEY'] : "";        // 결제생성후 승인을 위한 키
+$PCD_PAY_COFURL = (isset($_POST['PCD_PAY_COFURL'])) ? $_POST['PCD_PAY_COFURL'] : "";        // 결제생성후 승인을 위한 URL
+$PCD_PAY_OID = (isset($_POST['PCD_PAY_OID'])) ? $_POST['PCD_PAY_OID'] : "";                 // 상품 주문번호
+$PCD_PAY_TYPE = (isset($_POST['PCD_PAY_TYPE'])) ? $_POST['PCD_PAY_TYPE'] : "";              // 결제 방식 (transfer | card)
+$PCD_PAY_WORK = (isset($_POST['PCD_PAY_WORK'])) ? $_POST['PCD_PAY_WORK'] : "";              // 결제요청 업무구분 (CERT: 결제생성후 승인, PAY: 즉시결제)
+$PCD_PAYER_ID = (isset($_POST['PCD_PAYER_ID'])) ? $_POST['PCD_PAYER_ID'] : "";              // 결제자고유ID
+$PCD_PAYER_NO = (isset($_POST['PCD_PAYER_NO'])) ? $_POST['PCD_PAYER_NO'] : "";              // 결제자고유번호
+$PCD_PAYER_NAME = (isset($_POST['PCD_PAYER_NAME'])) ? $_POST['PCD_PAYER_NAME'] : "";        // 결제자명
+$PCD_PAYER_HP = (isset($_POST['PCD_PAYER_HP'])) ? $_POST['PCD_PAYER_HP'] : "";              // 결제자 휴대폰번호
+$PCD_PAYER_EMAIL = (isset($_POST['PCD_PAYER_EMAIL'])) ? $_POST['PCD_PAYER_EMAIL'] : "";     // 결제자 Email
+$PCD_REGULER_FLAG = (isset($_POST['PCD_REGULER_FLAG'])) ? $_POST['PCD_REGULER_FLAG'] : "";	// 정기결제 Y|N
+$PCD_PAY_YEAR = (isset($_POST['PCD_PAY_YEAR'])) ? $_POST['PCD_PAY_YEAR'] : "";  			// 정기결제 구분 년도
+$PCD_PAY_MONTH = (isset($_POST['PCD_PAY_MONTH'])) ? $_POST['PCD_PAY_MONTH'] : "";			// 정기결제 구분 월
+$PCD_PAY_GOODS = (isset($_POST['PCD_PAY_GOODS'])) ? $_POST['PCD_PAY_GOODS'] : "";           // 결제상품명
+$PCD_PAY_TOTAL = (isset($_POST['PCD_PAY_TOTAL'])) ? $_POST['PCD_PAY_TOTAL'] : "";           // 결제금액
+$PCD_PAY_BANK = (isset($_POST['PCD_PAY_BANK'])) ? $_POST['PCD_PAY_BANK'] : "";              // 결제은행
+$PCD_PAY_BANKNUM = (isset($_POST['PCD_PAY_BANKNUM'])) ? $_POST['PCD_PAY_BANKNUM'] : "";     // 결제계좌번호
+$PCD_PAY_TIME = (isset($_POST['PCD_PAY_TIME'])) ? $_POST['PCD_PAY_TIME'] : "";              // 결제시간
+$PCD_TAXSAVE_FLAG = (isset($_POST['PCD_TAXSAVE_FLAG'])) ? $_POST['PCD_TAXSAVE_FLAG'] : "";  // 현금영수증 발행요청 Y|N
+$PCD_TAXSAVE_RST = (isset($_POST['PCD_TAXSAVE_RST'])) ? $_POST['PCD_TAXSAVE_RST'] : "";     // 현금영수증 발행결과 Y|N
+?>
+```
+
+* 파라미터 설명 
+
+파라미터 ID | 설명 | 예시
+:----: | :----: | :----: 
+PCD_PAY_RST | 결제요청 결과 | success / error 
+PCD_PAY_MSG | 결제요청 결과 메세지 | 출금이체완료 / 실패 등 
+PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | a688ccb3... 
+PCD_PAY_REQKEY | 결제생성후 승인을 위한 키 | RmFBWWFBTWNS9qNTgzU2xdd2XRNHR2
+PCD_PAY_COFURL | 결제생성후 승인을 위한 URL | https://cpay.payple.kr/php/PayConfirmAct.php 
+PCD_PAY_OID | 주문번호 | test201804000001
+PCD_PAY_TYPE | 결제수단 | transfer / card
+PCD_PAY_WORK | 결제요청방식 | CERT / PAY 
+PCD_PAYER_ID | 결제 빌링키(정기결제, 간편결제만 해당) | NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09
+PCD_PAYER_NO | 결제고객 고유번호 | 1234 
+PCD_PAYER_NAME | 결제고객명 | 홍길동 
+PCD_PAYER_HP | 결제고객 휴대폰번호 | 01012345678
+PCD_PAYER_EMAIL | 결제고객 이메일 | help@payple.kr 
+PCD_REGULER_FLAG | 정기결제 여부 | Y / N
+PCD_PAY_YEAR | 과금연도(정기결제만 해당) | 2018 
+PCD_PAY_MONTH | 과금월(정기결제만 해당) | 08
+PCD_PAY_GOODS | 상품명 | 정기구독 
+PCD_PAY_TOTAL | 결제금액 | 1000
+PCD_PAY_BANK | 결제 은행코드 | 081
+PCD_PAY_BANKNUM | 결제 계좌번호 | 2881204040404
+PCD_PAY_TIME | 결제완료 시간 | 20180110152911
+PCD_TAXSAVE_FLAG | 현금영수증 발행 여부 | Y / N
+PCD_TAXSAVE_RST | 현금영수증 발행 결과 | Y / N 
 
