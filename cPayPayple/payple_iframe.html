@@ -1,0 +1,144 @@
+<html>
+  <head>
+        <script>
+    	<?
+    	if (isset($_POST['PCD_PAY_RST']) && $_POST['PCD_PAY_RST'] == 'success') {
+    	    $PCD_PAY_RST = (isset($_POST['PCD_PAY_RST'])) ? $_POST['PCD_PAY_RST'] : "";                 // 결제요청 결과
+    	    $PCD_PAY_MSG = (isset($_POST['PCD_PAY_MSG'])) ? $_POST['PCD_PAY_MSG'] : "";                 // 결제요청 결과 메세지
+    	    $PCD_PAY_WORK = (isset($_POST['PCD_PAY_WORK'])) ? $_POST['PCD_PAY_WORK'] : "";              // 결제요청 업무구분 (CERT: 결제정보인증등록, PAY: 결제승인요청 )
+    	    $PCD_AUTH_KEY = (isset($_POST['PCD_AUTH_KEY'])) ? $_POST['PCD_AUTH_KEY'] : "";              // (PCD_WORK_TYPE : CERT) 결제요청 인증세션
+    	    $PCD_PAY_REQKEY = (isset($_POST['PCD_PAY_REQKEY'])) ? $_POST['PCD_PAY_REQKEY'] : "";        // (PCD_WORK_TYPE : CERT) 결제요청 고유KEY
+    	    $PCD_PAY_COFURL = (isset($_POST['PCD_PAY_COFURL'])) ? $_POST['PCD_PAY_COFURL'] : "";        // (PCD_WORK_TYPE : CERT) 결제승인요청 URL
+    	    $PCD_PAY_OID = (isset($_POST['PCD_PAY_OID'])) ? $_POST['PCD_PAY_OID'] : "";                 // 상품 주문번호
+    	    $PCD_PAY_TYPE = (isset($_POST['PCD_PAY_TYPE'])) ? $_POST['PCD_PAY_TYPE'] : "";              // 결제 방식 (transfer | card)
+    	    $PCD_PAYER_ID = (isset($_POST['PCD_PAYER_ID'])) ? $_POST['PCD_PAYER_ID'] : "";              // 결제자고유ID
+    	    $PCD_PAYER_NO = (isset($_POST['PCD_PAYER_NO'])) ? $_POST['PCD_PAYER_NO'] : "";              // 결제자고유번호
+    	    $PCD_PAYER_NAME = (isset($_POST['PCD_PAYER_NAME'])) ? $_POST['PCD_PAYER_NAME'] : "";        // 결제자명
+    	    $PCD_PAYER_HP = (isset($_POST['PCD_PAYER_HP'])) ? $_POST['PCD_PAYER_HP'] : "";              // 결제자 휴대폰번호
+    	    $PCD_PAYER_EMAIL = (isset($_POST['PCD_PAYER_EMAIL'])) ? $_POST['PCD_PAYER_EMAIL'] : "";     // 결제자 Email
+    	    $PCD_REGULER_FLAG = (isset($_POST['PCD_REGULER_FLAG'])) ? $_POST['PCD_REGULER_FLAG'] : "";	// 정기결제 Y|N
+    	    $PCD_PAY_YEAR = (isset($_POST['PCD_PAY_YEAR'])) ? $_POST['PCD_PAY_YEAR'] : "";  			// 정기결제 구분 년도
+    	    $PCD_PAY_MONTH = (isset($_POST['PCD_PAY_MONTH'])) ? $_POST['PCD_PAY_MONTH'] : "";			// 정기결제 구분 월
+    	    $PCD_PAY_GOODS = (isset($_POST['PCD_PAY_GOODS'])) ? $_POST['PCD_PAY_GOODS'] : "";           // 결제상품명
+    	    $PCD_PAY_TOTAL = (isset($_POST['PCD_PAY_TOTAL'])) ? $_POST['PCD_PAY_TOTAL'] : "";           // 결제금액
+    	    $PCD_PAY_BANK = (isset($_POST['PCD_PAY_BANK'])) ? $_POST['PCD_PAY_BANK'] : "";              // 결제은행
+    	    $PCD_PAY_BANKNUM = (isset($_POST['PCD_PAY_BANKNUM'])) ? $_POST['PCD_PAY_BANKNUM'] : "";     // 결제계좌번호
+    	    $PCD_PAY_TIME = (isset($_POST['PCD_PAY_TIME'])) ? $_POST['PCD_PAY_TIME'] : "";              // 결제시간
+    	    $PCD_TAXSAVE_FLAG = (isset($_POST['PCD_TAXSAVE_FLAG'])) ? $_POST['PCD_TAXSAVE_FLAG'] : "";  // 현금영수증 발행요청 Y|N
+    	    $PCD_TAXSAVE_RST = (isset($_POST['PCD_TAXSAVE_RST'])) ? $_POST['PCD_TAXSAVE_RST'] : "";     // 현금영수증 발행결과 Y|N
+    	?>
+    		var PCD_PAY_RST = "<?=$PCD_PAY_RST?>";
+    		var PCD_PAY_MSG = "<?=$PCD_PAY_MSG?>";
+    		var PCD_PAY_WORK = "<?=$PCD_PAY_WORK?>";
+    		var PCD_AUTH_KEY = "<?=$PCD_AUTH_KEY?>";
+    		var PCD_PAY_REQKEY = "<?=$PCD_PAY_REQKEY?>";
+    		var PCD_PAY_COFURL = "<?=$PCD_PAY_COFURL?>";
+    		var PCD_PAY_OID = "<?=$PCD_PAY_OID?>";
+    		var PCD_PAY_TYPE = "<?=$PCD_PAY_TYPE?>";
+    		var PCD_PAYER_ID = "<?=$PCD_PAYER_ID?>";
+    		var PCD_PAYER_NO = "<?=$PCD_PAYER_NO?>";
+    		var PCD_PAYER_NAME = "<?=$PCD_PAYER_NAME?>";
+    		var PCD_PAYER_HP = "<?=$PCD_PAYER_HP?>";
+    		var PCD_PAYER_EMAIL = "<?=$PCD_PAYER_EMAIL?>";
+    		var PCD_PAY_GOODS = "<?=$PCD_PAY_GOODS?>";
+    		var PCD_REGULER_FLAG = "<?=$PCD_REGULER_FLAG?>";
+    		var PCD_PAY_YEAR = "<?=$PCD_PAY_YEAR?>";
+    		var PCD_PAY_MONTH = "<?=$PCD_PAY_MONTH?>";
+    		var PCD_PAY_TOTAL = "<?=$PCD_PAY_TOTAL?>";
+    		var PCD_PAY_BANK = "<?=$PCD_PAY_BANK?>";
+    		var PCD_PAY_BANKNUM = "<?=$PCD_PAY_BANKNUM?>";
+    		var PCD_PAY_TIME = "<?=$PCD_PAY_TIME?>";
+    		var PCD_TAXSAVE_RST = "<?=$PCD_TAXSAVE_RST?>";
+
+    		if (top.opener && top.opener != this) {
+	    		
+	    		top.opener.document.getElementById('PCD_PAY_RST').value = PCD_PAY_RST;
+	    		top.opener.document.getElementById('PCD_PAY_MSG').value = PCD_PAY_MSG;
+	    		top.opener.document.getElementById('PCD_PAY_WORK').value = PCD_PAY_WORK;
+	    		top.opener.document.getElementById('PCD_AUTH_KEY').value = PCD_AUTH_KEY;
+	    		top.opener.document.getElementById('PCD_PAY_REQKEY').value = PCD_PAY_REQKEY;
+	    		top.opener.document.getElementById('PCD_PAY_COFURL').value = PCD_PAY_COFURL;
+	    		top.opener.document.getElementById('PCD_PAY_OID').value = PCD_PAY_OID;
+	    		top.opener.document.getElementById('PCD_PAY_TYPE').value = PCD_PAY_TYPE;
+	    		top.opener.document.getElementById('PCD_PAYER_ID').value = PCD_PAYER_ID;
+	    		top.opener.document.getElementById('PCD_PAYER_NO').value = PCD_PAYER_NO;
+	    		top.opener.document.getElementById('PCD_PAYER_NAME').value = PCD_PAYER_NAME;
+	    		top.opener.document.getElementById('PCD_PAYER_HP').value = PCD_PAYER_HP;
+	    		top.opener.document.getElementById('PCD_PAYER_EMAIL').value = PCD_PAYER_EMAIL;
+	    		top.opener.document.getElementById('PCD_PAY_GOODS').value = PCD_PAY_GOODS;
+	    		top.opener.document.getElementById('PCD_REGULER_FLAG').value = PCD_REGULER_FLAG;
+	    		top.opener.document.getElementById('PCD_PAY_YEAR').value = PCD_PAY_YEAR;
+	    		top.opener.document.getElementById('PCD_PAY_MONTH').value = PCD_PAY_MONTH;
+	    		top.opener.document.getElementById('PCD_PAY_TOTAL').value = PCD_PAY_TOTAL;
+	    		top.opener.document.getElementById('PCD_PAY_BANK').value = PCD_PAY_BANK;
+	    		top.opener.document.getElementById('PCD_PAY_BANKNUM').value = PCD_PAY_BANKNUM;
+	    		top.opener.document.getElementById('PCD_PAY_TIME').value = PCD_PAY_TIME;
+	    		top.opener.document.getElementById('PCD_TAXSAVE_RST').value = PCD_TAXSAVE_RST;
+	    		//top.opener.document.getElementById('PCD_RST_URL').value = PCD_RST_URL;
+	    		
+	    		top.opener.PaypleCpayPayResult();
+
+	    		parent.close();
+        		
+    		} else {
+    		
+    		
+        		parent.parent.document.getElementById('PCD_PAY_RST').value = PCD_PAY_RST;
+        		parent.parent.document.getElementById('PCD_PAY_MSG').value = PCD_PAY_MSG;
+        		parent.parent.document.getElementById('PCD_PAY_WORK').value = PCD_PAY_WORK;
+        		parent.parent.document.getElementById('PCD_AUTH_KEY').value = PCD_AUTH_KEY;
+        		parent.parent.document.getElementById('PCD_PAY_REQKEY').value = PCD_PAY_REQKEY;
+        		parent.parent.document.getElementById('PCD_PAY_COFURL').value = PCD_PAY_COFURL;
+        		parent.parent.document.getElementById('PCD_PAY_OID').value = PCD_PAY_OID;
+        		parent.parent.document.getElementById('PCD_PAY_TYPE').value = PCD_PAY_TYPE;
+        		parent.parent.document.getElementById('PCD_PAYER_ID').value = PCD_PAYER_ID;
+        		parent.parent.document.getElementById('PCD_PAYER_NO').value = PCD_PAYER_NO;
+        		parent.parent.document.getElementById('PCD_PAYER_NAME').value = PCD_PAYER_NAME;
+        		parent.parent.document.getElementById('PCD_PAYER_HP').value = PCD_PAYER_HP;
+        		parent.parent.document.getElementById('PCD_PAYER_EMAIL').value = PCD_PAYER_EMAIL;
+        		parent.parent.document.getElementById('PCD_PAY_GOODS').value = PCD_PAY_GOODS;
+        		parent.parent.document.getElementById('PCD_REGULER_FLAG').value = PCD_REGULER_FLAG;
+        		parent.parent.document.getElementById('PCD_PAY_YEAR').value = PCD_PAY_YEAR;
+        		parent.parent.document.getElementById('PCD_PAY_MONTH').value = PCD_PAY_MONTH;
+        		parent.parent.document.getElementById('PCD_PAY_TOTAL').value = PCD_PAY_TOTAL;
+        		parent.parent.document.getElementById('PCD_PAY_BANK').value = PCD_PAY_BANK;
+        		parent.parent.document.getElementById('PCD_PAY_BANKNUM').value = PCD_PAY_BANKNUM;
+        		parent.parent.document.getElementById('PCD_PAY_TIME').value = PCD_PAY_TIME;
+        		parent.parent.document.getElementById('PCD_TAXSAVE_RST').value = PCD_TAXSAVE_RST;
+        		//parent.parent.document.getElementById('PCD_RST_URL').value = PCD_RST_URL;
+        		
+        		parent.parent.PaypleCpayPayResult();
+
+			}
+
+    		
+    	<? 
+    	}
+    	?>
+
+        <?
+        if (isset($_GET['parent_body_action'])) {
+        ?>
+    		var parent_body_action = "<?=$_GET['parent_body_action']?>";
+
+    		if (top.opener && top.opener != this) {
+
+				if (parent_body_action == 'close') {
+					parent.close();
+				} else {        		
+    				top.opener.MainBodyAction(parent_body_action);
+				}
+				
+    		} else {
+
+    			parent.parent.MainBodyAction(parent_body_action);
+
+        	}
+        <?
+        }
+        ?>    
+        </script>  
+  </head>
+  <body>
+  </body>
+</html>
