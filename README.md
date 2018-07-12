@@ -12,3 +12,11 @@ SSL 보안통신 필수 <br>
 > 가급적 폴더명 변경없이 이용해주세요. 
 ## 샘플 페이지 
 참고 가능한 [샘플 페이지](/sample) 폴더입니다. 
+## 결제요청 
+### 1. 단건결제 
+* HTML Form Submission 을 이용합니다. <br>
+* 아래 소스코드를 가맹점 주문페이지에 추가합니다.
+* 자세한 내용은 [order.html 샘플](/sample/order.html)을 참고하시면 됩니다. 
+<code>
+<meta charset="UTF-8">
+</code>
