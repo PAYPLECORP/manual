@@ -19,8 +19,8 @@
     	    $PCD_PAYER_HP = (isset($_POST['PCD_PAYER_HP'])) ? $_POST['PCD_PAYER_HP'] : "";              // 결제자 휴대폰번호
     	    $PCD_PAYER_EMAIL = (isset($_POST['PCD_PAYER_EMAIL'])) ? $_POST['PCD_PAYER_EMAIL'] : "";     // 결제자 Email
     	    $PCD_REGULER_FLAG = (isset($_POST['PCD_REGULER_FLAG'])) ? $_POST['PCD_REGULER_FLAG'] : "";	// 정기결제 Y|N
-    	    $PCD_PAY_YEAR = (isset($_POST['PCD_PAY_YEAR'])) ? $_POST['PCD_PAY_YEAR'] : "";  			// 정기결제 구분 년도
-    	    $PCD_PAY_MONTH = (isset($_POST['PCD_PAY_MONTH'])) ? $_POST['PCD_PAY_MONTH'] : "";			// 정기결제 구분 월
+    	    $PCD_PAY_YEAR = (isset($_POST['PCD_PAY_YEAR'])) ? $_POST['PCD_PAY_YEAR'] : "";  		// 정기결제 구분 년도
+    	    $PCD_PAY_MONTH = (isset($_POST['PCD_PAY_MONTH'])) ? $_POST['PCD_PAY_MONTH'] : "";		// 정기결제 구분 월
     	    $PCD_PAY_GOODS = (isset($_POST['PCD_PAY_GOODS'])) ? $_POST['PCD_PAY_GOODS'] : "";           // 결제상품명
     	    $PCD_PAY_TOTAL = (isset($_POST['PCD_PAY_TOTAL'])) ? $_POST['PCD_PAY_TOTAL'] : "";           // 결제금액
     	    $PCD_PAY_BANK = (isset($_POST['PCD_PAY_BANK'])) ? $_POST['PCD_PAY_BANK'] : "";              // 결제은행
@@ -52,8 +52,34 @@
     		var PCD_PAY_TIME = "<?=$PCD_PAY_TIME?>";
     		var PCD_TAXSAVE_RST = "<?=$PCD_TAXSAVE_RST?>";
 
-    		if (top.opener && top.opener != this) {
-	    		
+		try {
+			if (parent.parent.document) {
+	        		parent.parent.document.getElementById('PCD_PAY_RST').value = PCD_PAY_RST;
+	        		parent.parent.document.getElementById('PCD_PAY_MSG').value = PCD_PAY_MSG;
+	        		parent.parent.document.getElementById('PCD_PAY_WORK').value = PCD_PAY_WORK;
+	        		parent.parent.document.getElementById('PCD_AUTH_KEY').value = PCD_AUTH_KEY;
+	        		parent.parent.document.getElementById('PCD_PAY_REQKEY').value = PCD_PAY_REQKEY;
+	        		parent.parent.document.getElementById('PCD_PAY_COFURL').value = PCD_PAY_COFURL;
+	        		parent.parent.document.getElementById('PCD_PAY_OID').value = PCD_PAY_OID;
+	        		parent.parent.document.getElementById('PCD_PAY_TYPE').value = PCD_PAY_TYPE;
+	        		parent.parent.document.getElementById('PCD_PAYER_ID').value = PCD_PAYER_ID;
+	        		parent.parent.document.getElementById('PCD_PAYER_NO').value = PCD_PAYER_NO;
+	        		parent.parent.document.getElementById('PCD_PAYER_NAME').value = PCD_PAYER_NAME;
+	        		parent.parent.document.getElementById('PCD_PAYER_HP').value = PCD_PAYER_HP;
+	        		parent.parent.document.getElementById('PCD_PAYER_EMAIL').value = PCD_PAYER_EMAIL;
+	        		parent.parent.document.getElementById('PCD_PAY_GOODS').value = PCD_PAY_GOODS;
+	        		parent.parent.document.getElementById('PCD_REGULER_FLAG').value = PCD_REGULER_FLAG;
+	        		parent.parent.document.getElementById('PCD_PAY_YEAR').value = PCD_PAY_YEAR;
+	        		parent.parent.document.getElementById('PCD_PAY_MONTH').value = PCD_PAY_MONTH;
+	        		parent.parent.document.getElementById('PCD_PAY_TOTAL').value = PCD_PAY_TOTAL;
+	        		parent.parent.document.getElementById('PCD_PAY_BANK').value = PCD_PAY_BANK;
+	        		parent.parent.document.getElementById('PCD_PAY_BANKNUM').value = PCD_PAY_BANKNUM;
+	        		parent.parent.document.getElementById('PCD_PAY_TIME').value = PCD_PAY_TIME;
+	        		parent.parent.document.getElementById('PCD_TAXSAVE_RST').value = PCD_TAXSAVE_RST;	
+	        		parent.parent.PaypleCpayPayResult();
+			}	
+		} catch (e) {
+			// TODO: handle exception
 	    		top.opener.document.getElementById('PCD_PAY_RST').value = PCD_PAY_RST;
 	    		top.opener.document.getElementById('PCD_PAY_MSG').value = PCD_PAY_MSG;
 	    		top.opener.document.getElementById('PCD_PAY_WORK').value = PCD_PAY_WORK;
@@ -76,43 +102,9 @@
 	    		top.opener.document.getElementById('PCD_PAY_BANKNUM').value = PCD_PAY_BANKNUM;
 	    		top.opener.document.getElementById('PCD_PAY_TIME').value = PCD_PAY_TIME;
 	    		top.opener.document.getElementById('PCD_TAXSAVE_RST').value = PCD_TAXSAVE_RST;
-	    		//top.opener.document.getElementById('PCD_RST_URL').value = PCD_RST_URL;
-	    		
 	    		top.opener.PaypleCpayPayResult();
-
 	    		parent.close();
-        		
-    		} else {
-    		
-    		
-        		parent.parent.document.getElementById('PCD_PAY_RST').value = PCD_PAY_RST;
-        		parent.parent.document.getElementById('PCD_PAY_MSG').value = PCD_PAY_MSG;
-        		parent.parent.document.getElementById('PCD_PAY_WORK').value = PCD_PAY_WORK;
-        		parent.parent.document.getElementById('PCD_AUTH_KEY').value = PCD_AUTH_KEY;
-        		parent.parent.document.getElementById('PCD_PAY_REQKEY').value = PCD_PAY_REQKEY;
-        		parent.parent.document.getElementById('PCD_PAY_COFURL').value = PCD_PAY_COFURL;
-        		parent.parent.document.getElementById('PCD_PAY_OID').value = PCD_PAY_OID;
-        		parent.parent.document.getElementById('PCD_PAY_TYPE').value = PCD_PAY_TYPE;
-        		parent.parent.document.getElementById('PCD_PAYER_ID').value = PCD_PAYER_ID;
-        		parent.parent.document.getElementById('PCD_PAYER_NO').value = PCD_PAYER_NO;
-        		parent.parent.document.getElementById('PCD_PAYER_NAME').value = PCD_PAYER_NAME;
-        		parent.parent.document.getElementById('PCD_PAYER_HP').value = PCD_PAYER_HP;
-        		parent.parent.document.getElementById('PCD_PAYER_EMAIL').value = PCD_PAYER_EMAIL;
-        		parent.parent.document.getElementById('PCD_PAY_GOODS').value = PCD_PAY_GOODS;
-        		parent.parent.document.getElementById('PCD_REGULER_FLAG').value = PCD_REGULER_FLAG;
-        		parent.parent.document.getElementById('PCD_PAY_YEAR').value = PCD_PAY_YEAR;
-        		parent.parent.document.getElementById('PCD_PAY_MONTH').value = PCD_PAY_MONTH;
-        		parent.parent.document.getElementById('PCD_PAY_TOTAL').value = PCD_PAY_TOTAL;
-        		parent.parent.document.getElementById('PCD_PAY_BANK').value = PCD_PAY_BANK;
-        		parent.parent.document.getElementById('PCD_PAY_BANKNUM').value = PCD_PAY_BANKNUM;
-        		parent.parent.document.getElementById('PCD_PAY_TIME').value = PCD_PAY_TIME;
-        		parent.parent.document.getElementById('PCD_TAXSAVE_RST').value = PCD_TAXSAVE_RST;
-        		//parent.parent.document.getElementById('PCD_RST_URL').value = PCD_RST_URL;
-        		
-        		parent.parent.PaypleCpayPayResult();
-
 			}
-
     		
     	<? 
     	}
@@ -121,21 +113,16 @@
         <?
         if (isset($_GET['parent_body_action'])) {
         ?>
-    		var parent_body_action = "<?=$_GET['parent_body_action']?>";
-
-    		if (top.opener && top.opener != this) {
-
-				if (parent_body_action == 'close') {
-					parent.close();
-				} else {        		
-    				top.opener.MainBodyAction(parent_body_action);
-				}
-				
-    		} else {
-
-    			parent.parent.MainBodyAction(parent_body_action);
-
-        	}
+        	var parent_body_action = "<?=$_GET['parent_body_action']?>";
+        
+        	try {
+        		if (parent.parent.document) {
+        			parent.parent.MainBodyAction(parent_body_action);
+        		}
+		} catch (e) {		
+			parent.close();	
+		}
+			
         <?
         }
         ?>    
