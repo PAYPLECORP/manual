@@ -24,7 +24,7 @@ ARS 인증만으로 결제가 완료되기 때문에 별도 앱설치, 보안카
 URL | https://testcpay.payple.kr/php/auth.php | https://cpay.payple.kr/php/auth.php
 ID | cst_id : test | cst_id : 가맹점 운영 ID 
 KEY | custKey : abcd1234567890 | custKey : ID 매칭 Key
-비고 | 인증은 진행되지만 출금은 되지 않습니다. | 실제 출금이 되며, 최소금액 1,000원부터 출금 가능합니다. 수수료도 발생합니다.<br>AWS(아마존웹서비스)에서 Request 시 가맹점 서버도메인의 REFERER 추가가 필요합니다.
+비고 | 인증은 진행되지만 출금은 되지 않습니다. | 실제 출금이 되며, 최소금액 1,000원부터 출금 가능합니다. 수수료도 발생합니다.<br>**AWS(아마존웹서비스)에서 AUTH0004 오류 발생 시 가맹점 서버도메인의 REFERER 추가가 필요할 수 있습니다.** 
 
 #### 호출예시 
 * 단건결제 - Request 
