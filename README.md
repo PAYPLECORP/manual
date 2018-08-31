@@ -9,7 +9,15 @@ ARS 인증만으로 결제가 완료되기 때문에 별도 앱설치, 보안카
 * 메세지 포맷 : JSON <br>
 ## 준비 
 [cPayPayple](/cPayPayple) 폴더를 가맹점 Web Root 에 저장하고 각 파일을 가맹점 환경에 맞는 개발언어로 수정해주시면 됩니다. 
-> 가급적 폴더명 변경없이 이용해주세요. 
+> 폴더 위치 변경을 원하시면 아래와 같이 가맹점 인증시 "payple_dir_path" 옵션 설정을 추가하시기 바랍니다. 
+```html
+/* 예 : cPayPayple 폴더 위치가 /webroot/pg/pay/cPayPayple 인 경우 payple_dir_path = "/pg/pay" */
+$post_data = array (
+        "custKey" => "abcd1234567890",
+        "cst_id" => "test",
+        "payple_dir_path" => "/pg/pay"
+        );
+```
 ## 샘플 페이지 
 참고 가능한 [샘플 페이지](/sample) 폴더입니다. 
 ## 가맹점 인증 
