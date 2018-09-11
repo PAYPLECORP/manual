@@ -111,6 +111,13 @@ $order_num = preg_replace("/([^0-9a-zA-Z]+)/", "", "test".microtime());
 	  		<option value="Y">Y</option>
 	  	</select>
 	  </div>
+	  <div>
+	  	<label for="work_type">결제요청방식</label>
+	  	<select id="work_type" name="work_type">
+	  		<option value="CERT">결제요청->결제확인->결제완료</option>
+	  		<option value="PAY">결제요청->결제완료</option>
+	  	</select>
+	  </div>
 	</form>
     <button id="orderFormSubmit">상품구매</button>
 </body>
