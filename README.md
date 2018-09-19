@@ -177,8 +177,8 @@ PCD_PAYER_NAME | 결제고객명 | O |
 PCD_PAYER_HP | 결제고객 휴대폰번호 | O |  
 PCD_PAYER_EMAIL | 결제고객 이메일 | O |  
 PCD_PAY_GOODS | 상품명 | O |  
-PCD_PAY_YEAR | 정기결제 적용연도<br>(정기결제만 해당) | O |  
-PCD_PAY_MONTH | 정기결제 적용월<br>(정기결제만 해당) | O |  
+PCD_PAY_YEAR | 정기결제 적용연도<br>(정기결제) | O |  
+PCD_PAY_MONTH | 정기결제 적용월<br>(정기결제) | O |  
 PCD_PAY_TOTAL | 결제금액 | O |  
 PCD_PAY_OID | 주문번호<br>(주문번호는 필수입니다.) | O |  
 PCD_TAXSAVE_FLAG | 현금영수증 발행여부<br>(Y=발행 / N=미발행) | O |  
@@ -277,6 +277,7 @@ Cache-Control: no-cache
 }
 ```
 * Request 파라미터 설명 
+> 결제 키(PCD_PAYER_ID)로 요청 시 PCD_PAYER_NAME, PCD_PAYER_NAME, PCD_PAYER_HP, PCD_PAYER_BIRTH, PCD_PAY_BANK, PCD_PAY_BANKNUM 필요없음 
 
 파라미터 ID | 설명 | 필수 | 비고
 :----: | :----: | :----: | :----:
@@ -285,7 +286,7 @@ PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O |
 PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
 PCD_PAY_TYPE | 결제수단<br>(transfer = 계좌 / card = 카드) | O | 
 PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | 
-PCD_PAYER_ID | 결제 빌링키<br>(해당 키를 통해 정기, 간편결제 시 결제요청) | O | 
+PCD_PAYER_ID | 결제 키<br>(해당 키를 통해 결제요청) | O | 
 PCD_PAYER_NAME | 결제고객명 | ▵ | PCD_PAYER_ID 미입력시 필수 
 PCD_PAYER_HP | 결제고객 휴대폰번호 | ▵ | PCD_PAYER_ID 미입력시 필수 
 PCD_PAYER_BIRTH | 결제고객 생년월일 8자리 | ▵ | PCD_PAYER_ID 미입력시 필수 
@@ -345,6 +346,7 @@ Cache-Control: no-cache
 }
 ```
 * Request 파라미터 설명 
+> 결제 키(PCD_PAYER_ID)로 요청 시 PCD_PAYER_NAME, PCD_PAYER_NAME, PCD_PAYER_HP, PCD_PAYER_BIRTH, PCD_PAY_BANK, PCD_PAY_BANKNUM 필요없음 
 
 파라미터 ID | 설명 | 필수 | 비고
 :----: | :----: | :----: | :----:
@@ -353,7 +355,7 @@ PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O |
 PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
 PCD_PAY_TYPE | 결제수단<br>(transfer = 계좌 / card = 카드) | O | 
 PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | 
-PCD_PAYER_ID | 결제 빌링키<br>(해당 키를 통해 정기, 간편결제 시 결제요청) | O | 
+PCD_PAYER_ID | 결제 키<br>(해당 키를 통해 결제요청) | O | 
 PCD_PAYER_NAME | 결제고객명 | ▵ | PCD_PAYER_ID 미입력시 필수 
 PCD_PAYER_HP | 결제고객 휴대폰번호 | ▵ | PCD_PAYER_ID 미입력시 필수 
 PCD_PAYER_BIRTH | 결제고객 생년월일 8자리 | ▵ | PCD_PAYER_ID 미입력시 필수 
@@ -383,18 +385,12 @@ $PCD_PAY_TYPE = (isset($_POST['PCD_PAY_TYPE'])) ? $_POST['PCD_PAY_TYPE'] : "";
 $PCD_PAY_WORK = (isset($_POST['PCD_PAY_WORK'])) ? $_POST['PCD_PAY_WORK'] : "";      
 $PCD_PAYER_ID = (isset($_POST['PCD_PAYER_ID'])) ? $_POST['PCD_PAYER_ID'] : "";      
 $PCD_PAYER_NO = (isset($_POST['PCD_PAYER_NO'])) ? $_POST['PCD_PAYER_NO'] : "";      
-$PCD_PAYER_NAME = (isset($_POST['PCD_PAYER_NAME'])) ? $_POST['PCD_PAYER_NAME'] : "";
-$PCD_PAYER_HP = (isset($_POST['PCD_PAYER_HP'])) ? $_POST['PCD_PAYER_HP'] : "";     
-$PCD_PAYER_EMAIL = (isset($_POST['PCD_PAYER_EMAIL'])) ? $_POST['PCD_PAYER_EMAIL'] : "";
 $PCD_REGULER_FLAG = (isset($_POST['PCD_REGULER_FLAG'])) ? $_POST['PCD_REGULER_FLAG'] : "";
 $PCD_PAY_YEAR = (isset($_POST['PCD_PAY_YEAR'])) ? $_POST['PCD_PAY_YEAR'] : ""; 
 $PCD_PAY_MONTH = (isset($_POST['PCD_PAY_MONTH'])) ? $_POST['PCD_PAY_MONTH'] : "";
 $PCD_PAY_GOODS = (isset($_POST['PCD_PAY_GOODS'])) ? $_POST['PCD_PAY_GOODS'] : "";
 $PCD_PAY_TOTAL = (isset($_POST['PCD_PAY_TOTAL'])) ? $_POST['PCD_PAY_TOTAL'] : "";
-$PCD_PAY_BANK = (isset($_POST['PCD_PAY_BANK'])) ? $_POST['PCD_PAY_BANK'] : "";   
-$PCD_PAY_BANKNUM = (isset($_POST['PCD_PAY_BANKNUM'])) ? $_POST['PCD_PAY_BANKNUM'] : "";
 $PCD_PAY_TIME = (isset($_POST['PCD_PAY_TIME'])) ? $_POST['PCD_PAY_TIME'] : "";         
-$PCD_TAXSAVE_FLAG = (isset($_POST['PCD_TAXSAVE_FLAG'])) ? $_POST['PCD_TAXSAVE_FLAG'] : "";
 $PCD_TAXSAVE_RST = (isset($_POST['PCD_TAXSAVE_RST'])) ? $_POST['PCD_TAXSAVE_RST'] : "";   
 ?>
 ```
@@ -411,20 +407,14 @@ PCD_PAY_COFURL | 결제생성, 승인후 리턴 URL | https://cpay.payple.kr/php
 PCD_PAY_OID | 주문번호 | test201804000001
 PCD_PAY_TYPE | 결제수단 | transfer / card
 PCD_PAY_WORK | 결제요청방식 | CERT / PAY 
-PCD_PAYER_ID | 결제 빌링키<br>(정기결제, 간편결제만 해당) | NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09
+PCD_PAYER_ID | 결제 키 | NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09
 PCD_PAYER_NO | 결제고객 고유번호 | 1234 
-PCD_PAYER_NAME | 결제고객명 | 홍길동 
-PCD_PAYER_HP | 결제고객 휴대폰번호 | 01012345678
-PCD_PAYER_EMAIL | 결제고객 이메일 | help@payple.kr 
 PCD_REGULER_FLAG | 정기결제 여부 | Y / N
-PCD_PAY_YEAR | 과금연도<br>(정기결제만 해당) | 2018 
-PCD_PAY_MONTH | 과금월<br>(정기결제만 해당) | 08
+PCD_PAY_YEAR | 과금연도<br>(정기결제) | 2018 
+PCD_PAY_MONTH | 과금월<br>(정기결제) | 08
 PCD_PAY_GOODS | 상품명 | 정기구독 
 PCD_PAY_TOTAL | 결제금액 | 1000
-PCD_PAY_BANK | 결제 은행코드 | 081
-PCD_PAY_BANKNUM | 결제 계좌번호 | 2881204040404
 PCD_PAY_TIME | 결제완료 시간 | 20180110152911
-PCD_TAXSAVE_FLAG | 현금영수증 발행 여부 | Y / N
 PCD_TAXSAVE_RST | 현금영수증 발행 결과 | Y / N 
 
 ## 결제결과 조회  
@@ -481,15 +471,11 @@ PCD_PAY_DATE | 결제요청일자(YYYYMMDD) | O |
    "PCD_PAY_OID": "test201804000001",
    "PCD_PAY_TYPE": "transfer",
    "PCD_PAYER_NO": "1234",
-   "PCD_PAYER_NAME": "홍길동",
-   "PCD_PAYER_HP": "01022224444",
-   "PCD_PAYER_BIRTH": "19900211",
+   "PCD_PAYER_ID" => "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09",
    "PCD_PAY_YEAR" => "2018",
    "PCD_PAY_MONTH" => "05",
    "PCD_PAY_GOODS": "간편상품",
    "PCD_PAY_TOTAL": "1000",
-   "PCD_PAY_BANK": "081",
-   "PCD_PAY_BANKNUM": "2881204040404",
    "PCD_PAY_TIME" => "20180423130201",
    "PCD_TAXSAVE_RST": "Y",
    "PCD_REGULER_FLAG": "Y"
@@ -504,11 +490,9 @@ PCD_PAY_MSG | 결제요청 결과 메세지 | 출금이체완료 / 실패 등
 PCD_PAY_OID | 주문번호 | test201804000001
 PCD_PAY_TYPE | 결제수단 | transfer / card
 PCD_PAYER_NO | 결제고객 고유번호 | 1234 
-PCD_PAYER_NAME | 결제고객명 | 홍길동 
-PCD_PAYER_HP | 결제고객 휴대폰번호 | 01012345678
-PCD_PAYER_BIRTH | 결제고객 생년월일 8자리 | 19900108
-PCD_PAY_YEAR | 과금연도<br>(정기결제만 해당) | 2018 
-PCD_PAY_MONTH | 과금월<br>(정기결제만 해당) | 08
+PCD_PAYER_ID | 결제 키 | NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09
+PCD_PAY_YEAR | 과금연도<br>(정기결제) | 2018 
+PCD_PAY_MONTH | 과금월<br>(정기결제) | 08
 PCD_PAY_GOODS | 상품명 | 정기구독 
 PCD_PAY_TOTAL | 결제금액 | 1000
 PCD_PAY_BANK | 결제 은행코드 | 081
