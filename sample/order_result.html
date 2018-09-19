@@ -9,18 +9,12 @@ $PCD_PAY_TYPE = (isset($_POST['PCD_PAY_TYPE'])) ? $_POST['PCD_PAY_TYPE'] : "";  
 $PCD_PAY_WORK = (isset($_POST['PCD_PAY_WORK'])) ? $_POST['PCD_PAY_WORK'] : "";              // 결제요청 업무구분 (CERT: 결제정보인증등록, PAY: 결제승인요청 )
 $PCD_PAYER_ID = (isset($_POST['PCD_PAYER_ID'])) ? $_POST['PCD_PAYER_ID'] : "";              // 결제자고유ID
 $PCD_PAYER_NO = (isset($_POST['PCD_PAYER_NO'])) ? $_POST['PCD_PAYER_NO'] : "";              // 결제자고유번호
-$PCD_PAYER_NAME = (isset($_POST['PCD_PAYER_NAME'])) ? $_POST['PCD_PAYER_NAME'] : "";        // 결제자명
-$PCD_PAYER_HP = (isset($_POST['PCD_PAYER_HP'])) ? $_POST['PCD_PAYER_HP'] : "";              // 결제자 휴대폰번호
-$PCD_PAYER_EMAIL = (isset($_POST['PCD_PAYER_EMAIL'])) ? $_POST['PCD_PAYER_EMAIL'] : "";     // 결제자 Email
 $PCD_REGULER_FLAG = (isset($_POST['PCD_REGULER_FLAG'])) ? $_POST['PCD_REGULER_FLAG'] : "";	// 정기결제 Y|N
 $PCD_PAY_YEAR = (isset($_POST['PCD_PAY_YEAR'])) ? $_POST['PCD_PAY_YEAR'] : "";  			// 정기결제 구분 년도
 $PCD_PAY_MONTH = (isset($_POST['PCD_PAY_MONTH'])) ? $_POST['PCD_PAY_MONTH'] : "";			// 정기결제 구분 월
 $PCD_PAY_GOODS = (isset($_POST['PCD_PAY_GOODS'])) ? $_POST['PCD_PAY_GOODS'] : "";           // 결제상품명
 $PCD_PAY_TOTAL = (isset($_POST['PCD_PAY_TOTAL'])) ? $_POST['PCD_PAY_TOTAL'] : "";           // 결제금액
-$PCD_PAY_BANK = (isset($_POST['PCD_PAY_BANK'])) ? $_POST['PCD_PAY_BANK'] : "";              // 결제은행
-$PCD_PAY_BANKNUM = (isset($_POST['PCD_PAY_BANKNUM'])) ? $_POST['PCD_PAY_BANKNUM'] : "";     // 결제계좌번호
 $PCD_PAY_TIME = (isset($_POST['PCD_PAY_TIME'])) ? $_POST['PCD_PAY_TIME'] : "";              // 결제시간
-$PCD_TAXSAVE_FLAG = (isset($_POST['PCD_TAXSAVE_FLAG'])) ? $_POST['PCD_TAXSAVE_FLAG'] : "";  // 현금영수증 발행요청 Y|N
 $PCD_TAXSAVE_RST = (isset($_POST['PCD_TAXSAVE_RST'])) ? $_POST['PCD_TAXSAVE_RST'] : "";     // 현금영수증 발행결과 Y|N
 ?>
 <!DOCTYPE html>
@@ -31,7 +25,6 @@ $PCD_TAXSAVE_RST = (isset($_POST['PCD_TAXSAVE_RST'])) ? $_POST['PCD_TAXSAVE_RST'
 <title>Insert title here</title>
 <style>
 </style>
-<!-- jqeury 는 가맹점에서 이용중인 jquery 버전을 이용하셔도 무방합니다.  -->
 <script src="/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready( function () {
@@ -45,6 +38,7 @@ $(document).ready( function () {
 		if (confirm(con) == true) {
 
 			var formData = new FormData($('#payConfirm')[0]);
+			var actUrl = '/cPayPayple/sample/payple_paysend.php';  // SAMPLE (가맹점의 파일로 변경)
 			
 			$.ajax({
 				type: 'POST',
@@ -52,7 +46,7 @@ $(document).ready( function () {
 				processData : false,
 				contentType : false,
 				async : false,
-				url : '/cPayPayple/sample/payple_paysend.php',
+				url : actUrl,
 				dataType: 'json',
 				data : formData,
 				success: function (data) {
@@ -93,15 +87,11 @@ $(document).ready( function () {
     <br>
     PCD_PAY_WORK = <?=$PCD_PAY_WORK?>			<!-- 결제요청 업무구분 (CERT: 결제정보인증등록, PAY: 결제승인요청 ) -->
     <br>
+    PCD_PAYER_ID = <?=$PCD_PAYER_ID?>           	<!-- 결제자 고유ID (결제완료시 RETURN) -->
+    <br>
     PCD_PAYER_NO = <?=$PCD_PAYER_NO?>
     <br>
-    PCD_PAYER_NAME = <?=$PCD_PAYER_NAME?>
-    <br>
-    PCD_PAYER_HP = <?=$PCD_PAYER_HP?>
-    <br>
-    PCD_PAYER_EMAIL = <?=$PCD_PAYER_EMAIL?>
-    <br>
-    PCD_REGULER_FLAG = <?=$PCD_REGULER_FLAG?>	<!-- 정기결제 Y|N -->
+    PCD_REGULER_FLAG = <?=$PCD_REGULER_FLAG?>		<!-- 정기결제 Y|N -->
     <br>
     PCD_PAY_YEAR = <?=$PCD_PAY_YEAR?>			<!-- 정기결제 구분 년도 -->
     <br>
@@ -111,26 +101,20 @@ $(document).ready( function () {
     <br>
     PCD_PAY_TOTAL = <?=$PCD_PAY_TOTAL?>
     <br>
-    PCD_PAY_BANK = <?=$PCD_PAY_BANK?>
-    <br>
-    PCD_PAY_BANKNUM = <?=$PCD_PAY_BANKNUM?>
-    <br>
     PCD_PAY_TIME = <?=$PCD_PAY_TIME?>
-    <br>
-    PCD_TAXSAVE_FLAG = <?=$PCD_TAXSAVE_FLAG?>   <!-- 현금영수증 발행요청 Y|N -->
     <br>
     PCD_TAXSAVE_RST = <?=$PCD_TAXSAVE_RST?>		<!-- 현금영수증 발행결과 Y|N -->
     
-    <button id="payConfirmAction">결제승인요청</button> <button id="payConfirmCancel">결제승인취소</button>
+    <? if ($PCD_PAY_WORK == 'CERT') { ?><button id="payConfirmAction">결제승인요청</button> <button id="payConfirmCancel">결제승인취소</button><? } ?>
 </div>
 
 <div id='payConfirmResult'></div>
 
 <form id="payConfirm">
-	<input type="hidden" name="PCD_AUTH_KEY" 		id="PCD_AUTH_KEY"		value="<?=$PCD_AUTH_KEY?>">	             <!-- 결제용 인증키 -->
-	<input type="hidden" name="PCD_PAYER_ID"		id="PCD_PAYER_ID"		value="<?=$PCD_PAYER_ID?>">				 <!-- 결제자 고유ID (결제완료시 RETURN) -->
-	<input type="hidden" name="PCD_PAY_REQKEY"		id="PCD_PAY_REQKEY"		value="<?=$PCD_PAY_REQKEY?>">			 <!-- 결제요청 고유KEY -->	
-    <input type="hidden" name="PCD_PAY_COFURL"		id="PCD_PAY_COFURL"		value="<?=$PCD_PAY_COFURL?>">			 <!-- 결제승인요청 URL -->
+	<input type="hidden" name="PCD_AUTH_KEY" id="PCD_AUTH_KEY" value="<?=$PCD_AUTH_KEY?>">	             	<!-- 결제용 인증키 -->
+	<input type="hidden" name="PCD_PAYER_ID" id="PCD_PAYER_ID" value="<?=$PCD_PAYER_ID?>">			<!-- 결제자 고유ID (결제완료시 RETURN) -->
+	<input type="hidden" name="PCD_PAY_REQKEY" id="PCD_PAY_REQKEY" value="<?=$PCD_PAY_REQKEY?>">		<!-- 결제요청 고유KEY -->	
+    	<input type="hidden" name="PCD_PAY_COFURL" id="PCD_PAY_COFURL" value="<?=$PCD_PAY_COFURL?>">		<!-- 결제승인요청 URL -->
 </form>
 </body>
 </html>
