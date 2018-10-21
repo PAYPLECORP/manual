@@ -309,6 +309,7 @@ PCD_TAXSAVE_TRADE | 현금영수증 발행 타입<br>(personal=소득공제 / co
 PCD_TAXSAVE_IDNUM | 현금영수증 발행 번호<br>(휴대폰번호, 사업자번호) |  | 
 PCD_SIMPLE_FLAG | 간편결제 여부 | O | 
 PCD_PAYER_EMAIL | 결제고객 이메일 | O |
+
 <br><br><br>
 ### 3. 정기결제
 * 최초 1회 이후 결제는 REST Request 방식으로 진행합니다.
@@ -381,6 +382,7 @@ PCD_TAXSAVE_IDNUM | 현금영수증 발행 번호<br>(휴대폰번호, 사업자
 PCD_REGULER_FLAG | 정기결제 여부 | O | 
 PCD_PAYER_EMAIL | 결제고객 이메일 | O | 
 
+<br><br><br>
 ## 결제결과 수신  
 * 아래 소스코드를 가맹점 결제완료 페이지에 추가하고 가맹점 환경에 맞는 개발언어로 수정해주세요.
 * 자세한 내용은 [order_result.html 샘플](/sample/order_result.html)을 참고하시면 됩니다. 
@@ -427,9 +429,10 @@ PCD_PAY_GOODS | 상품명 | 정기구독
 PCD_PAY_TOTAL | 결제금액 | 1000
 PCD_PAY_TIME | 결제완료 시간 | 20180110152911
 PCD_TAXSAVE_RST | 현금영수증 발행 결과 | Y / N 
+
 <br><br><br>
 ## 결제결과 조회  
-* 가맹점에서 결제결과를 수신할 수 있는 API 로 REST Request 방식으로 진행합니다.
+* 해당 API를 통해 가맹점에서는 언제든 결제결과를 수신 가능합니다.
 * Request 예시 
 ```html
 POST /php/auth.php HTTP/1.1
