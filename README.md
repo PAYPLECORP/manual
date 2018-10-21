@@ -1,7 +1,7 @@
 # PAYPLE 계좌등록 간편결제 
 페이플 계좌등록 간편결제는 최초 1회 계좌등록 후 비밀번호만으로 결제 가능한 서비스입니다.<br> 
 ARS 인증만으로 계좌등록과 결제가 완료되기 때문에 별도 앱설치, 보안카드, 공인인증서 등이 필요없습니다.<br>
-그리고 PAYPLE 은 계좌간편결제 뿐 아니라 다양한 계좌기반의 결제서비스를 제공하고 있습니다. 
+그리고 페이플은 계좌간편결제 뿐 아니라 다양한 계좌기반의 결제서비스를 제공하고 있습니다. 
 ![Alt text](/img/main_simple.png)
 ## 공통 정의사항 
 * 인코딩 : UTF-8 <br>
@@ -36,6 +36,30 @@ KEY | custKey : abcd1234567890 | custKey : ID 매칭 Key
 * 호출을 위한 [각 언어별 샘플](/sample/language)을 확인해보세요. 
 
 #### 호출예시 
+* 계좌등록 간편결제 - Request 
+```html
+POST /php/auth.php HTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "PCD_SIMPLE_FLAG": "Y"
+}
+
+```
+* 계좌등록 간편결제 - Response
+```html
+{
+  "result": "success",
+  "result_msg": "사용자 인증완료",
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
+  "return_url": "https://cpay.payple.kr/php/SimplePayAct.php?ACT_=PAYM"
+}
+```
 * 단건결제 - Request 
 ```html
 POST /php/auth.php HTTP/1.1
@@ -81,33 +105,9 @@ Cache-Control: no-cache
   "return_url": "https://cpay.payple.kr/php/RePayAct.php?ACT_=PAYM"
 }
 ```
-* 간편결제 - Request 
-```html
-POST /php/auth.php HTTP/1.1
-Host: testcpay.payple.kr
-Content-Type: application/json
-Cache-Control: no-cache
-{
-  "cst_id": "test",
-  "custKey": "abcd1234567890",
-  "PCD_SIMPLE_FLAG": "Y"
-}
-
-```
-* 간편결제 - Response
-```html
-{
-  "result": "success",
-  "result_msg": "사용자 인증완료",
-  "cst_id": "test",
-  "custKey": "abcd1234567890",
-  "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
-   "return_url": "https://cpay.payple.kr/php/SimplePayAct.php?ACT_=PAYM"
-}
-```
 
 ## 결제요청 
-### 1. 단건결제 
+### 1. 공통  
 * HTML Form Submission 을 이용합니다. <br>
 * 아래 소스코드를 가맹점 주문페이지에 추가합니다.
 * 자세한 내용은 [order.html 샘플](/sample/order.html)을 참고하시면 됩니다. 
@@ -232,8 +232,78 @@ PCD_PAYER_ID | 결제고객 고유 ID | O |
 #### 1-2. 즉시 승인(PCD_PAY_WORK : PAY) 
 * 가맹점의 최종 승인없이 즉시 결제를 진행하며 별도 Request 는 없습니다.  
 
-### 2. 정기결제
-* 최초 1회 결제는 [1. 단건결제](#1-단건결제)와 동일하며 이후 결제는 REST Request 방식으로 진행합니다.
+### 2. 계좌등록 간편결제 
+* 최초 1회 이후 결제는 REST Request 방식으로 진행합니다.
+* 호출 시 사용자는 기존에 등록한 계좌정보 확인 후 비밀번호 입력 단계로 진행합니다. 
+![Alt text](/img/simple_01.png)
+![Alt text](/img/simple_02.png)
+* Request 예시 
+```html
+<!-- 가맹점 인증 -->
+POST /php/auth.php HTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "PCD_SIMPLE_FLAG": "Y"
+}
+
+<!-- 결제요청  -->
+POST /php/SimplePayAct.php?ACT_=PAYM HTTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+   "PCD_CST_ID": "test",
+   "PCD_CUST_KEY": "abcd1234567890",
+   "PCD_AUTH_KEY": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
+   "PCD_PAY_TYPE": "transfer",							
+   "PCD_PAYER_NO": "2324",
+   "PCD_PAYER_ID": "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09",
+   "PCD_PAYER_NAME": "홍길동",
+   "PCD_PAYER_HP": "01022224444",
+   "PCD_PAYER_BIRTH": "19900211",
+   "PCD_PAY_BANK": "081",
+   "PCD_PAY_BANKNUM": "2881204040404",
+   "PCD_PAY_GOODS": "정기구독",
+   "PCD_PAY_TOTAL": "1000",
+   "PCD_PAY_OID": "test201804000001",
+   "PCD_TAXSAVE_FLAG": "Y",
+   "PCD_TAXSAVE_TRADE": "personal",
+   "PCD_TAXSAVE_IDNUM": "01022224444",
+   "PCD_SIMPLE_FLAG": "Y",
+   "PCD_PAYER_EMAIL": "test@test.com"
+}
+```
+* Request 파라미터 설명 
+> 결제 키(PCD_PAYER_ID)로 요청 시 PCD_PAYER_NAME, PCD_PAYER_NAME, PCD_PAYER_HP, PCD_PAYER_BIRTH, PCD_PAY_BANK, PCD_PAY_BANKNUM 필요없음 
+
+파라미터 ID | 설명 | 필수 | 비고
+:----: | :----: | :----: | :----:
+PCD_CST_ID | 가맹점 ID | O | 
+PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
+PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
+PCD_PAY_TYPE | 결제수단<br>(transfer = 계좌 / card = 카드) | O | 
+PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | 
+PCD_PAYER_ID | 결제 키<br>(해당 키를 통해 결제요청) | O | 
+PCD_PAYER_NAME | 결제고객명 | ▵ | PCD_PAYER_ID 미입력시 필수 
+PCD_PAYER_HP | 결제고객 휴대폰번호 | ▵ | PCD_PAYER_ID 미입력시 필수 
+PCD_PAYER_BIRTH | 결제고객 생년월일 8자리 | ▵ | PCD_PAYER_ID 미입력시 필수 
+PCD_PAY_BANK | 결제 은행코드 | ▵ | PCD_PAYER_ID 미입력시 필수 
+PCD_PAY_BANKNUM | 결제 계좌번호 | ▵ | PCD_PAYER_ID 미입력시 필수 
+PCD_PAY_GOODS | 상품명 | O | 
+PCD_PAY_TOTAL | 결제금액 | O | 
+PCD_PAY_OID | 주문번호 | O | 
+PCD_TAXSAVE_FLAG | 현금영수증 발행 여부<br>(Y=발행 / N=미발행) | O | 
+PCD_TAXSAVE_TRADE | 현금영수증 발행 타입<br>(personal=소득공제 / company=지출증빙) |  |  
+PCD_TAXSAVE_IDNUM | 현금영수증 발행 번호<br>(휴대폰번호, 사업자번호) |  | 
+PCD_SIMPLE_FLAG | 간편결제 여부 | O | 
+PCD_PAYER_EMAIL | 결제고객 이메일 | O |
+
+### 3. 정기결제
+* 최초 1회 이후 결제는 REST Request 방식으로 진행합니다.
 * Request 예시 
 ```html
 <!-- 가맹점 인증 -->
@@ -303,73 +373,6 @@ PCD_TAXSAVE_IDNUM | 현금영수증 발행 번호<br>(휴대폰번호, 사업자
 PCD_REGULER_FLAG | 정기결제 여부 | O | 
 PCD_PAYER_EMAIL | 결제고객 이메일 | O | 
 
-### 3. 계좌등록 간편결제 
-* 최초 1회 결제는 [1. 단건결제](#1-단건결제)와 동일하며 이후 결제는 REST Request 방식으로 진행합니다.
-* Request 예시 
-```html
-<!-- 가맹점 인증 -->
-POST /php/auth.php HTTP/1.1
-Host: testcpay.payple.kr
-Content-Type: application/json
-Cache-Control: no-cache
-{
-  "cst_id": "test",
-  "custKey": "abcd1234567890",
-  "PCD_SIMPLE_FLAG": "Y"
-}
-
-<!-- 결제요청  -->
-POST /php/SimplePayAct.php?ACT_=PAYM HTTTP/1.1
-Host: testcpay.payple.kr
-Content-Type: application/json
-Cache-Control: no-cache
-{
-   "PCD_CST_ID": "test",
-   "PCD_CUST_KEY": "abcd1234567890",
-   "PCD_AUTH_KEY": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
-   "PCD_PAY_TYPE": "transfer",							
-   "PCD_PAYER_NO": "2324",
-   "PCD_PAYER_ID": "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09",
-   "PCD_PAYER_NAME": "홍길동",
-   "PCD_PAYER_HP": "01022224444",
-   "PCD_PAYER_BIRTH": "19900211",
-   "PCD_PAY_BANK": "081",
-   "PCD_PAY_BANKNUM": "2881204040404",
-   "PCD_PAY_GOODS": "정기구독",
-   "PCD_PAY_TOTAL": "1000",
-   "PCD_PAY_OID": "test201804000001",
-   "PCD_TAXSAVE_FLAG": "Y",
-   "PCD_TAXSAVE_TRADE": "personal",
-   "PCD_TAXSAVE_IDNUM": "01022224444",
-   "PCD_SIMPLE_FLAG": "Y",
-   "PCD_PAYER_EMAIL": "test@test.com"
-}
-```
-* Request 파라미터 설명 
-> 결제 키(PCD_PAYER_ID)로 요청 시 PCD_PAYER_NAME, PCD_PAYER_NAME, PCD_PAYER_HP, PCD_PAYER_BIRTH, PCD_PAY_BANK, PCD_PAY_BANKNUM 필요없음 
-
-파라미터 ID | 설명 | 필수 | 비고
-:----: | :----: | :----: | :----:
-PCD_CST_ID | 가맹점 ID | O | 
-PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
-PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
-PCD_PAY_TYPE | 결제수단<br>(transfer = 계좌 / card = 카드) | O | 
-PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | 
-PCD_PAYER_ID | 결제 키<br>(해당 키를 통해 결제요청) | O | 
-PCD_PAYER_NAME | 결제고객명 | ▵ | PCD_PAYER_ID 미입력시 필수 
-PCD_PAYER_HP | 결제고객 휴대폰번호 | ▵ | PCD_PAYER_ID 미입력시 필수 
-PCD_PAYER_BIRTH | 결제고객 생년월일 8자리 | ▵ | PCD_PAYER_ID 미입력시 필수 
-PCD_PAY_BANK | 결제 은행코드 | ▵ | PCD_PAYER_ID 미입력시 필수 
-PCD_PAY_BANKNUM | 결제 계좌번호 | ▵ | PCD_PAYER_ID 미입력시 필수 
-PCD_PAY_GOODS | 상품명 | O | 
-PCD_PAY_TOTAL | 결제금액 | O | 
-PCD_PAY_OID | 주문번호 | O | 
-PCD_TAXSAVE_FLAG | 현금영수증 발행 여부<br>(Y=발행 / N=미발행) | O | 
-PCD_TAXSAVE_TRADE | 현금영수증 발행 타입<br>(personal=소득공제 / company=지출증빙) |  |  
-PCD_TAXSAVE_IDNUM | 현금영수증 발행 번호<br>(휴대폰번호, 사업자번호) |  | 
-PCD_SIMPLE_FLAG | 간편결제 여부 | O | 
-PCD_PAYER_EMAIL | 결제고객 이메일 | O |
-
 ## 결제결과 수신  
 * 아래 소스코드를 가맹점 결제완료 페이지에 추가하고 가맹점 환경에 맞는 개발언어로 수정해주세요.
 * 자세한 내용은 [order_result.html 샘플](/sample/order_result.html)을 참고하시면 됩니다. 
@@ -418,7 +421,7 @@ PCD_PAY_TIME | 결제완료 시간 | 20180110152911
 PCD_TAXSAVE_RST | 현금영수증 발행 결과 | Y / N 
 
 ## 결제결과 조회  
-* 결제에 대한 결과조회는 REST Request 방식으로 진행합니다.
+* 가맹점에서 결제결과를 수신할 수 있는 API 로 REST Request 방식으로 진행합니다.
 * Request 예시 
 ```html
 POST /php/auth.php HTTP/1.1
@@ -505,20 +508,21 @@ PCD_REGULER_FLAG | 정기결제 여부 | Y / N
 
 은행명 | 코드 | 평일, 토요일 | 공휴일
 :----: | :----: | :----: | :----:
-국민은행 | 004 | 23:40 ~ 00:10 | 23:40 ~ 00:10 
-농협 | 011 | 00:00 ~ 00:30 | 00:00 ~ 00:30 
-신한은행 | 088 | 23:40 ~ 00:10 | 23:40 ~ 00:10
-하나은행 | 081 | 00:00 ~ 01:00 | 00:00 ~ 01:00
-외환은행 | 005 | 23:50 ~ 00:10 | 23:50 ~ 00:10 
-우체국 | 071 | 00:00 ~ 00:10 | 00:00 ~ 00:10 
+국민은행 | 004 | 23:30 ~ 00:30 | 23:30 ~ 00:30 
+농협 | 011 | 23:30 ~ 00:30 | 23:30 ~ 00:30 
+신한은행 | 088 | 23:30 ~ 00:30 | 23:30 ~ 00:30
+KEB하나은행 | 081 | 23:30 ~ 00:30 | 23:30 ~ 00:30
+우체국 | 071 | 23:30 ~ 00:30 | 23:30 ~ 00:30 
 새마을금고 | 045 | 23:30 ~ 00:30 | 23:30 ~ 00:30
-대구은행 | 031 | 23:50 ~ 01:00 | 23:50 ~ 01:00 
+대구은행 | 031 | 23:30 ~ 00:30 | 23:30 ~ 00:30 
 광주은행 | 034 | 23:30 ~ 00:30 | 23:30 ~ 00:30 
 경남은행 | 039 | 23:30 ~ 06:00 | 23:30 ~ 06:00 
 산업은행 | 002 | 00:00 ~ 03:00 | 00:00 ~ 03:00 
 신협 | 048 | 22:00 ~ 08:00 | 22:00 ~ 08:00 
+수협 | 007 | 23:30 ~ 00:30 | 23:30 ~ 00:30
+부산은행 | 032 | 23:30 ~ 00:30 | 23:30 ~ 00:30
 
-> IBK 기업은행, 우리은행 추후 연결 예정입니다.
+> IBK 기업은행, 우리은행은 2018년 내 연결 예정입니다.
 
 ## 문의  
 * 기술문의 : help@payple.kr 을 통해 보다 자세한 문의가 가능합니다.
