@@ -3,10 +3,13 @@
 ARS 인증만으로 계좌등록과 결제가 완료되기 때문에 별도 앱설치, 보안카드, 공인인증서 등이 필요없습니다.<br>
 그리고 페이플은 계좌간편결제 뿐 아니라 다양한 계좌기반의 결제서비스를 제공하고 있습니다. 
 ![Alt text](/img/main_simple.png)
+
+<br><br><br>
 ## 공통 정의사항 
 * 인코딩 : UTF-8 <br>
 * SSL 보안통신 필수 <br>
 * 메세지 포맷 : JSON <br>
+<br><br><br>
 ## 준비 
 [cPayPayple](/cPayPayple) 폴더를 가맹점 Web Root 에 저장하고 각 파일을 가맹점 환경에 맞는 개발언어로 수정해주시면 됩니다. 
 > 폴더 위치 변경을 원하시면 아래와 같이 가맹점 인증시 "payple_dir_path" 옵션 설정을 추가하시기 바랍니다. 
@@ -18,14 +21,16 @@ $post_data = array (
         "payple_dir_path" => "/pg/pay"
         );
 ```
+<br><br><br>
 ## 샘플 페이지 
 참고 가능한 [샘플 페이지](/sample) 폴더입니다. 
+<br><br><br>
 ## 가맹점 인증 
 * Payple 서비스를 이용하기 위해서는 가맹점 계약을 통한 인증이 필요하지만 계약 전 테스트 계정을 통해 개발진행이 가능합니다. 계약 완료 후 Payple 에서 가맹점에 아래의 키를 발급합니다. 
   * cst_id (가맹점 식별을 위한 가맹점 ID)
   * custKey (API 통신전문 변조를 방지하기 위한 비밀키)
 * 키가 탈취되는 일이 없도록 가맹점 서버사이드 스크립트 (PHP, ASP, JSP 등) 에서 API를 호출하시기 바랍니다.
-
+<br><br><br>
 #### 호출정보
 구분 | 테스트 | 운영
 ---- | ---- | ----
@@ -34,7 +39,7 @@ ID | cst_id : test | cst_id : 가맹점 운영 ID
 KEY | custKey : abcd1234567890 | custKey : ID 매칭 Key
 비고 | 인증은 진행되지만 출금은 되지 않습니다. | 실제 출금이 되며, 최소금액 1,000원부터 출금 가능합니다. 수수료도 발생합니다.<br>**AWS(아마존웹서비스)에서 AUTH0004 오류 발생 시 가맹점 서버도메인의 REFERER 추가가 필요할 수 있습니다.** 
 * 호출을 위한 [각 언어별 샘플](/sample/language)을 확인해보세요. 
-
+<br><br><br>
 #### 호출예시 
 * 계좌등록 간편결제 - Request 
 ```html
@@ -105,7 +110,7 @@ Cache-Control: no-cache
   "return_url": "https://cpay.payple.kr/php/RePayAct.php?ACT_=PAYM"
 }
 ```
-
+<br><br><br>
 ## 결제요청 
 ### 1. 공통  
 * 최초결제(계좌등록 포함)를 위해서는 가맹점의 HTML Form Submission 을 이용합니다. <br>
@@ -192,7 +197,7 @@ PCD_PAY_RST | 결제 성공여부<br>(Y / N) |  | O
 PCD_PAY_MSG | 결과메세지 |  | O 
 PCD_TAXSAVE_RST | 현금영수증 발행결과 |  | O 
 REMOTE_IP | 결제고객 접속 IP |  | O 
-
+<br><br>
 #### 1-1. 결제생성 후 승인(PCD_PAY_WORK : CERT) 
 * 가맹점의 최종 승인 후에 결제를 진행하며 REST Request 방식으로 진행합니다. 
 * Request 예시 
@@ -229,7 +234,7 @@ PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O |
 PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
 PCD_PAY_REQKEY | 최종 승인요청용 키 | O | 
 PCD_PAYER_ID | 결제고객 고유 ID | O | 
-
+<br><br>
 #### 1-2. 즉시 승인(PCD_PAY_WORK : PAY) 
 * 가맹점의 최종 승인없이 즉시 결제를 진행하며 별도 Request 는 없습니다.  
 <br><br><br>
