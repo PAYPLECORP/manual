@@ -232,7 +232,7 @@ PCD_PAYER_ID | 결제고객 고유 ID | O |
 
 #### 1-2. 즉시 승인(PCD_PAY_WORK : PAY) 
 * 가맹점의 최종 승인없이 즉시 결제를 진행하며 별도 Request 는 없습니다.  
-
+<br><br><br>
 ### 2. 계좌등록 간편결제 
 * 최초 1회 이후 결제는 REST Request 방식으로 진행합니다.
 * (비밀번호 사용 선택시) 사용자는 기존에 등록한 계좌정보 확인 후 비밀번호 입력 단계로 진행합니다. 
@@ -304,7 +304,7 @@ PCD_TAXSAVE_TRADE | 현금영수증 발행 타입<br>(personal=소득공제 / co
 PCD_TAXSAVE_IDNUM | 현금영수증 발행 번호<br>(휴대폰번호, 사업자번호) |  | 
 PCD_SIMPLE_FLAG | 간편결제 여부 | O | 
 PCD_PAYER_EMAIL | 결제고객 이메일 | O |
-
+<br><br><br>
 ### 3. 정기결제
 * 최초 1회 이후 결제는 REST Request 방식으로 진행합니다.
 * Request 예시 
@@ -422,7 +422,7 @@ PCD_PAY_GOODS | 상품명 | 정기구독
 PCD_PAY_TOTAL | 결제금액 | 1000
 PCD_PAY_TIME | 결제완료 시간 | 20180110152911
 PCD_TAXSAVE_RST | 현금영수증 발행 결과 | Y / N 
-
+<br><br><br>
 ## 결제결과 조회  
 * 가맹점에서 결제결과를 수신할 수 있는 API 로 REST Request 방식으로 진행합니다.
 * Request 예시 
@@ -507,6 +507,7 @@ PCD_PAY_TIME | 결제완료 시간 | 20180110152911
 PCD_TAXSAVE_RST | 현금영수증 발행 결과 | Y / N 
 PCD_REGULER_FLAG | 정기결제 여부 | Y / N
 
+<br><br><br>
 ## 서비스가능 은행 및 점검시간 
 
 은행명 | 코드 | 평일, 토요일 | 공휴일
@@ -527,6 +528,7 @@ KEB하나은행 | 081 | 23:30 ~ 00:30 | 23:30 ~ 00:30
 
 > IBK 기업은행, 우리은행은 2018년 내 연결 예정입니다.
 
+<br><br><br>
 ## 문의  
 * 기술문의 : help@payple.kr 을 통해 보다 자세한 문의가 가능합니다.
 * 가입문의 : 페이플 웹사이트 [가입문의하기](https://www.payple.kr) 를 통하시면 가장 빠르게 안내 받으실 수 있습니다. 
