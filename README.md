@@ -113,90 +113,52 @@ Cache-Control: no-cache
 <br><br><br>
 ## 결제요청 
 ### 1. 공통  
-* 최초결제(계좌등록 포함)를 위해서는 가맹점의 HTML Form Submission 을 이용합니다. <br>
+* 최초결제(간편, 정기결제 포함)를 위해서는 가맹점의 HTML Form Submission 을 이용합니다. <br>
 ![Alt text](/img/onetime_01.png)
 * 아래 소스코드를 가맹점 주문페이지에 추가합니다.
-* 자세한 내용은 [order.html 샘플](/sample/order.html)을 참고하시면 됩니다. 
+* 자세한 내용은 [order_confirm.html 샘플](/sample/order.html)을 참고하시면 됩니다. 
 ```html
 <!-- payple js 호출. 테스트/운영 선택 -->
-<script src="https://testcpay.payple.kr/js/cpay.payple.1.0.0.js"></script> <!-- 테스트 -->
-<script src="https://cpay.payple.kr/js/cpay.payple.1.0.0.js"></script> <!-- 운영 -->
+<script src="https://testcpay.payple.kr/js/cpay.payple.1.0.1.js"></script> <!-- 테스트 -->
+<script src="https://cpay.payple.kr/js/cpay.payple.1.0.1.js"></script> <!-- 운영 -->
 
 <!-- 가맹점 주문페이지 '결제하기' 버튼 액션 -->
 <script>
 $(document).ready( function () {
   $('#payAction').on('click', function (event) {		
-    PaypleCpayAuthCheck();		
+    var obj = new Object();
+
+    obj.PCD_CPAY_VER = "1.0.1";					// 결제창 버전 (Default : 1.0.0)
+    obj.PCD_PAY_TYPE = 'transfer';				// 결제 방법 (transfer : 계좌 | card : 신용카드)
+    obj.PCD_PAY_WORK = 'CERT';					// 결제요청 업무구분 (CERT: 결제정보인증등록, PAY: 결제승인요청 )
+		
+    //-- PCD_PAYER_ID 는 소스상에 표시하지 마시고 반드시 Server Side Script 를 이용하여 불러오시기 바랍니다. --//
+    obj.PCD_PAYER_ID = '<?=$payple_payer_id?>';			// [간편결제/정기결제] 결제자 고유ID (본인인증 된 결제회원 고유 KEY)
+    //-------------------------------------------------------------------------------------//		
+		
+    obj.PCD_PAYER_NAME = '<?=$buyer_name?>';			// 결제자 이름
+    obj.PCD_PAYER_HP = '<?=$buyer_hp?>';			// 결제자 휴대폰 번호
+    obj.PCD_PAYER_EMAIL = '<?=$buyer_email?>';			// 결제자 Email
+    obj.PCD_PAY_GOODS = '<?=$buy_goods?>';			// 결제 상품
+    obj.PCD_PAY_TOTAL = '<?=$buy_total?>';			// 결제 금액
+    obj.PCD_PAY_OID = '<?=$order_num?>';			// 주문번호 (미입력 시 임의 생성)
+    obj.PCD_REGULER_FLAG = '<?=$is_reguler?>';			// 정기결제 여부 (Y|N)
+    obj.PCD_PAY_YEAR = '<?=$pay_year?>';			// [정기결제] 결제 구분 년도 (PCD_REGULER_FLAG : 'Y' 일때 필수)
+    obj.PCD_PAY_MONTH = '<?=$pay_month?>';			// [정기결제] 결제 구분 월 (PCD_REGULER_FLAG : 'Y' 일때 필수)
+    obj.PCD_TAXSAVE_FLAG = '<?=$is_taxsave?>';			// 현금영수증 발행 여부 (Y|N)
+    obj.PCD_SIMPLE_FLAG = '<?=$simple_flag?>';			// 간편결제 여부 (Y|N)
+    obj.PCD_PAYER_AUTHTYPE = 'pwd';				// [간편결제/정기결제] 본인인증 방식 (sms : 문자인증 | pwd : 패스워드 인증)
+    obj.PCD_RST_URL = '/order_result.html';			// 결제(요청)결과 RETURN URL
+    obj.payple_dir_path = '/pg/pay';				// cPayPayple 폴더 경로 (ex: /shop/cPayPayple 은 /shop 로 지정)
+    obj.payple_auth_file = 'payple_payAuth.php';		// cPayPayple 폴더 의 payple_payAuth.html 대체파일 명
+
+    PaypleCpayAuthCheck(obj);
+		
     event.preventDefault();		
   });	
 });
 </script>
-
-<form id="CpayForm" name="CpayForm" action="" method="post">
-  <input type="hidden" name="PCD_CST_ID" id="PCD_CST_ID">  
-  <input type="hidden" name="PCD_CUST_KEY" id="PCD_CUST_KEY">  
-  <input type="hidden" name="PCD_AUTH_KEY" id="PCD_AUTH_KEY">  
-  <input type="hidden" name="PCD_PAY_REQKEY" id="PCD_PAY_REQKEY">  
-  <input type="hidden" name="PCD_PAY_COFURL" id="PCD_PAY_COFURL">  
-  <input type="hidden" name="PCD_PAY_TYPE" id="PCD_PAY_TYPE" value="transfer">  
-  <input type="hidden" name="PCD_PAY_WORK" id="PCD_PAY_WORK" value="CERT">  
-  <input type="hidden" name="PCD_PAYER_ID" id="PCD_PAYER_ID">  
-  <input type="hidden" name="PCD_PAYER_NO" id="PCD_PAYER_NO" value="<?=$buyer_no?>">  
-  <input type="hidden" name="PCD_PAYER_NAME" id="PCD_PAYER_NAME" value="<?=$buyer_name?>">
-  <input type="hidden" name="PCD_PAYER_HP" id="PCD_PAYER_HP" value="<?=$buyer_hp?>">  
-  <input type="hidden" name="PCD_PAYER_EMAIL" id="PCD_PAYER_EMAIL" value="<?=$buyer_email?>">
-  <input type="hidden" name="PCD_PAY_GOODS" id="PCD_PAY_GOODS" value="<?=$buy_goods?>">
-  <input type="hidden" name="PCD_PAY_YEAR" id="PCD_PAY_YEAR" value="<?=$pay_year?>">
-  <input type="hidden" name="PCD_PAY_MONTH" id="PCD_PAY_MONTH" value="<?=$pay_month?>">
-  <input type="hidden" name="PCD_PAY_TOTAL" id="PCD_PAY_TOTAL" value="<?=$buy_total?>">
-  <input type="hidden" name="PCD_PAY_OID" id="PCD_PAY_OID" value="<?=$order_num?>">
-  <input type="hidden" name="PCD_TAXSAVE_FLAG" id="PCD_TAXSAVE_FLAG" value="<?=$is_taxsave?>">
-  <input type="hidden" name="PCD_REGULER_FLAG" id="PCD_REGULER_FLAG" value="<?=$is_reguler?>">
-  <input type="hidden" name="PCD_PAY_BANK" id="PCD_PAY_BANK">
-  <input type="hidden" name="PCD_PAY_BANKNUM" id="PCD_PAY_BANKNUM">
-  <input type="hidden" name="PCD_PAY_TIME" id="PCD_PAY_TIME">
-  <input type="hidden" name="PCD_RST_URL" id="PCD_RST_URL" value="/order_result.html">
-  <input type="hidden" name="PCD_PAY_RST" id="PCD_PAY_RST">
-  <input type="hidden" name="PCD_PAY_MSG" id="PCD_PAY_MSG">
-  <input type="hidden" name="PCD_TAXSAVE_RST" id="PCD_TAXSAVE_RST">
-  <input type="hidden" name="REMOTE_IP" id="REMOTE_IP">
-</form>
-
-<!-- iframe 팝업을 위한 태그 -->
-<div id="layer_cpay" name="layer_cpay" style="position:absolute; z-index:100; display:none; width:$(window).width(); height:$(window).height(); top:0; left:0 ;margin-top:0px; margin-left:0px;">
-  <iframe id="cpay_ifr" name="cpay_ifr" style="width:450px; height:100%; position:absolute; z-index:200; background:white;" frameborder="0" scrolling="auto"></iframe>
-</div>
 ```
-
-파라미터 ID | 설명 | 가맹점 | PAYPLE
-:----: | :----: | :----: | :----:
-PCD_CST_ID | 가맹점 ID |  | O
-PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 |  | O
-PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | | O
-PCD_PAY_REQKEY | 결제생성후 승인을 위한 키 | | O 
-PCD_PAY_COFURL | 결제생성, 승인후 리턴 URL | | O 
-PCD_PAY_TYPE | 결제수단<br>(transfer=계좌 / card=카드) | O |  
-PCD_PAY_WORK | 결제요청방식<br>(CERT=결제생성 후 승인 / PAY=즉시승인) | O |  
-PCD_PAYER_ID | 결제고객 고유 ID | | O 
-PCD_PAYER_NO | 결제고객 고유 번호 | O | 
-PCD_PAYER_NAME | 결제고객명 | O | 
-PCD_PAYER_HP | 결제고객 휴대폰번호 | O |  
-PCD_PAYER_EMAIL | 결제고객 이메일 | O |  
-PCD_PAY_GOODS | 상품명 | O |  
-PCD_PAY_YEAR | 정기결제 적용연도<br>(정기결제) | O |  
-PCD_PAY_MONTH | 정기결제 적용월<br>(정기결제) | O |  
-PCD_PAY_TOTAL | 결제금액 | O |  
-PCD_PAY_OID | 주문번호<br>(주문번호는 필수입니다.) | O |  
-PCD_TAXSAVE_FLAG | 현금영수증 발행여부<br>(Y=발행 / N=미발행) | O |  
-PCD_REGULER_FLAG | 정기결제 여부<br>(Y=정기 / N=단건) | O | 
-PCD_PAY_BANK | 결제 은행 |  | O 
-PCD_PAY_BANKNUM | 결제 계좌번호 |  | O 
-PCD_PAY_TIME | 결제완료시간<br>(예: 20180110152911) |  | O 
-PCD_RST_URL | 가맹점 결제완료 페이지 경로<br>(형식은 가맹점 URL을 제외한 /결과받을경로/파일명) | O |  
-PCD_PAY_RST | 결제 성공여부<br>(Y / N) |  | O 
-PCD_PAY_MSG | 결과메세지 |  | O 
-PCD_TAXSAVE_RST | 현금영수증 발행결과 |  | O 
-REMOTE_IP | 결제고객 접속 IP |  | O 
 
 <br><br>
 #### 1-1. 결제생성 후 승인(PCD_PAY_WORK : CERT) 
@@ -273,11 +235,6 @@ Cache-Control: no-cache
    "PCD_PAY_TYPE": "transfer",							
    "PCD_PAYER_NO": "2324",
    "PCD_PAYER_ID": "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09",
-   "PCD_PAYER_NAME": "홍길동",
-   "PCD_PAYER_HP": "01022224444",
-   "PCD_PAYER_BIRTH": "19900211",
-   "PCD_PAY_BANK": "081",
-   "PCD_PAY_BANKNUM": "2881204040404",
    "PCD_PAY_GOODS": "정기구독",
    "PCD_PAY_TOTAL": "1000",
    "PCD_PAY_OID": "test201804000001",
@@ -299,11 +256,6 @@ PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O |
 PCD_PAY_TYPE | 결제수단<br>(transfer = 계좌 / card = 카드) | O | 
 PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | 
 PCD_PAYER_ID | 결제 키<br>(해당 키를 통해 결제요청) | O | 
-PCD_PAYER_NAME | 결제고객명 | ▵ | PCD_PAYER_ID 미입력시 필수 
-PCD_PAYER_HP | 결제고객 휴대폰번호 | ▵ | PCD_PAYER_ID 미입력시 필수 
-PCD_PAYER_BIRTH | 결제고객 생년월일 8자리 | ▵ | PCD_PAYER_ID 미입력시 필수 
-PCD_PAY_BANK | 결제 은행코드 | ▵ | PCD_PAYER_ID 미입력시 필수 
-PCD_PAY_BANKNUM | 결제 계좌번호 | ▵ | PCD_PAYER_ID 미입력시 필수 
 PCD_PAY_GOODS | 상품명 | O | 
 PCD_PAY_TOTAL | 결제금액 | O | 
 PCD_PAY_OID | 주문번호 | O | 
@@ -341,11 +293,6 @@ Cache-Control: no-cache
    "PCD_PAY_TYPE": "transfer",							
    "PCD_PAYER_NO": "2324",
    "PCD_PAYER_ID": "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09",
-   "PCD_PAYER_NAME": "홍길동",
-   "PCD_PAYER_HP": "01022224444",
-   "PCD_PAYER_BIRTH": "19900211",
-   "PCD_PAY_BANK": "081",
-   "PCD_PAY_BANKNUM": "2881204040404",
    "PCD_PAY_GOODS": "정기구독",
    "PCD_PAY_YEAR": "2018",	
    "PCD_PAY_MONTH": "04",	
@@ -369,11 +316,6 @@ PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O |
 PCD_PAY_TYPE | 결제수단<br>(transfer = 계좌 / card = 카드) | O | 
 PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | 
 PCD_PAYER_ID | 결제 키<br>(해당 키를 통해 결제요청) | O | 
-PCD_PAYER_NAME | 결제고객명 | ▵ | PCD_PAYER_ID 미입력시 필수 
-PCD_PAYER_HP | 결제고객 휴대폰번호 | ▵ | PCD_PAYER_ID 미입력시 필수 
-PCD_PAYER_BIRTH | 결제고객 생년월일 8자리 | ▵ | PCD_PAYER_ID 미입력시 필수 
-PCD_PAY_BANK | 결제 은행코드 | ▵ | PCD_PAYER_ID 미입력시 필수 
-PCD_PAY_BANKNUM | 결제 계좌번호 | ▵ | PCD_PAYER_ID 미입력시 필수 
 PCD_PAY_GOODS | 상품명 | O | 
 PCD_PAY_YEAR | 과금연도 | O | 
 PCD_PAY_MONTH | 과금월 | O | 
@@ -384,6 +326,10 @@ PCD_TAXSAVE_TRADE | 현금영수증 발행 타입<br>(personal=소득공제 / co
 PCD_TAXSAVE_IDNUM | 현금영수증 발행 번호<br>(휴대폰번호, 사업자번호) |  | 
 PCD_REGULER_FLAG | 정기결제 여부 | O | 
 PCD_PAYER_EMAIL | 결제고객 이메일 | O | 
+
+<br><br><br>
+### 4. 단건결제 
+* 단건결제는 별도 Request가 없습니다. 
 
 <br><br><br>
 ## 결제결과 수신  
