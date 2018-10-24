@@ -237,10 +237,14 @@ PCD_PAYER_ID | 결제고객 고유 ID | O |
 ![Alt text](/img/simple_02.png)
 ![Alt text](/img/simple_03.png)
 
+<br><br><br>
+### 3. 이후결제 - 단건결제 
+* 단건결제도 최초 1회 이후결제를 위해서는 [1. 최초결제 - 공통](#1-최초결제---공통)과 동일한 스크립트를 사용합니다. 
+* 사용자는 매번 결제정보를 입력해야하며, 최초결제 시 ARS 인증, 이후결제 시에는 SMS 인증으로 결제를 진행합니다. 
 
 <br><br><br>
-### 3. 정기결제
-* 최초 1회 이후 결제는 REST Request 방식으로 진행합니다.
+### 3. 이후결제 - 정기결제
+* 최초 1회 이후 결제 시 별도 UI가 없기 때문에 REST Request 방식으로 진행합니다.
 * Request 예시 
 ```html
 <!-- 가맹점 인증 -->
@@ -278,8 +282,6 @@ Cache-Control: no-cache
    "PCD_PAYER_EMAIL": "test@test.com"
 }
 ```
-* Request 파라미터 설명 
-> 결제 키(PCD_PAYER_ID)로 요청 시 PCD_PAYER_NAME, PCD_PAYER_NAME, PCD_PAYER_HP, PCD_PAYER_BIRTH, PCD_PAY_BANK, PCD_PAY_BANKNUM 필요없음 
 
 파라미터 ID | 설명 | 필수 | 비고
 :----: | :----: | :----: | :----:
@@ -299,10 +301,6 @@ PCD_TAXSAVE_TRADE | 현금영수증 발행 타입<br>(personal=소득공제 / co
 PCD_TAXSAVE_IDNUM | 현금영수증 발행 번호<br>(휴대폰번호, 사업자번호) |  | 
 PCD_REGULER_FLAG | 정기결제 여부 | O | 
 PCD_PAYER_EMAIL | 결제고객 이메일 | O | 
-
-<br><br><br>
-### 4. 단건결제 
-* 단건결제는 별도 Request가 없습니다. 
 
 <br><br><br>
 ## 결제결과 수신  
