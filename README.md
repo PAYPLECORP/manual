@@ -116,7 +116,7 @@ Cache-Control: no-cache
 * 최초결제(간편, 정기결제 포함)를 위해서는 가맹점의 HTML Form Submission 을 이용합니다. <br>
 ![Alt text](/img/onetime_01.png)
 * 아래 소스코드를 가맹점 주문페이지에 추가합니다.
-* 자세한 내용은 [order_confirm.html 샘플](/sample/order.html)을 참고하시면 됩니다. 
+* 자세한 내용은 [order_confirm.html 샘플](/sample/order_confirm.html)을 참고하시면 됩니다. 
 ```html
 <!-- payple js 호출. 테스트/운영 선택 -->
 <script src="https://testcpay.payple.kr/js/cpay.payple.1.0.1.js"></script> <!-- 테스트 -->
@@ -128,14 +128,15 @@ $(document).ready( function () {
   $('#payAction').on('click', function (event) {		
     var obj = new Object();
 
-    obj.PCD_CPAY_VER = "1.0.1";					// 결제창 버전 (Default : 1.0.0)
-    obj.PCD_PAY_TYPE = 'transfer';				// 결제 방법 (transfer : 계좌 | card : 신용카드)
-    obj.PCD_PAY_WORK = 'CERT';					// 결제요청 업무구분 (CERT: 결제정보인증등록, PAY: 결제승인요청 )
+    obj.PCD_CPAY_VER = "1.0.1";					
+    obj.PCD_PAY_TYPE = 'transfer';				
+    obj.PCD_PAY_WORK = 'CERT';
 		
     //-- PCD_PAYER_ID 는 소스상에 표시하지 마시고 반드시 Server Side Script 를 이용하여 불러오시기 바랍니다. --//
     obj.PCD_PAYER_ID = '<?=$payple_payer_id?>';			// [간편결제/정기결제] 결제자 고유ID (본인인증 된 결제회원 고유 KEY)
     //-------------------------------------------------------------------------------------//		
 		
+    obj.PCD_PAYER_NO = '<?=$buyer_no?>';  
     obj.PCD_PAYER_NAME = '<?=$buyer_name?>';			// 결제자 이름
     obj.PCD_PAYER_HP = '<?=$buyer_hp?>';			// 결제자 휴대폰 번호
     obj.PCD_PAYER_EMAIL = '<?=$buyer_email?>';			// 결제자 Email
@@ -159,6 +160,30 @@ $(document).ready( function () {
 });
 </script>
 ```
+
+파라미터 ID | 설명 | 필수 | 비고
+:----: | :----: | :----: | :----:
+PCD_CPAY_VER | 결제창 버전 | O | 
+PCD_PAY_TYPE | 결제수단<br>(transfer=계좌 / card=카드) | O | 
+PCD_PAY_WORK | 결제요청 방식 | O |1. AUTH=인증만 진행<br>2. CERT= 가맹점 최종승인 후 인증+결제 진행<br>3. PAY: 가맹점 최종승인없이 인증+결제 진행 
+PCD_PAYER_ID | 결제 키 | O | 해당 키를 통해 결제요청
+PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | 
+PCD_PAYER_NAME | 결제고객 이름 | - | 
+PCD_PAYER_HP | 결제고객 휴대폰번호 | - |  
+PCD_PAYER_EMAIL | 결제고객 이메일 | - | 
+PCD_PAY_GOODS | 상품명 | O | 
+PCD_PAY_TOTAL | 결제금액 | O | 
+PCD_PAY_OID | 주문번호 | - | 미입력시 임의생성 
+PCD_REGULER_FLAG | 정기결제 여부 | - | 
+PCD_PAY_YEAR | 정기결제 적용연도 | - | PCD_REGULER_FLAG : 'Y' 일때 필수
+PCD_PAY_MONTH | 정기결제 적용월 | - | PCD_REGULER_FLAG : 'Y' 일때 필수
+PCD_TAXSAVE_FLAG | 현금영수증 발행 여부<br> | O | Y=발행 / N=미발행
+PCD_SIMPLE_FLAG | 간편결제 여부 | - | 
+PCD_PAYER_AUTHTYPE | 간편결제 인증방식 | - | PCD_SIMPLE_FLAG : 'Y' 일때 필수<br>pwd : 결제비밀번호 / sms : 문자인증
+PCD_RST_URL | 결제(요청)결과 RETURN URL | O | 
+payple_dir_path | cPayPayple 폴더 경로 | O | 예시 : /shop/cPayPayple 은 /shop 로 지정
+payple_auth_file | cPayPayple 폴더 의 payple_payAuth.html 대체파일 명 | O 
+
 
 <br><br>
 #### 1-1. 결제생성 후 승인(PCD_PAY_WORK : CERT) 
