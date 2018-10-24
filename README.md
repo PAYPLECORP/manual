@@ -180,7 +180,7 @@ PCD_PAY_YEAR | 정기결제 적용연도 | - | PCD_REGULER_FLAG : 'Y' 일때 필
 PCD_PAY_MONTH | 정기결제 적용월 | - | PCD_REGULER_FLAG : 'Y' 일때 필수
 PCD_TAXSAVE_FLAG | 현금영수증 발행 여부<br> | O | Y=발행 / N=미발행
 PCD_SIMPLE_FLAG | 간편결제 여부 | - | 
-PCD_PAYER_AUTHTYPE | 간편결제 인증방식 | - | PCD_SIMPLE_FLAG : 'Y' 일때 필수<br>pwd : 결제비밀번호 / sms : 문자인증
+PCD_PAYER_AUTHTYPE | 간편결제 인증방식 | - | PCD_SIMPLE_FLAG : 'Y' 일때 필수<br>pwd : 결제비밀번호
 PCD_RST_URL | 결제(요청)결과 RETURN URL | O | 
 payple_dir_path | cPayPayple 폴더 경로 | O | 예시 : /shop/cPayPayple 은 /shop 로 지정
 payple_auth_file | cPayPayple 폴더의<br> payple_payAuth.html 대체파일 명 | O | 
