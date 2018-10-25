@@ -114,8 +114,9 @@ Cache-Control: no-cache
 ## 결제요청 
 ### 1. 최초결제 - 공통  
 * 페이플의 간편결제, 단건결제, 정기결제의 최초결제를 위해서는 가맹점의 HTML Form Submission 을 이용합니다. <br> 
-* 간편결제, 정기결제에서 최초결제없이 계좌등록만 하기 위해서는 obj.PCD_PAY_WORK = 'AUTH' 로 세팅하시면 됩니다.
 ![Alt text](/img/onetime_01.png)
+* 간편결제, 정기결제에서 최초결제없이 계좌등록만 하기 위해서는 obj.PCD_PAY_WORK = 'AUTH' 로 세팅하시면 됩니다.
+![Alt text](/img/auth.png)
 * 아래 소스코드를 가맹점 주문페이지에 추가합니다.
 * 자세한 내용은 [order_confirm.html 샘플](/sample/order_confirm.html)을 참고하시면 됩니다. 
 ```html
