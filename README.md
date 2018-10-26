@@ -289,7 +289,7 @@ Cache-Control: no-cache
 PCD_CST_ID | 가맹점 ID | O | 
 PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
 PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
-PCD_PAY_TYPE | 결제수단<br>(transfer = 계좌 / card = 카드) | O | 
+PCD_PAY_TYPE | 결제수단 | O | transfer = 계좌 / card = 카드
 PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | 
 PCD_PAYER_ID | 결제 키<br>(해당 키를 통해 결제요청) | O | 
 PCD_PAY_GOODS | 상품명 | O | 
@@ -297,9 +297,9 @@ PCD_PAY_YEAR | 과금연도 | O |
 PCD_PAY_MONTH | 과금월 | O | 
 PCD_PAY_TOTAL | 결제금액 | O | 
 PCD_PAY_OID | 주문번호 | O | 
-PCD_TAXSAVE_FLAG | 현금영수증 발행 여부<br>(Y=발행 / N=미발행) | O | 
-PCD_TAXSAVE_TRADE | 현금영수증 발행 타입<br>(personal=소득공제 / company=지출증빙) |  |  
-PCD_TAXSAVE_IDNUM | 현금영수증 발행 번호<br>(휴대폰번호, 사업자번호) |  | 
+PCD_TAXSAVE_FLAG | 현금영수증 발행 여부 | O | Y=발행 / N=미발행
+PCD_TAXSAVE_TRADE | 현금영수증 발행 타입 | - | personal=소득공제 / company=지출증빙
+PCD_TAXSAVE_IDNUM | 현금영수증 발행 번호 | - | 휴대폰번호, 사업자번호
 PCD_REGULER_FLAG | 정기결제 여부 | O | 
 PCD_PAYER_EMAIL | 결제고객 이메일 | O | 
 
