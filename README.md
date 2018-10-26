@@ -291,7 +291,7 @@ PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O |
 PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
 PCD_PAY_TYPE | 결제수단 | O | transfer = 계좌 / card = 카드
 PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | 
-PCD_PAYER_ID | 결제 키<br>(해당 키를 통해 결제요청) | O | 
+PCD_PAYER_ID | 결제 키 | O | 해당 키를 통해 결제요청
 PCD_PAY_GOODS | 상품명 | O | 
 PCD_PAY_YEAR | 과금연도 | O | 
 PCD_PAY_MONTH | 과금월 | O | 
@@ -391,10 +391,10 @@ PCD_CST_ID | 가맹점 ID | O |
 PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
 PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
 PCD_PAYCHK_FLAG | 결과조회 여부 | O | 
-PCD_PAY_TYPE | 결제수단<br>(transfer = 계좌 / card = 카드) | O | 
-PCD_REGULER_FLAG | 정기결제 여부 |  | 
-PCD_PAY_YEAR | 정기결제 과금연도 |  | 
-PCD_PAY_MONTH | 정기결제 과금월 |  | 
+PCD_PAY_TYPE | 결제수단 | O | transfer = 계좌 / card = 카드
+PCD_REGULER_FLAG | 정기결제 여부 | - | 정기결제
+PCD_PAY_YEAR | 정기결제 과금연도 | - | 정기결제
+PCD_PAY_MONTH | 정기결제 과금월 | - | 정기결제
 PCD_PAY_OID | 주문번호 | O | 
 PCD_PAY_DATE | 결제요청일자(YYYYMMDD) | O | 
 
@@ -418,8 +418,8 @@ PCD_PAY_DATE | 결제요청일자(YYYYMMDD) | O |
 ```
 * Response 파라미터 설명 
 
-파라미터 ID | 설명 | 필수 | 비고
-:----: | :----: | :----: | :----:
+파라미터 ID | 설명 | 예시
+:----: | :----: | :----:
 PCD_PAY_RST | 결제요청 결과 | success / error 
 PCD_PAY_MSG | 결제요청 결과 메세지 | 출금이체완료 / 실패 등 
 PCD_PAY_OID | 주문번호 | test201804000001
