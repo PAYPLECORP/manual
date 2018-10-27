@@ -339,7 +339,7 @@ PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | a688ccb3...
 PCD_PAY_REQKEY | 결제생성후 승인을 위한 키 | RmFBWWFBTWNS9qNTgzU2xdd2XRNHR2
 PCD_PAY_COFURL | 결제생성, 승인후 리턴 URL | https://cpay.payple.kr/php/PayConfirmAct.php 
 PCD_PAY_OID | 주문번호 | test201804000001
-PCD_PAY_TYPE | 결제수단 | transfer / card
+PCD_PAY_TYPE | 결제수단 | 
 PCD_PAY_WORK | 결제요청방식 | CERT / PAY 
 PCD_PAYER_ID | 결제 키 | NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09
 PCD_PAYER_NO | 결제고객 고유번호 | 1234 
@@ -423,7 +423,7 @@ PCD_PAY_DATE | 결제요청일자(YYYYMMDD) | O |
 PCD_PAY_RST | 결제요청 결과 | success / error 
 PCD_PAY_MSG | 결제요청 결과 메세지 | 출금이체완료 / 실패 등 
 PCD_PAY_OID | 주문번호 | test201804000001
-PCD_PAY_TYPE | 결제수단 | transfer / card
+PCD_PAY_TYPE | 결제수단 | 
 PCD_PAYER_NO | 결제고객 고유번호 | 1234 
 PCD_PAYER_ID | 결제 키 | NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09
 PCD_PAY_YEAR | 과금연도<br>(정기결제) | 2018 
