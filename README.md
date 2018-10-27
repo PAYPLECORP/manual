@@ -166,7 +166,7 @@ $(document).ready( function () {
 파라미터 ID | 설명 | 필수 | 비고
 :----: | :----: | :----: | :----:
 PCD_CPAY_VER | 결제창 버전 | O | 
-PCD_PAY_TYPE | 결제수단<br>(transfer=계좌 / card=카드) | O | 
+PCD_PAY_TYPE | 결제수단 | O | 
 PCD_PAY_WORK | 결제요청 방식 | O |1. AUTH=인증만 진행<br>2. CERT= 가맹점 최종승인 후 인증+결제 진행<br>3. PAY: 가맹점 최종승인없이 인증+결제 진행 
 PCD_PAYER_ID | 결제 키 | O | 해당 키를 통해 결제요청
 PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | 
@@ -289,7 +289,7 @@ Cache-Control: no-cache
 PCD_CST_ID | 가맹점 ID | O | 
 PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
 PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
-PCD_PAY_TYPE | 결제수단 | O | transfer = 계좌 / card = 카드
+PCD_PAY_TYPE | 결제수단 | O | 
 PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | 
 PCD_PAYER_ID | 결제 키 | O | 해당 키를 통해 결제요청
 PCD_PAY_GOODS | 상품명 | O | 
@@ -391,7 +391,7 @@ PCD_CST_ID | 가맹점 ID | O |
 PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
 PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
 PCD_PAYCHK_FLAG | 결과조회 여부 | O | 
-PCD_PAY_TYPE | 결제수단 | O | transfer = 계좌 / card = 카드
+PCD_PAY_TYPE | 결제수단 | O | 
 PCD_REGULER_FLAG | 정기결제 여부 | - | 정기결제
 PCD_PAY_YEAR | 정기결제 과금연도 | - | 정기결제
 PCD_PAY_MONTH | 정기결제 과금월 | - | 정기결제
