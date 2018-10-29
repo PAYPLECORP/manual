@@ -62,7 +62,9 @@ Cache-Control: no-cache
   "cst_id": "test",
   "custKey": "abcd1234567890",
   "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
-  "return_url": "https://cpay.payple.kr/php/SimplePayAct.php?ACT_=PAYM"
+  "return_url": "https://cpay.payple.kr/php/SimplePayAct.php?ACT_=PAYM",
+  "cPayHost": "https://cpay.payple.kr",
+  "cPayUrl": "/php/SimplePayAct.php?ACT_=PAYM"
 }
 ```
 * 단건결제 - Request 
@@ -84,7 +86,9 @@ Cache-Control: no-cache
   "cst_id": "test",
   "custKey": "abcd1234567890",
   "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
-  "return_url": "https://cpay.payple.kr/php/PayAct.php?ACT_=PAYM"
+  "return_url": "https://cpay.payple.kr/php/PayAct.php?ACT_=PAYM",
+  "cPayHost": "https://cpay.payple.kr",
+  "cPayUrl": "/php/SimplePayAct.php?ACT_=PAYM"
 }
 ```
 * 정기결제 - Request 
@@ -107,7 +111,9 @@ Cache-Control: no-cache
   "cst_id": "test",
   "custKey": "abcd1234567890",
   "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
-  "return_url": "https://cpay.payple.kr/php/RePayAct.php?ACT_=PAYM"
+  "return_url": "https://cpay.payple.kr/php/RePayAct.php?ACT_=PAYM",
+  "cPayHost": "https://cpay.payple.kr",
+  "cPayUrl": "/php/SimplePayAct.php?ACT_=PAYM"
 }
 ```
 <br><br><br>
