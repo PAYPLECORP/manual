@@ -1,0 +1,56 @@
+<!-- 가맹점의 최종승인 후 결제  -->
+
+<!--
+	@u4bi
+	아래 리포지토리 내 스크립트에서 최소한의 변경작업만 진행하였습니다.
+	https://github.com/PAYPLECORP/manual/blob/master/sample/order.html
+
+	- indent 수정
+	- ejs 템플릿 구문으로 변경
+
+-->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<title>Insert title here</title>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	</head>
+	<body>
+        <div style="border:1px solid black; width:800px;">
+            PCD_PAY_RST = <%= PCD_PAY_RST%>
+            <br>
+            PCD_PAY_MSG = <%= PCD_PAY_MSG%>
+            <br>
+            PCD_PAY_OID = <%= PCD_PAY_OID%>
+            <br>
+            PCD_PAY_TYPE = <%= PCD_PAY_TYPE%>
+            <br>
+            PCD_PAY_WORK = <%= PCD_PAY_WORK%>			<!-- 결제요청 업무구분 (CERT: 결제정보인증등록, PAY: 결제승인요청 ) -->
+            <br>
+            PCD_PAYER_ID = <%= PCD_PAYER_ID%>           <!-- 결제자 고유ID (결제완료시 RETURN) -->
+            <br>
+            PCD_PAYER_NO = <%= PCD_PAYER_NO%>
+            <br>
+            PCD_PAYER_EMAIL = <%= PCD_PAYER_EMAIL%>     <!-- 결제자 Email (출금결과 수신) -->
+            <br>
+            PCD_REGULER_FLAG = <%= PCD_REGULER_FLAG%>	<!-- 정기결제 Y|N -->
+            <br>
+            PCD_PAY_YEAR = <%= PCD_PAY_YEAR%>			<!-- 정기결제 구분 년도 -->
+            <br>
+            PCD_PAY_MONTH = <%= PCD_PAY_MONTH%>			<!-- 정기결제 구분 월 -->
+            <br>
+            PCD_PAY_GOODS = <%= PCD_PAY_GOODS%>
+            <br>
+            PCD_PAY_TOTAL = <%= PCD_PAY_TOTAL%>
+            <br>
+            PCD_PAY_TIME = <%= PCD_PAY_TIME%>
+            <br>
+            PCD_TAXSAVE_RST = <%= PCD_TAXSAVE_RST%>		<!-- 현금영수증 발행결과 Y|N -->
+
+            <% if (PCD_PAY_WORK == 'CERT') { %><button id="payConfirmAction">결제승인요청</button> <button id="payConfirmCancel">결제승인취소</button><% } %>
+        </div>
+	</body>
+</html>        

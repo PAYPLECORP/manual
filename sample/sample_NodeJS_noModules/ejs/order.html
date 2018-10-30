@@ -1,0 +1,132 @@
+<!-- 가맹점 주문 페이지 -->
+
+<!--
+	@u4bi
+	아래 리포지토리 내 스크립트에서 최소한의 변경작업만 진행하였습니다.
+	https://github.com/PAYPLECORP/manual/blob/master/sample/order.html
+
+	- indent 수정
+	- ejs 템플릿 구문으로 변경
+
+-->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<title>Insert title here</title>
+
+		<style> input { width: 300px; height: 20px; border: 1px solid gray }</style>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script>
+			$(document).ready( function () {
+				
+                $('#orderFormSubmit').on('click', function (event) {
+							
+					var fm =  $('#orderForm')[0];
+
+					fm.method = 'POST';
+					fm.action = 'confirm';
+					fm.submit();
+					
+					event.preventDefault();
+					
+				});
+
+				
+			})
+		</script>
+	</head>
+	<body>
+	<form id="orderForm" name="orderForm">
+	  <div>
+	  	<select name="simple_flag">
+	  		<option value="N">단건결제</option>
+	  		<option value="Y">간편결제</option>
+	  	</select>
+	  </div>
+	  <div>
+	    <label for="payple_payer_id">[간편결제] 페이플 결제자 ID</label>
+	    <input type="text" name="payple_payer_id" id="payple_payer_id" value="">
+	  </div>
+	  <div>
+	    <label for="payer_no">구매자 고유번호</label>
+	    <input type="hidden" name="buyer_no" id="buyer_no" value="<%= buyer_no%>">
+	  </div>
+	  <div>
+	  	<label for="buyer_name">구매자 이름</label>
+	    <input type="text" name="buyer_name" id="buyer_name" value="<%= buyer_name%>">
+	  </div>
+	  <div>
+	    <label for="buyer_hp">구매자 휴대폰번호</label>
+	    <input type="text" name="buyer_hp" id="buyer_hp" value="<%= buyer_hp%>">
+	  </div>
+	  <div>
+	    <label for="buyer_email">구매자 Email</label>
+	    <input type="text" name="buyer_email" id="buyer_email" value="<%= buyer_email%>">
+	  </div>
+	  <div>
+	    <label for="buy_goods">구매상품</label>
+	    <input type="text" name="buy_goods" id="buy_goods" value="<%= buy_goods%>">
+	  </div>	  
+	  <div>
+	  	<label for="buy_total">결제금액</label>
+	  	<input type="text" name="buy_total" id="buy_total" value="<%= buy_total%>">
+	  </div>
+	  <div>
+	  	<label for="order_num">주문번호</label>
+	  	<input type="text" name="order_num" id="order_num" value="<%= order_num%>">
+	  </div>
+	  <div>
+	  	<label for="is_reguler">정기결제</label>
+	  	<select id="is_reguler" name="is_reguler">
+	  		<option value="N">N</option>
+	  		<option value="Y">Y</option>
+	  	</select>
+	  </div>
+	  <div>
+	  	<label for="pay_year">정기결제 구분년도</label>
+	  	<select id="pay_year" name="pay_year">
+	  	    <option value="">===</option>
+	  		<option value="2018">2018</option>
+	  		<option value="2017">2017</option>
+	  	</select>	  
+	  </div>
+	  <div>
+	  	<label for="pay_month">정기결제 구분월</label>
+	  	<select id="pay_month" name="pay_month">
+	  	    <option value="">===</option>
+	  		<option value="12">12</option>
+	  		<option value="11">11</option>
+	  		<option value="10">10</option>
+	  		<option value="9">9</option>
+	  		<option value="8">8</option>
+	  		<option value="7">7</option>
+	  		<option value="6">6</option>
+	  		<option value="5">5</option>
+	  		<option value="4">4</option>
+	  		<option value="3">3</option>
+	  		<option value="2">2</option>
+	  		<option value="1">1</option>	  		
+	  	</select>	  
+	  </div>
+	  <div>
+	  	<label for="is_taxsave">현금영수증</label>
+	  	<select id="is_taxsave" name="is_taxsave">
+	  		<option value="N">N</option>
+	  		<option value="Y">Y</option>
+	  	</select>
+	  </div>
+	  <div>
+	  	<label for="work_type">결제요청방식</label>
+	  	<select id="work_type" name="work_type">
+	  		<!-- <option value="CERT">결제요청->결제확인->결제완료</option> -->
+	  		<option value="PAY">결제요청->결제완료</option>
+	  		<option value="AUTH">인증</option>
+	  	</select>
+	  </div>
+	</form>
+			<button id="orderFormSubmit">상품구매</button>
+	</body>
+</html>

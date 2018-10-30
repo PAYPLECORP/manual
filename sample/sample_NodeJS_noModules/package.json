@@ -1,0 +1,18 @@
+{
+  "name": "dev.nodetest.payple.kr",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "json-dotenv": "0.0.1",
+    "nodemon": "^1.18.3"
+  }
+}
