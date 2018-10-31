@@ -21,19 +21,8 @@ $work_type = isset($_POST['work_type']) ? $_POST['work_type'] : "CERT";
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 <title>Insert title here</title>
 <script src="/js/jquery-3.2.1.min.js"></script>
-<?
-if ($REMOTE_ADDR == '127.0.0.1') {
-?>
-<!-- <script src="http://dev.testcpay.payple.kr/js/127.0.0.1.cpay.payple.1.0.0.js"></script> --> <!-- DEV TEST 구버전 (PCD_CPAY_VER : 1.0.0) -->
-<script src="http://dev.testcpay.payple.kr/js/127.0.0.1.cpay.payple.1.0.1.js"></script> <!-- DEV TEST 구버전 (PCD_CPAY_VER : 1.0.1) -->
-<?
-} else {
-?>
 <!-- <script src="https://testcpay.payple.kr/js/cpay.payple.1.0.0.js"></script> --> <!-- TEST (PCD_CPAY_VER : 1.0.0) -->
 <script src="https://testcpay.payple.kr/js/cpay.payple.1.0.1.js"></script> <!-- TEST (PCD_CPAY_VER : 1.0.1) -->
-<?
-}
-?>
 <script>
 $(document).ready( function () {
 
