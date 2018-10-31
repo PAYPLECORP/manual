@@ -50,9 +50,9 @@ $(document).ready( function () {
 		$.each(lines, function (n, elem) {
 			var n_data = elem.split(" = ");
 			
-			  if (n_data[0] == 'PCD_CST_ID') cfg.PCD_CST_ID = n_data[1];
-			  if (n_data[0] == 'PCD_CUST_KEY') cfg.PCD_CUST_KEY = n_data[1];
-			  if (n_data[0] == 'PCD_AUTH_URL') cfg.PCD_AUTH_URL = n_data[1];
+			if (n_data[0] == 'PCD_CST_ID') cfg.PCD_CST_ID = n_data[1];
+		        if (n_data[0] == 'PCD_CUST_KEY') cfg.PCD_CUST_KEY = n_data[1];
+			if (n_data[0] == 'PCD_AUTH_URL') cfg.PCD_AUTH_URL = n_data[1];
 
 		});
 	});
