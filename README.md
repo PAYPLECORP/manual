@@ -10,18 +10,6 @@ ARS 인증만으로 계좌등록과 결제가 완료되기 때문에 별도 앱�
 * SSL 보안통신 필수 <br>
 * 메세지 포맷 : JSON <br>
 <br><br><br>
-## 준비 
-[cPayPayple](/cPayPayple) 폴더를 가맹점 Web Root 에 저장하고 각 파일을 가맹점 환경에 맞는 개발언어로 수정해주시면 됩니다. 
-> 폴더 위치 변경을 원하시면 아래와 같이 가맹점 인증시 "payple_dir_path" 옵션 설정을 추가하시기 바랍니다. 
-```php
-/* 예 : cPayPayple 폴더 위치가 /webroot/pg/pay/cPayPayple 인 경우 payple_dir_path = "/pg/pay" */
-$post_data = array (
-        "custKey" => "abcd1234567890",
-        "cst_id" => "test",
-        "payple_dir_path" => "/pg/pay"
-        );
-```
-<br><br><br>
 ## 샘플 페이지 
 참고 가능한 [샘플 페이지](/sample) 폴더입니다. 
 <br><br><br>
@@ -29,7 +17,7 @@ $post_data = array (
 * Payple 서비스를 이용하기 위해서는 가맹점 계약을 통한 인증이 필요하지만 계약 전 테스트 계정을 통해 개발진행이 가능합니다. 계약 완료 후 Payple 에서 가맹점에 아래의 키를 발급합니다. 
   * cst_id (가맹점 식별을 위한 가맹점 ID)
   * custKey (API 통신전문 변조를 방지하기 위한 비밀키)
-* 키가 탈취되는 일이 없도록 가맹점 서버사이드 스크립트 (PHP, ASP, JSP 등) 에서 API를 호출하시기 바랍니다.
+* 가맹점 인증에 필요한 키의 외부 노출을 방지하기 위해 cgi 파일을 이용합니다. [cgi 파일](/sample/payple.cgi)을 내려받고 수정  가맹점의 서버에 저장해주세요. 
 <br><br><br>
 #### 호출정보
 구분 | 테스트 | 운영
@@ -131,49 +119,110 @@ Cache-Control: no-cache
 <script src="https://cpay.payple.kr/js/cpay.payple.1.0.1.js"></script> <!-- 운영 -->
 
 <!-- 가맹점 주문페이지 '결제하기' 버튼 액션 -->
-<script>
-$(document).ready( function () {
-  $('#payAction').on('click', function (event) {		
-    var obj = new Object();
-
-    obj.PCD_CPAY_VER = "1.0.1";					
-    obj.PCD_PAY_TYPE = 'transfer';				
-    obj.PCD_PAY_WORK = 'CERT';
-		
-    //-- PCD_PAYER_ID 는 소스상에 표시하지 마시고 반드시 Server Side Script 를 이용하여 불러오시기 바랍니다. --//
-    obj.PCD_PAYER_ID = '<?=$payple_payer_id?>';			
-    //-------------------------------------------------------------------------------------//		
-		
-    obj.PCD_PAYER_NO = '<?=$buyer_no?>';  
-    obj.PCD_PAYER_NAME = '<?=$buyer_name?>';			
-    obj.PCD_PAYER_HP = '<?=$buyer_hp?>';			
-    obj.PCD_PAYER_EMAIL = '<?=$buyer_email?>';			
-    obj.PCD_PAY_GOODS = '<?=$buy_goods?>';			
-    obj.PCD_PAY_TOTAL = '<?=$buy_total?>';			
-    obj.PCD_PAY_OID = '<?=$order_num?>';			
-    obj.PCD_REGULER_FLAG = '<?=$is_reguler?>';			
-    obj.PCD_PAY_YEAR = '<?=$pay_year?>';			
-    obj.PCD_PAY_MONTH = '<?=$pay_month?>';			
-    obj.PCD_TAXSAVE_FLAG = '<?=$is_taxsave?>';			
-    obj.PCD_SIMPLE_FLAG = '<?=$simple_flag?>';			
-    obj.PCD_PAYER_AUTHTYPE = 'pwd';				
-    obj.PCD_RST_URL = '/order_result.html';			
-    obj.payple_dir_path = '/pg/pay';				
-    obj.payple_auth_file = 'payple_payAuth.php';		
-
-    PaypleCpayAuthCheck(obj);
-		
-    event.preventDefault();		
-  });	
+<script>	
+$(document).ready( function () {    
+    /*
+     * Payple ID, KEY, AUTH_URL 가져오기
+     */
+     
+    var cfg = new Object();
+    var cfg_file_url = "/cPayPayple/payple.cgi";
+    
+    $.get(cfg_file_url, function(data) {
+        
+        var lines = data.split("\n");
+        
+        $.each(lines, function (n, elem) {
+            var n_data = elem.split(" = ");
+            if (n_data[0] == 'PCD_CST_ID') cfg.PCD_CST_ID = n_data[1];
+            if (n_data[0] == 'PCD_CUST_KEY') cfg.PCD_CUST_KEY = n_data[1];
+            if (n_data[0] == 'PCD_AUTH_URL') cfg.PCD_AUTH_URL = n_data[1];
+        });
+    });
+    
+    $('#payAction').on('click', function (event) {
+        
+        var pay_work = "PAY";
+        var payple_payer_id = "d0toSS9sT084bVJSNThScnFXQm9Gdz09";     
+        var buyer_no = "2335";
+        var buyer_name = "홍길동";
+        var buyer_hp = "01012345678";
+        var buyer_email = "test@payple.kr";
+        var buy_goods = "휴대폰";
+        var buy_total = "1000";
+        var order_num = "test0553941001540967923";
+        var is_reguler = "N";
+        var pay_year = "";
+        var pay_month = "";
+        var is_taxsave = "N";
+        
+        var obj = new Object();
+        
+        obj.PCD_CST_ID = cfg.PCD_CST_ID;
+        obj.PCD_CUST_KEY = cfg.PCD_CUST_KEY;
+        obj.PCD_AUTH_URL = cfg.PCD_AUTH_URL;
+        obj.PCD_CPAY_VER = "1.0.1";
+        obj.PCD_PAY_TYPE = 'transfer';           
+        obj.PCD_PAY_WORK = pay_work;
+        obj.PCD_PAYER_AUTHTYPE = 'pwd'; 
+        obj.PCD_RST_URL = '/order_result.html';
+	
+        /*
+         * 1. 간편결제
+         */
+        //-- PCD_PAYER_ID 는 소스상에 표시하지 마시고 반드시 Server Side Script 를 이용하여 불러오시기 바랍니다. --//
+        obj.PCD_PAYER_ID = payple_payer_id;           
+        //-------------------------------------------------------------------------------------//          
+        obj.PCD_PAYER_NO = buyer_no;  
+        obj.PCD_PAYER_EMAIL = buyer_email;
+        obj.PCD_PAY_GOODS = buy_goods;
+        obj.PCD_PAY_TOTAL = buy_total;
+        obj.PCD_PAY_OID = order_num;     
+        obj.PCD_REGULER_FLAG = is_reguler;
+        obj.PCD_PAY_YEAR = pay_year; 
+        obj.PCD_PAY_MONTH = pay_month;
+        obj.PCD_TAXSAVE_FLAG = is_taxsave; 
+        obj.PCD_SIMPLE_FLAG = 'Y'; 
+	/*
+         * 1. 간편결제
+         */
+        
+        /*
+         * 2. 단건결제
+         */
+        obj.PCD_PAYER_NO = buyer_no;
+        obj.PCD_PAYER_NAME = buyer_name;
+        obj.PCD_PAYER_HP = buyer_hp;
+        obj.PCD_PAYER_EMAIL = buyer_email;
+        obj.PCD_PAY_GOODS = buy_goods; 
+        obj.PCD_PAY_TOTAL = buy_total;
+        obj.PCD_PAY_OID = order_num; 
+        obj.PCD_REGULER_FLAG = is_reguler;
+        obj.PCD_PAY_YEAR = pay_year;       
+        obj.PCD_PAY_MONTH = pay_month;
+        obj.PCD_TAXSAVE_FLAG = is_taxsave;        
+	/*
+         * 2. 단건결제 
+         */
+	
+        PaypleCpayAuthCheck(obj);
+            
+        event.preventDefault();     
+    });   
 });
 </script>
 ```
 
 파라미터 ID | 설명 | 필수 | 비고
 :----: | :----: | :----: | :----:
+PCD_CST_ID | 가맹점인증 ID | O | 
+PCD_CUST_KEY | 가맹점인증 KEY | O |
+PCD_AUTH_URL | 가맹점인증 서버 URL | O |
 PCD_CPAY_VER | 결제창 버전 | O | 
 PCD_PAY_TYPE | 결제수단 | O | 
 PCD_PAY_WORK | 결제요청 방식 | O |1. AUTH=인증만 진행<br>2. CERT= 가맹점 최종승인 후 인증+결제 진행<br>3. PAY: 가맹점 최종승인없이 인증+결제 진행 
+PCD_PAYER_AUTHTYPE | 간편결제 인증방식 | - | PCD_SIMPLE_FLAG : 'Y' 일때 필수<br>pwd : 결제비밀번호
+PCD_RST_URL | 결제(요청)결과 RETURN URL | O | 
 PCD_PAYER_ID | 결제 키 | O | 해당 키를 통해 결제요청
 PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | 
 PCD_PAYER_NAME | 결제고객 이름 | - | 
@@ -187,11 +236,6 @@ PCD_PAY_YEAR | 정기결제 적용연도 | - | PCD_REGULER_FLAG : 'Y' 일때 필
 PCD_PAY_MONTH | 정기결제 적용월 | - | PCD_REGULER_FLAG : 'Y' 일때 필수
 PCD_TAXSAVE_FLAG | 현금영수증 발행 여부<br> | O | Y=발행 / N=미발행
 PCD_SIMPLE_FLAG | 간편결제 여부 | - | 
-PCD_PAYER_AUTHTYPE | 간편결제 인증방식 | - | PCD_SIMPLE_FLAG : 'Y' 일때 필수<br>pwd : 결제비밀번호
-PCD_RST_URL | 결제(요청)결과 RETURN URL | O | 
-payple_dir_path | cPayPayple 폴더 경로 | O | 예시 : /shop/cPayPayple 은 /shop 로 지정
-payple_auth_file | cPayPayple 폴더의<br> payple_payAuth.html 대체파일 명 | O | 
-
 
 <br><br>
 #### 1-1. 결제생성 후 승인(PCD_PAY_WORK : CERT) 
