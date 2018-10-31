@@ -242,17 +242,7 @@ PCD_SIMPLE_FLAG | 간편결제 여부 | - |
 * 가맹점의 최종 승인 후에 결제를 진행하며 REST Request 방식으로 진행합니다. 
 * Request 예시 
 ```html
-<!-- 가맹점 인증 -->
-POST /php/auth.php HTTP/1.1
-Host: testcpay.payple.kr
-Content-Type: application/json
-Cache-Control: no-cache
-{
-  "cst_id": "test",
-  "custKey": "abcd1234567890"
-}
-
-<!-- 결제요청 -->
+<!-- 결제 승인요청 --> 
 POST /php/PayConfirmAct.php?ACT_=PAYM HTTTP/1.1
 Host: testcpay.payple.kr
 Content-Type: application/json
