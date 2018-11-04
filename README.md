@@ -5,6 +5,11 @@ ARS 인증만으로 계좌등록과 결제가 완료되기 때문에 별도 앱�
 ![Alt text](/img/main_simple.png)
 
 <br><br><br>
+## 결제서비스별 흐름도 
+각 결제서비스의 흐름도입니다. 동일한 조건으로 모든 결제서비스를 이용할 수 있습니다. <br>
+![Alt text](/img/flow.jpg)
+
+<br><br><br>
 ## 공통 정의사항 
 * 인코딩 : UTF-8 <br>
 * SSL 보안통신 필수 <br>
