@@ -133,6 +133,7 @@ Cache-Control: no-cache
   "PCD_PAY_URL": "/php/link/api/LinkRegAct.php?ACT_=LINKREG",
   "return_url": "https://cpay.payple.kr/php/link/api/LinkRegAct.php?ACT_=LINKREG"
 }
+```
 <br><br><br>
 ## 결제요청 
 ### 1. 최초결제 - 공통  
@@ -371,6 +372,65 @@ PCD_TAXSAVE_TRADE | 현금영수증 발행 타입 | - | personal=소득공제 / 
 PCD_TAXSAVE_IDNUM | 현금영수증 발행 번호 | - | 휴대폰번호, 사업자번호
 PCD_REGULER_FLAG | 정기결제 여부 | O | 
 PCD_PAYER_EMAIL | 결제고객 이메일 | O | 
+
+<br><br><br>
+### 5. 링크결제 - 링크생성 
+* 링크결제의 링크생성은 별도 UI 없이 REST Request 방식으로 진행됩니다. 
+* Request 예시 
+```html
+<!-- 가맹점 인증 -->
+POST /php/auth.php HTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "PCD_PAY_WORK": "LINKREG"
+}
+
+<!-- 결제요청  -->
+POST PCD_PAY_URL HTTP/1.1
+Host: PCD_PAY_HOST
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "PCD_CST_ID" : "test",
+  "PCD_CUST_KEY" : "abcd1234567890",
+  "PCD_AUTH_KEY" : "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
+  "PCD_PAY_WORK" : "LINKREG",
+  "PCD_PAY_TYPE" : "transfer",
+  "PCD_PAY_GOODS" : "테스트상품",
+  "PCD_PAY_TOTAL" : 150000,
+  "PCD_REGULER_FLAG" : "Y",
+  "PCD_PAY_YEAR" : 2018,
+  "PCD_PAY_MONTH" : 11
+}
+```
+* Response 예시 
+```html
+{
+  "PCD_LINK_RST" => "success|error",
+  "PCD_LINK_MSG" => "링크생성완료|실패..",
+  "PCD_PAY_TYPE" => "transfer",
+  "PCD_PAY_GOODS" => "테스트상품",
+  "PCD_PAY_TOTAL" => 150000,
+  "PCD_REGULER_FLAG" => "Y",
+  "PCD_PAY_YEAR" => 2018,
+  "PCD_PAY_MONTH" => 11
+}
+```
+
+파라미터 ID | 설명 | 예시
+:----: | :----: | :----: 
+PCD_LINK_RST | 링크생성 요청 결과 | success / error 
+PCD_LINK_MSG | 링크생성 요청 결과 메세지 | 링크생성완료 / 실패 
+PCD_PAY_TYPE | 결제수단 | 계좌출금 
+PCD_PAY_GOODS | 상품명 | 링크결제 상품  
+PCD_PAY_TOTAL | 결제금액 | 1000 
+PCD_REGULER_FLAG | 정기결제 여부 | Y / N
+PCD_PAY_YEAR | 과금연도<br>(정기결제) | 2018 
+PCD_PAY_MONTH | 과금월<br>(정기결제) | 08
 
 <br><br><br>
 ## 결제결과 수신  
