@@ -109,6 +109,30 @@ Cache-Control: no-cache
   "cPayUrl": "/php/SimplePayAct.php?ACT_=PAYM"
 }
 ```
+* 링크결제 - Request 
+```html
+POST /php/auth.php HTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "PCD_PAY_WORK": "LINKREG"
+}
+```
+* 링크결제 - Response
+```html
+{
+  "result": "success",
+  "result_msg": "사용자 인증완료",
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
+  "PCD_PAY_HOST": "https://testcpay.payple.kr",
+  "PCD_PAY_URL": "/php/link/api/LinkRegAct.php?ACT_=LINKREG",
+  "return_url": "https://cpay.payple.kr/php/link/api/LinkRegAct.php?ACT_=LINKREG"
+}
 <br><br><br>
 ## 결제요청 
 ### 1. 최초결제 - 공통  
