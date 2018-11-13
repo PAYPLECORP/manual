@@ -389,7 +389,7 @@ Cache-Control: no-cache
   "PCD_PAY_WORK": "LINKREG"
 }
 
-<!-- 결제요청  -->
+<!-- 링크생성 요청  -->
 POST PCD_PAY_URL HTTP/1.1
 Host: PCD_PAY_HOST
 Content-Type: application/json
