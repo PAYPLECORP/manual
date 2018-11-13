@@ -420,6 +420,7 @@ Cache-Control: no-cache
   "PCD_PAY_MONTH" => 11
 }
 ```
+* Response 파라미터 설명
 
 파라미터 ID | 설명 | 예시
 :----: | :----: | :----: 
