@@ -436,7 +436,7 @@ PCD_TAXSAVE_FLAG | 현금영수증 발행 여부 | O | Y=발행 / N=미발행
   "PCD_REGULER_FLAG" => "Y",
   "PCD_PAY_YEAR" => 2018,
   "PCD_PAY_MONTH" => 11,
-  "PCD_TAXSAVE_FLAG" => "Y"
+  "PCD_TAXSAVE_RST" => "Y"
 }
 ```
 * Response 파라미터 설명
