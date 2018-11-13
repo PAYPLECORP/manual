@@ -407,6 +407,22 @@ Cache-Control: no-cache
   "PCD_PAY_MONTH" : 11
 }
 ```
+
+* Request 파라미터 설명 
+
+파라미터 ID | 설명 | 필수 | 비고
+:----: | :----: | :----: | :----:
+PCD_CST_ID | 가맹점 ID | O | 
+PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
+PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
+PCD_PAY_WORK | 업무구분 | O | 링크결제 
+PCD_PAY_TYPE | 결제수단 | O | 계좌출금 
+PCD_PAY_GOODS | 상품명 | O | 
+PCD_PAY_TOTAL | 결제금액 | O | 
+PCD_REGULER_FLAG | 정기결제 여부 | - | 정기결제
+PCD_PAY_YEAR | 정기결제 과금연도 | - | 정기결제
+PCD_PAY_MONTH | 정기결제 과금월 | - | 정기결제
+
 * Response 예시 
 ```html
 {
