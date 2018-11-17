@@ -134,6 +134,56 @@ Cache-Control: no-cache
   "return_url": "https://cpay.payple.kr/php/link/api/LinkRegAct.php?ACT_=LINKREG"
 }
 ```
+* 현금영수증 발행 - Request 
+```html
+POST /php/auth.php HTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "PCD_PAY_WORK": "TSREG"
+}
+```
+* 현금영수증 발행 - Response
+```html
+{
+  "result": "success|error",
+  "result_msg": "사용자 인증완료",
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
+  "PCD_PAY_HOST": "https://testcpay.payple.kr",
+  "PCD_PAY_URL": "/php/taxsave/api/tsAct.php?ACT_=TSREG",
+  "return_url": "https://cpay.payple.kr/php/taxsave/api/tsAct.php?ACT_=TSREG"
+}
+```
+* 현금영수증 취소 - Request 
+```html
+POST /php/auth.php HTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "PCD_PAY_WORK": "TSCANCEL"
+}
+```
+* 현금영수증 취소 - Response
+```html
+{
+  "result": "success|error",
+  "result_msg": "사용자 인증완료",
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
+  "PCD_PAY_HOST": "https://testcpay.payple.kr",
+  "PCD_PAY_URL": "/php/taxsave/api/tsAct.php?ACT_=TSCANCEL",
+  "return_url": "https://cpay.payple.kr/php/taxsave/api/tsAct.php?ACT_=TSCANCEL"
+}
+```
 <br><br><br>
 ## 결제요청 
 ### 1. 최초결제 - 공통  
@@ -452,6 +502,138 @@ PCD_REGULER_FLAG | 정기결제 여부 | Y / N
 PCD_PAY_YEAR | 과금연도<br>(정기결제) | 2018 
 PCD_PAY_MONTH | 과금월<br>(정기결제) | 08
 PCD_TAXSAVE_RST | 현금영수증 발행 결과 | Y / N
+
+<br><br><br>
+### 6. 현금영수증 - 발행
+* 현금영수증 발행 REST API 입니다.
+* Request 예시 
+```html
+<!-- 가맹점 인증 -->
+POST /php/auth.php HTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "PCD_PAY_WORK": "TSREG"
+}
+
+<!-- 현금영수증 발행요청  -->
+POST PCD_PAY_URL HTTP/1.1
+Host: PCD_PAY_HOST
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "PCD_CST_ID" : "test",
+  "PCD_CUST_KEY" : "abcd1234567890",
+  "PCD_AUTH_KEY" : "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
+  "PCD_PAYER_ID" : "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09",
+  "PCD_PAY_OID" : "test201804000001",
+  "PCD_REGULER_FLAG" : "Y",
+  "PCD_TAXSAVE_TRADEUSE" : "personal",
+  "PCD_TAXSAVE_IDENTINUM" : "01023456789",
+}
+```
+
+파라미터 ID | 설명 | 필수 | 비고
+:----: | :----: | :----: | :----:
+PCD_CST_ID | 가맹점 ID | O | 
+PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
+PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
+PCD_PAYER_ID | 결제 키 | O | 해당 키를 통해 결제요청
+PCD_PAY_OID | 주문번호 | O | 
+PCD_REGULER_FLAG | 정기결제 여부 | - | 
+PCD_TAXSAVE_TRADEUSE | 현금영수증 발행 구분 | - | personal=소득공제 / company=지출증빙<br>미입력시 결제내역 정보 이용 
+PCD_TAXSAVE_IDENTINUM | 현금영수증 발행대상 번호 | - | 휴대폰번호, 사업자번호<br>미입력시 결제내역 정보 이용 
+
+* Response 예시 
+```html
+{
+  "PCD_PAY_RST" => "success",
+  "PCD_PAY_MSG" => "현금영수증 발행 완료",
+  "PCD_PAYER_ID" => "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09",
+  "PCD_PAY_OID" => "test201804000001",
+  "PCD_REGULER_FLAG" => "Y",
+  "PCD_TAXSAVE_AMOUNT" => 15000,
+  "PCD_TAXSAVE_MGTNUM" => "test15424392310644"
+}
+```
+* Response 파라미터 설명
+
+파라미터 ID | 설명 | 예시
+:----: | :----: | :----: 
+PCD_PAY_RST | 현금영수증 발행 결과 | success / error 
+PCD_PAY_MSG | 현금영수증 발행 결과 메세지 | 현금영수증 발행 완료 / 실패
+PCD_PAYER_ID | 결제 키 | NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09
+PCD_PAY_OID | 주문번호 | test201804000001
+PCD_REGULER_FLAG | 정기결제 여부 | Y / N
+PCD_TAXSAVE_AMOUNT | 현금영수증 발행 금액 | 15000 
+PCD_TAXSAVE_MGTNUM | 국세청 발행 번호 | test15424392310644
+
+<br><br><br>
+### 7. 현금영수증 - 취소 
+* 현금영수증 취소 REST API 입니다.
+* Request 예시 
+```html
+<!-- 가맹점 인증 -->
+POST /php/auth.php HTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "PCD_PAY_WORK": "TSCANCEL"
+}
+
+<!-- 현금영수증 취소요청  -->
+POST PCD_PAY_URL HTTP/1.1
+Host: PCD_PAY_HOST
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "PCD_CST_ID" : "test",
+  "PCD_CUST_KEY" : "abcd1234567890",
+  "PCD_AUTH_KEY" : "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
+  "PCD_PAYER_ID" : "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09",
+  "PCD_PAY_OID" : "test201804000001",
+  "PCD_REGULER_FLAG" : "Y"
+}
+```
+
+파라미터 ID | 설명 | 필수 | 비고
+:----: | :----: | :----: | :----:
+PCD_CST_ID | 가맹점 ID | O | 
+PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
+PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
+PCD_PAYER_ID | 결제 키 | O | 해당 키를 통해 결제요청
+PCD_PAY_OID | 주문번호 | O | 
+PCD_REGULER_FLAG | 정기결제 여부 | - | 
+
+* Response 예시 
+```html
+{
+  "PCD_PAY_RST" => "success",
+  "PCD_PAY_MSG" => "현금영수증 발행취소 완료",
+  "PCD_PAYER_ID" => "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09",
+  "PCD_PAY_OID" => "test201804000001",
+  "PCD_REGULER_FLAG" => "Y",
+  "PCD_TAXSAVE_AMOUNT" => 15000,
+  "PCD_TAXSAVE_MGTNUM" => "test15424392310644"
+}
+```
+* Response 파라미터 설명
+
+파라미터 ID | 설명 | 예시
+:----: | :----: | :----: 
+PCD_PAY_RST | 현금영수증 발행 결과 | success / error 
+PCD_PAY_MSG | 현금영수증 발행 결과 메세지 | 현금영수증 발행취소 완료 / 실패
+PCD_PAYER_ID | 결제 키 | NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09
+PCD_PAY_OID | 주문번호 | test201804000001
+PCD_REGULER_FLAG | 정기결제 여부 | Y / N
+PCD_TAXSAVE_AMOUNT | 현금영수증 발행 금액 | 15000 
+PCD_TAXSAVE_MGTNUM | 국세청 발행 번호 | test15424392310644
 
 <br><br><br>
 ## 결제결과 수신  
