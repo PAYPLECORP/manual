@@ -184,6 +184,31 @@ Cache-Control: no-cache
   "return_url": "https://cpay.payple.kr/php/taxsave/api/tsAct.php?ACT_=TSCANCEL"
 }
 ```
+* 기 등록계좌 해지 - Request 
+```html
+POST /php/auth.php HTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "PCD_PAY_WORK": "PUSERDEL"
+}
+```
+* 기 등록계좌 해지 - Response
+```html
+{
+  "result": "success",
+  "result_msg": "사용자 인증완료",
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
+  "PCD_PAY_HOST": "https://testcpay.payple.kr",
+  "PCD_PAY_URL": "/php/cPayUser/api/cPayUserAct.php?ACT_=PUSERDEL",
+  "return_url": "https://cpay.payple.kr/php/cPayUser/api/cPayUserAct.php?ACT_=PUSERDEL"
+}
+```
 <br><br><br>
 ## 결제요청 
 ### 1. 최초결제 - 공통  
@@ -634,6 +659,67 @@ PCD_PAY_OID | 주문번호 | test201804000001
 PCD_REGULER_FLAG | 정기결제 여부 | Y / N
 PCD_TAXSAVE_AMOUNT | 현금영수증 발행 금액 | 15000 
 PCD_TAXSAVE_MGTNUM | 국세청 발행 번호 | test15424392310644
+
+<br><br><br>
+### 8. 기 등록계좌 해지 
+* 결제 후 은행에 등록된 계좌를 해지하는 API 입니다.
+* 해지된 사용자가 결제 시 ARS 인증을 진행하고 계좌를 재등록합니다. 
+* Request 예시 
+```html
+<!-- 가맹점 인증 -->
+POST /php/auth.php HTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "PCD_PAY_WORK": "PUSERDEL"
+}
+
+<!-- 계좌 해지요청  -->
+POST PCD_PAY_URL HTTP/1.1
+Host: PCD_PAY_HOST
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "PCD_CST_ID" : "test",
+  "PCD_CUST_KEY" : "abcd1234567890",
+  "PCD_AUTH_KEY" : "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
+  "PCD_PAYER_ID" : "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09",					
+  "PCD_PAYER_NO" : "2324"
+}
+```
+
+파라미터 ID | 설명 | 필수 | 비고
+:----: | :----: | :----: | :----:
+PCD_CST_ID | 가맹점 ID | O | 
+PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
+PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
+PCD_PAYER_ID | 결제 키 | O | 해당 키를 통해 결제요청
+PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | - | 
+
+* Response 예시 
+```html
+{
+  "PCD_PAY_RST" => "success",
+  "PCD_PAY_MSG" => "계좌해지완료",
+  "PCD_PAY_TYPE" => "transfer",
+  "PCD_PAY_WORK" => "PUSERDEL",
+  "PCD_PAYER_ID" => "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09",
+  "PCD_PAYER_NO" => "2324"
+}
+```
+* Response 파라미터 설명
+
+파라미터 ID | 설명 | 예시
+:----: | :----: | :----: 
+PCD_PAY_RST | 계좌해지 요청 결과 | success / error 
+PCD_PAY_MSG | 계좌해지 요청 결과 메세지 | 계좌해지완료 / 실패
+PCD_PAY_TYPE | 결제수단 | transfer 
+PCD_PAY_WORK | 업무구분 | PUSERDEL (계좌해지) 
+PCD_PAYER_ID | 결제 키 | NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09
+PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | 2324
 
 <br><br><br>
 ## 결제결과 수신  
