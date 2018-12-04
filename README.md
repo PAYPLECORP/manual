@@ -39,6 +39,9 @@ KEY | custKey : abcd1234567890 | custKey : ID 매칭 Key
 POST /php/auth.php HTTP/1.1
 Host: testcpay.payple.kr
 Content-Type: application/json
+<!-- AWS REFERER 추가 시작 -->
+http_referer: http://가맹점 도메인 
+<!-- AWS REFERER 추가 완료 -->
 Cache-Control: no-cache
 {
   "cst_id": "test",
@@ -65,6 +68,9 @@ Cache-Control: no-cache
 POST /php/auth.php HTTP/1.1
 Host: testcpay.payple.kr
 Content-Type: application/json
+<!-- AWS REFERER 추가 시작 -->
+http_referer: http://가맹점 도메인 
+<!-- AWS REFERER 추가 완료 -->
 Cache-Control: no-cache
 {
   "cst_id": "test",
@@ -89,6 +95,9 @@ Cache-Control: no-cache
 POST /php/auth.php HTTP/1.1
 Host: testcpay.payple.kr
 Content-Type: application/json
+<!-- AWS REFERER 추가 시작 -->
+http_referer: http://가맹점 도메인 
+<!-- AWS REFERER 추가 완료 -->
 Cache-Control: no-cache
 {
   "cst_id": "test",
@@ -114,6 +123,9 @@ Cache-Control: no-cache
 POST /php/auth.php HTTP/1.1
 Host: testcpay.payple.kr
 Content-Type: application/json
+<!-- AWS REFERER 추가 시작 -->
+http_referer: http://가맹점 도메인 
+<!-- AWS REFERER 추가 완료 -->
 Cache-Control: no-cache
 {
   "cst_id": "test",
@@ -139,6 +151,9 @@ Cache-Control: no-cache
 POST /php/auth.php HTTP/1.1
 Host: testcpay.payple.kr
 Content-Type: application/json
+<!-- AWS REFERER 추가 시작 -->
+http_referer: http://가맹점 도메인 
+<!-- AWS REFERER 추가 완료 -->
 Cache-Control: no-cache
 {
   "cst_id": "test",
@@ -164,6 +179,9 @@ Cache-Control: no-cache
 POST /php/auth.php HTTP/1.1
 Host: testcpay.payple.kr
 Content-Type: application/json
+<!-- AWS REFERER 추가 시작 -->
+http_referer: http://가맹점 도메인 
+<!-- AWS REFERER 추가 완료 -->
 Cache-Control: no-cache
 {
   "cst_id": "test",
@@ -189,6 +207,9 @@ Cache-Control: no-cache
 POST /php/auth.php HTTP/1.1
 Host: testcpay.payple.kr
 Content-Type: application/json
+<!-- AWS REFERER 추가 시작 -->
+http_referer: http://가맹점 도메인 
+<!-- AWS REFERER 추가 완료 -->
 Cache-Control: no-cache
 {
   "cst_id": "test",
