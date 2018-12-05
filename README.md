@@ -235,7 +235,7 @@ Cache-Control: no-cache
 ### 1. 최초결제 - 공통  
 * 페이플은 자바스크립트만을 이용해 모든 결제절차를 진행합니다. <br><br> 
 ![Alt text](/img/onetime_01.png) <br><br>
-* 간편결제, 정기결제에서 최초결제없이 계좌등록만 하기 위해서는 obj.PCD_PAY_WORK = 'AUTH' 로 세팅하시면 됩니다.<br><br>
+* 간편결제, 정기결제에서 최초결제없이 **계좌등록만 하기 위해서는 obj.PCD_PAY_WORK = 'AUTH'** 로 세팅하시면 됩니다.<br><br>
 ![Alt text](/img/auth.png) <br><br>
 * 아래 소스코드를 가맹점 주문페이지에 추가합니다.
 * 자세한 내용은 [order_confirm.html 샘플](/sample/order_confirm.html)을 참고하시면 됩니다. 
@@ -253,6 +253,10 @@ $(document).ready( function () {
      
     var cfg = new Object();
     var cfg_file_url = "/cPayPayple/payple.cgi";
+    <!-- 결과를 콜백 함수로 받고자 하는 경우 함수 추가 -->
+    var getResult = function (res) {  // getResult : 콜백 함수명 
+    };
+    <!-- End : 결과를 콜백 함수로 받고자 하는 경우 함수 추가 -->
     
     $.get(cfg_file_url, function(data) {
         
@@ -292,6 +296,9 @@ $(document).ready( function () {
         obj.PCD_PAY_WORK = pay_work;
         obj.PCD_PAYER_AUTHTYPE = 'pwd'; 
         obj.PCD_RST_URL = '/order_result.html';
+	<!-- 결과를 콜백 함수로 받고자 하는 경우 함수 설정 추가 -->
+        obj.callbackFunction = getResult;  // getResult : 콜백 함수명 
+        <!-- End : 결과를 콜백 함수로 받고자 하는 경우 함수 설정 추가 -->
 	
         /*
          * 1. 간편결제
@@ -310,7 +317,7 @@ $(document).ready( function () {
         obj.PCD_TAXSAVE_FLAG = is_taxsave; 
         obj.PCD_SIMPLE_FLAG = 'Y'; 
 	/*
-         * 1. 간편결제
+         * End : 1. 간편결제
          */
         
         /*
@@ -328,7 +335,7 @@ $(document).ready( function () {
         obj.PCD_PAY_MONTH = pay_month;
         obj.PCD_TAXSAVE_FLAG = is_taxsave;        
 	/*
-         * 2. 단건결제 
+         * End : 2. 단건결제 
          */
 	
         PaypleCpayAuthCheck(obj);
@@ -744,7 +751,8 @@ PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | 2324
 
 <br><br><br>
 ## 결제결과 수신  
-* 아래 소스코드를 가맹점 결제완료 페이지에 추가하고 가맹점 환경에 맞는 개발언어로 수정해주세요.
+> 결제결과를 콜백 함수로 수신하는 경우에는 아래 절차가 필요없습니다. 
+* 콜백 함수를 이용하지 않는 경우에는 아래 소스코드를 가맹점 결제완료 페이지에 추가하고 가맹점 환경에 맞는 개발언어로 수정해주세요.
 * 자세한 내용은 [order_result.html 샘플](/sample/order_result.html)을 참고하시면 됩니다. 
 ```php
 <?
