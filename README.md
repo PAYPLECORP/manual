@@ -253,10 +253,10 @@ $(document).ready( function () {
      
     var cfg = new Object();
     var cfg_file_url = "/cPayPayple/payple.cgi";
-    <!-- 결과를 콜백 함수로 받고자 하는 경우 함수 추가 -->
+    /* 결과를 콜백 함수로 받고자 하는 경우 함수 추가 */
     var getResult = function (res) {  // getResult : 콜백 함수명 
     };
-    <!-- End : 결과를 콜백 함수로 받고자 하는 경우 함수 추가 -->
+    /* End : 결과를 콜백 함수로 받고자 하는 경우 함수 추가 */
     
     $.get(cfg_file_url, function(data) {
         
@@ -296,9 +296,9 @@ $(document).ready( function () {
         obj.PCD_PAY_WORK = pay_work;
         obj.PCD_PAYER_AUTHTYPE = 'pwd'; 
         obj.PCD_RST_URL = '/order_result.html';
-	<!-- 결과를 콜백 함수로 받고자 하는 경우 함수 설정 추가 -->
+	/* 결과를 콜백 함수로 받고자 하는 경우 함수 설정 추가 */
         obj.callbackFunction = getResult;  // getResult : 콜백 함수명 
-        <!-- End : 결과를 콜백 함수로 받고자 하는 경우 함수 설정 추가 -->
+        /* End : 결과를 콜백 함수로 받고자 하는 경우 함수 설정 추가 */
 	
         /*
          * 1. 간편결제
