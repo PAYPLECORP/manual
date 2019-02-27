@@ -359,7 +359,7 @@ PCD_PAY_WORK | 결제요청 방식 | O |1. AUTH=인증만 진행<br>2. CERT= 가
 PCD_PAYER_AUTHTYPE | 간편결제 인증방식 | - | PCD_SIMPLE_FLAG : 'Y' 일때 필수<br>pwd : 결제비밀번호
 PCD_RST_URL | 결제(요청)결과 RETURN URL | O | 결제결과를 콜백 함수가 아닌 URL로 수신할 경우만 해당<br>모바일에서 팝업방식은 상대경로, 다이렉트 방식은 절대경로로 설정  
 PCD_PAYER_ID | 결제 키 | O | 해당 키를 통해 결제요청
-PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | 
+PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | maxlength=10
 PCD_PAYER_NAME | 결제고객 이름 | - | 
 PCD_PAYER_HP | 결제고객 휴대폰번호 | - |  
 PCD_PAYER_EMAIL | 결제고객 이메일 | - | 
