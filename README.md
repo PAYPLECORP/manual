@@ -245,30 +245,7 @@ Cache-Control: no-cache
 
 <!-- 가맹점 주문페이지 '결제하기' 버튼 액션 -->
 <script>	
-$(document).ready( function () {    
-    /*
-     * Payple ID, KEY, AUTH_URL 가져오기
-     */
-     
-    var cfg = new Object();
-    var cfg_file_url = "/cPayPayple/payple.cgi";
-    /* 결과를 콜백 함수로 받고자 하는 경우 함수 추가 */
-    var getResult = function (res) {  // getResult : 콜백 함수명 
-    };
-    /* End : 결과를 콜백 함수로 받고자 하는 경우 함수 추가 */
-    
-    $.get(cfg_file_url, function(data) {
-        
-        var lines = data.split("\n");
-        
-        $.each(lines, function (n, elem) {
-            var n_data = elem.split(" = ");
-            if (n_data[0] == 'PCD_CST_ID') cfg.PCD_CST_ID = n_data[1];
-            if (n_data[0] == 'PCD_CUST_KEY') cfg.PCD_CUST_KEY = n_data[1];
-            if (n_data[0] == 'PCD_AUTH_URL') cfg.PCD_AUTH_URL = n_data[1];
-        });
-    });
-    
+$(document).ready( function () {       
     $('#payAction').on('click', function (event) {
         
         var pay_work = "PAY";
@@ -287,9 +264,6 @@ $(document).ready( function () {
         
         var obj = new Object();
         
-        obj.PCD_CST_ID = cfg.PCD_CST_ID;
-        obj.PCD_CUST_KEY = cfg.PCD_CUST_KEY;
-        obj.PCD_AUTH_URL = cfg.PCD_AUTH_URL;
         obj.PCD_CPAY_VER = "1.0.1";
         obj.PCD_PAY_TYPE = 'transfer';           
         obj.PCD_PAY_WORK = pay_work;
