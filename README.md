@@ -265,15 +265,19 @@ $(document).ready( function () {
         var obj = new Object();
         
         obj.PCD_CPAY_VER = "1.0.1";
-        obj.PCD_PAY_TYPE = 'transfer';           
+        obj.PCD_PAY_TYPE = 'transfer';
         obj.PCD_PAY_WORK = pay_work;
-        obj.PCD_PAYER_AUTHTYPE = 'pwd'; 
-	/* 결과를 콜백 함수로 받고자 하는 경우 함수 설정 추가 */
-        obj.callbackFunction = getResult;  // getResult : 콜백 함수명 
+        obj.PCD_PAYER_AUTHTYPE = 'pwd';
+        /* (선택) cPayPayple 폴더 경로 (ex: /shop/cPayPayple 은 /shop 로 지정) */
+        obj.payple_dir_path = '/pg/pay';
+        /* (선택) cPayPayple 폴더 의 payple_payAuth.html 대체파일 명 (Node.JS : auth => [app.js] app.post('/cPayPayple/auth', ...) */
+        obj.payple_auth_file = 'auth';
+        /* 결과를 콜백 함수로 받고자 하는 경우 함수 설정 추가 */
+        obj.callbackFunction = getResult;  // getResult : 콜백 함수명
         /* End : 결과를 콜백 함수로 받고자 하는 경우 함수 설정 추가 */
-	/* 결과를 콜백 함수가 아닌 URL로 받고자 하는 경우 */
-	obj.PCD_RST_URL = '/order_result.html';
-	/* End : 결과를 콜백 함수가 아닌 URL로 받고자 하는 경우 */
+        /* 결과를 콜백 함수가 아닌 URL로 받고자 하는 경우 */
+        obj.PCD_RST_URL = '/order_result.html';
+        /* End : 결과를 콜백 함수가 아닌 URL로 받고자 하는 경우 */
 	
         /*
          * 1. 간편결제
@@ -323,9 +327,6 @@ $(document).ready( function () {
 
 파라미터 ID | 설명 | 필수 | 비고
 :----: | :----: | :----: | ----
-PCD_CST_ID | 가맹점인증 ID | O | 
-PCD_CUST_KEY | 가맹점인증 KEY | O |
-PCD_AUTH_URL | 가맹점인증 서버 URL | O |
 PCD_CPAY_VER | 결제창 버전 | O | 
 PCD_PAY_TYPE | 결제수단 | O | 
 PCD_PAY_WORK | 결제요청 방식 | O | - AUTH : 계좌등록만 진행<br>- CERT : 가맹점 최종승인 후 계좌등록+결제 진행<br>- PAY : 가맹점 최종승인없이 계좌등록+결제 진행 
