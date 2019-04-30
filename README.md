@@ -53,8 +53,8 @@ Cache-Control: no-cache
 {
   "result": "success",
   "result_msg": "사용자 인증완료",
-  "cst_id": "test",
-  "custKey": "abcd1234567890",
+  "cst_id": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09",
+  "custKey": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09",
   "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
   "return_url": "https://cpay.payple.kr/php/SimplePayAct.php?ACT_=PAYM",
   "cPayHost": "https://cpay.payple.kr",
@@ -80,8 +80,8 @@ Cache-Control: no-cache
 {
   "result": "success",
   "result_msg": "사용자 인증완료",
-  "cst_id": "test",
-  "custKey": "abcd1234567890",
+  "cst_id": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09",
+  "custKey": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09",
   "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
   "return_url": "https://cpay.payple.kr/php/PayAct.php?ACT_=PAYM",
   "cPayHost": "https://cpay.payple.kr",
@@ -108,8 +108,8 @@ Cache-Control: no-cache
 {
   "result": "success",
   "result_msg": "사용자 인증완료",
-  "cst_id": "test",
-  "custKey": "abcd1234567890",
+  "cst_id": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09",
+  "custKey": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09",
   "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
   "return_url": "https://cpay.payple.kr/php/RePayAct.php?ACT_=PAYM",
   "cPayHost": "https://cpay.payple.kr",
@@ -136,8 +136,8 @@ Cache-Control: no-cache
 {
   "result": "success",
   "result_msg": "사용자 인증완료",
-  "cst_id": "test",
-  "custKey": "abcd1234567890",
+  "cst_id": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09",
+  "custKey": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09",
   "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
   "PCD_PAY_HOST": "https://testcpay.payple.kr",
   "PCD_PAY_URL": "/php/link/api/LinkRegAct.php?ACT_=LINKREG",
@@ -164,8 +164,8 @@ Cache-Control: no-cache
 {
   "result": "success|error",
   "result_msg": "사용자 인증완료",
-  "cst_id": "test",
-  "custKey": "abcd1234567890",
+  "cst_id": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09",
+  "custKey": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09",
   "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
   "PCD_PAY_HOST": "https://testcpay.payple.kr",
   "PCD_PAY_URL": "/php/taxsave/api/tsAct.php?ACT_=TSREG",
@@ -192,8 +192,8 @@ Cache-Control: no-cache
 {
   "result": "success|error",
   "result_msg": "사용자 인증완료",
-  "cst_id": "test",
-  "custKey": "abcd1234567890",
+  "cst_id": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09",
+  "custKey": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09",
   "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
   "PCD_PAY_HOST": "https://testcpay.payple.kr",
   "PCD_PAY_URL": "/php/taxsave/api/tsAct.php?ACT_=TSCANCEL",
@@ -220,8 +220,8 @@ Cache-Control: no-cache
 {
   "result": "success",
   "result_msg": "사용자 인증완료",
-  "cst_id": "test",
-  "custKey": "abcd1234567890",
+  "cst_id": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09",
+  "custKey": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09",
   "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
   "PCD_PAY_HOST": "https://testcpay.payple.kr",
   "PCD_PAY_URL": "/php/cPayUser/api/cPayUserAct.php?ACT_=PUSERDEL",
@@ -357,8 +357,8 @@ Host: testcpay.payple.kr
 Content-Type: application/json
 Cache-Control: no-cache
 {
-  "PCD_CST_ID": "test",										
-  "PCD_CUST_KEY": "abcd1234567890",								
+  "PCD_CST_ID": "test",	// 또는 인코딩된 "PCD_CST_ID": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09"
+  "PCD_CUST_KEY": "abcd1234567890", // 또는 인코딩된 "PCD_CUST_KEY": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09"	
   "PCD_AUTH_KEY": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d", 
   "PCD_PAY_REQKEY": "RmFBWWFBTWNS9qNTgzU2xdd2XRNHR2",					
   "PCD_PAYER_ID": "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09"
@@ -414,8 +414,8 @@ Host: testcpay.payple.kr
 Content-Type: application/json
 Cache-Control: no-cache
 {
-   "PCD_CST_ID": "test",
-   "PCD_CUST_KEY": "abcd1234567890",
+   "PCD_CST_ID": "test",	// 또는 인코딩된 "PCD_CST_ID": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09"
+   "PCD_CUST_KEY": "abcd1234567890", // 또는 인코딩된 "PCD_CUST_KEY": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09"
    "PCD_AUTH_KEY": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
    "PCD_PAY_TYPE": "transfer",							
    "PCD_PAYER_NO": "2324",
@@ -474,8 +474,8 @@ Host: PCD_PAY_HOST
 Content-Type: application/json
 Cache-Control: no-cache
 {
-  "PCD_CST_ID" : "test",
-  "PCD_CUST_KEY" : "abcd1234567890",
+  "PCD_CST_ID": "test",	// 또는 인코딩된 "PCD_CST_ID": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09"
+  "PCD_CUST_KEY": "abcd1234567890", // 또는 인코딩된 "PCD_CUST_KEY": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09"
   "PCD_AUTH_KEY" : "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
   "PCD_PAY_WORK" : "LINKREG",
   "PCD_PAY_TYPE" : "transfer",
@@ -554,8 +554,8 @@ Host: PCD_PAY_HOST
 Content-Type: application/json
 Cache-Control: no-cache
 {
-  "PCD_CST_ID" : "test",
-  "PCD_CUST_KEY" : "abcd1234567890",
+  "PCD_CST_ID": "test",	// 또는 인코딩된 "PCD_CST_ID": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09"
+  "PCD_CUST_KEY": "abcd1234567890", // 또는 인코딩된 "PCD_CUST_KEY": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09"
   "PCD_AUTH_KEY" : "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
   "PCD_PAYER_ID" : "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09",
   "PCD_PAY_OID" : "test201804000001",
@@ -622,8 +622,8 @@ Host: PCD_PAY_HOST
 Content-Type: application/json
 Cache-Control: no-cache
 {
-  "PCD_CST_ID" : "test",
-  "PCD_CUST_KEY" : "abcd1234567890",
+  "PCD_CST_ID": "test",	// 또는 인코딩된 "PCD_CST_ID": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09"
+  "PCD_CUST_KEY": "abcd1234567890", // 또는 인코딩된 "PCD_CUST_KEY": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09"
   "PCD_AUTH_KEY" : "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
   "PCD_PAYER_ID" : "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09",
   "PCD_PAY_OID" : "test201804000001",
@@ -687,8 +687,8 @@ Host: PCD_PAY_HOST
 Content-Type: application/json
 Cache-Control: no-cache
 {
-  "PCD_CST_ID" : "test",
-  "PCD_CUST_KEY" : "abcd1234567890",
+  "PCD_CST_ID": "test",	// 또는 인코딩된 "PCD_CST_ID": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09"
+  "PCD_CUST_KEY": "abcd1234567890", // 또는 인코딩된 "PCD_CUST_KEY": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09"
   "PCD_AUTH_KEY" : "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
   "PCD_PAYER_ID" : "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09",					
   "PCD_PAYER_NO" : "2324"
@@ -794,8 +794,8 @@ Host: testcpay.payple.kr
 Content-Type: application/json
 Cache-Control: no-cache
 {
-   "PCD_CST_ID": "test",
-   "PCD_CUST_KEY": "abcd1234567890",
+   "PCD_CST_ID": "test",	// 또는 인코딩된 "PCD_CST_ID": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09"
+   "PCD_CUST_KEY": "abcd1234567890", // 또는 인코딩된 "PCD_CUST_KEY": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09"
    "PCD_AUTH_KEY": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
    "PCD_PAYCHK_FLAG": "Y",
    "PCD_PAY_TYPE": "transfer",
