@@ -452,6 +452,43 @@ PCD_TAXSAVE_IDNUM | 현금영수증 발행 번호 | - | 휴대폰번호, 사업�
 PCD_REGULER_FLAG | 정기결제 여부 | O | 
 PCD_PAYER_EMAIL | 결제고객 이메일 | O | 
 
+* Response 예시 
+```html
+{
+  "PCD_PAY_RST" => "success|error",
+  "PCD_PAY_MSG" => "완료|실패..",
+  "PCD_PAY_OID" => "test201804000001",
+  "PCD_PAY_TYPE" => "transfer",
+  "PCD_PAYER_NO" => "2324",
+  "PCD_PAYER_ID" => "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09",
+  "PCD_PAY_GOODS" => "정기구독",
+  "PCD_PAY_TOTAL" => 1000,
+  "PCD_PAY_TIME" => "20180423130201",
+  "PCD_REGULER_FLAG" => "Y",
+  "PCD_PAY_YEAR" => 2018,
+  "PCD_PAY_MONTH" => 04,
+  "PCD_TAXSAVE_RST" => "Y",
+  "PCD_PAYER_EMAIL" => "dev@payple.kr"
+}
+```
+* Response 파라미터 설명
+
+파라미터 ID | 설명 | 예시
+:----: | :----: | :----: 
+PCD_PAY_RST | 정기결제 요청 결과 | success / error 
+PCD_PAY_MSG | 링크생성 요청 결과 메세지 | 출금이체완료 / 실패 
+PCD_PAY_OID | 주문번호 | test201804000001
+PCD_PAY_TYPE | 결제수단 | transfer 
+PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | 2324
+PCD_PAY_GOODS | 상품명 | 정기구독  
+PCD_PAY_TOTAL | 결제금액 | 1000 
+PCD_PAY_TIME | 결제시간 | 20180423130201
+PCD_REGULER_FLAG | 정기결제 여부 | Y / N
+PCD_PAY_YEAR | 과금연도<br>(정기결제) | 2018 
+PCD_PAY_MONTH | 과금월<br>(정기결제) | 08
+PCD_TAXSAVE_RST | 현금영수증 발행 결과 | Y / N
+PCD_PAYER_EMAIL | 결제고객 이메일 | dev@payple.kr
+
 <br><br><br>
 ### 5. 링크결제 - 링크생성 
 * 링크결제의 링크생성은 별도 UI 없이 REST Request 방식으로 진행됩니다. 
