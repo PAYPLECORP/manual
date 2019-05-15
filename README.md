@@ -252,7 +252,7 @@ $(document).ready( function () {
         var buyer_no = "2335";
         var buyer_name = "홍길동";
         var buyer_hp = "01012345678";
-        var buyer_email = "test@payple.kr";
+        var buyer_email = "dev@payple.kr";
         var buy_goods = "휴대폰";
         var buy_total = "1000";
         var order_num = "test0553941001540967923";
@@ -429,7 +429,7 @@ Cache-Control: no-cache
    "PCD_TAXSAVE_TRADE": "personal",
    "PCD_TAXSAVE_IDNUM": "01022224444",
    "PCD_REGULER_FLAG": "Y",
-   "PCD_PAYER_EMAIL": "test@test.com"
+   "PCD_PAYER_EMAIL": "dev@payple.kr"
 }
 ```
 
