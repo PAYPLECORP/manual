@@ -463,6 +463,9 @@ PCD_PAYER_EMAIL | 결제고객 이메일 | O |
   "PCD_PAYER_ID" => "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09",
   "PCD_PAY_GOODS" => "정기구독",
   "PCD_PAY_TOTAL" => 1000,
+  "PCD_PAY_BANK" => "011",
+  "PCD_PAY_BANKNAME" => "농협",
+  "PCD_PAY_BANKNUM" => "460-********-121",
   "PCD_PAY_TIME" => "20180423130201",
   "PCD_REGULER_FLAG" => "Y",
   "PCD_PAY_YEAR" => 2018,
@@ -482,6 +485,9 @@ PCD_PAY_TYPE | 결제수단 | transfer
 PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | 2324
 PCD_PAY_GOODS | 상품명 | 정기구독  
 PCD_PAY_TOTAL | 결제금액 | 1000 
+PCD_PAY_BANK | 은행코드 | 011
+PCD_PAY_BANKNAME | 은행명 | 농협
+PCD_PAY_BANKNUM | 계좌번호 | 460- ******** -121
 PCD_PAY_TIME | 결제시간 | 20180423130201
 PCD_REGULER_FLAG | 정기결제 여부 | Y / N
 PCD_PAY_YEAR | 과금연도<br>(정기결제) | 2018 
@@ -784,6 +790,9 @@ $PCD_PAY_YEAR = (isset($_POST['PCD_PAY_YEAR'])) ? $_POST['PCD_PAY_YEAR'] : "";
 $PCD_PAY_MONTH = (isset($_POST['PCD_PAY_MONTH'])) ? $_POST['PCD_PAY_MONTH'] : "";
 $PCD_PAY_GOODS = (isset($_POST['PCD_PAY_GOODS'])) ? $_POST['PCD_PAY_GOODS'] : "";
 $PCD_PAY_TOTAL = (isset($_POST['PCD_PAY_TOTAL'])) ? $_POST['PCD_PAY_TOTAL'] : "";
+$PCD_PAY_BANK = (isset($_POST['PCD_PAY_BANK'])) ? $_POST['PCD_PAY_BANK'] : "";
+$PCD_PAY_BANKNAME = (isset($_POST['PCD_PAY_BANKNAME'])) ? $_POST['PCD_PAY_BANKNAME'] : "";
+$PCD_PAY_BANKNUM = (isset($_POST['PCD_PAY_BANKNUM'])) ? $_POST['PCD_PAY_BANKNUM'] : "";
 $PCD_PAY_TIME = (isset($_POST['PCD_PAY_TIME'])) ? $_POST['PCD_PAY_TIME'] : "";         
 $PCD_TAXSAVE_RST = (isset($_POST['PCD_TAXSAVE_RST'])) ? $_POST['PCD_TAXSAVE_RST'] : "";   
 ?>
@@ -808,6 +817,9 @@ PCD_PAY_YEAR | 과금연도<br>(정기결제) | 2018
 PCD_PAY_MONTH | 과금월<br>(정기결제) | 08
 PCD_PAY_GOODS | 상품명 | 정기구독 
 PCD_PAY_TOTAL | 결제금액 | 1000
+PCD_PAY_BANK | 은행코드 | 011
+PCD_PAY_BANKNAME | 은행명 | 농협
+PCD_PAY_BANKNUM | 계좌번호 | 460- ******** -121
 PCD_PAY_TIME | 결제완료 시간 | 20180110152911
 PCD_TAXSAVE_RST | 현금영수증 발행 결과 | Y / N 
 
@@ -871,6 +883,9 @@ PCD_PAY_DATE | 결제요청일자(YYYYMMDD) | O |
    "PCD_PAY_MONTH" => "05",
    "PCD_PAY_GOODS": "간편상품",
    "PCD_PAY_TOTAL": "1000",
+   "PCD_PAY_BANK": "011",
+   "PCD_PAY_BANKNAME": "농협",
+   "PCD_PAY_BANKNUM: "460- ******** -121",
    "PCD_PAY_TIME" => "20180423130201",
    "PCD_TAXSAVE_RST": "Y",
    "PCD_REGULER_FLAG": "Y"
@@ -890,6 +905,9 @@ PCD_PAY_YEAR | 과금연도<br>(정기결제) | 2018
 PCD_PAY_MONTH | 과금월<br>(정기결제) | 08
 PCD_PAY_GOODS | 상품명 | 정기구독 
 PCD_PAY_TOTAL | 결제금액 | 1000
+PCD_PAY_BANK | 은행코드 | 011
+PCD_PAY_BANKNAME | 은행명 | 농협
+PCD_PAY_BANKNUM | 계좌번호 | 460- ******** -121
 PCD_PAY_BANK | 결제 은행코드 | 081
 PCD_PAY_BANKNUM | 결제 계좌번호 | 2881204040404
 PCD_PAY_TIME | 결제완료 시간 | 20180110152911
