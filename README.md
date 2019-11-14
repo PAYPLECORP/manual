@@ -915,6 +915,76 @@ PCD_TAXSAVE_RST | 현금영수증 발행 결과 | Y / N
 PCD_REGULER_FLAG | 정기결제 여부 | Y / N
 
 <br><br><br>
+## 등록계좌 조회  
+* 해당 REST API를 통해 가맹점에서는 언제든 등록된 계좌정보를 수신 가능합니다.
+* Request 예시 
+```html
+POST /php/auth.php HTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "PCD_PAY_WORK": "PUSERINFO"
+}
+
+POST /php/cPayUser/api/cPayUserAct.php?ACT_=PUSERINFO HTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+   "PCD_CST_ID": RES.cst_id,                           // 가맹점 인증요청 시 리턴받은 cst_id
+   "PCD_CUST_KEY": RES.custKey,                        // 가맹점 인증요청 시 리턴받은 custKey
+   "PCD_AUTH_KEY": RES.AuthKey,                        // 가맹점 인증요청 시 리턴받은 AuthKey
+   "PCD_PAYER_ID": "d0toSS9sT084bVJSNThScnFXQm9Gdz09", // 결제(빌링) KEY
+   "PCD_PAYER_NO": 122323                              // 사용자 필드, 결과에 그대로 리턴
+}
+```
+* Request 파라미터 설명 
+
+파라미터 ID | 설명 | 필수 | 비고
+:----: | :----: | :----: | :----:
+PCD_CST_ID | 가맹점 ID | O | 
+PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
+PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
+PCD_PAYER_ID | 결제(빌링) KEY | O | 
+PCD_PAYER_NO | 사용자 필드, 결과에 그대로 리턴 | O | 
+
+* Response 예시 
+```html
+{
+   "PCD_PAY_RST": "success",
+   "PCD_PAY_CODE": "0000",
+   "PCD_PAY_MSG": "계좌조회 성공",
+   "PCD_PAY_TYPE": "transfer",
+   "PCD_PAY_BANKACCTYPE": "개인",
+   "PCD_PAYER_ID" => "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09",
+   "PCD_PAYER_NAME": "홍길동",
+   "PCD_PAYER_HP": "010-****-3333",
+   "PCD_PAY_BANK": "081",
+   "PCD_PAY_BANKNAME": "KEB하나은행",
+   "PCD_PAY_BANKNUM": "123-********-021"
+}
+```
+* Response 파라미터 설명 
+
+파라미터 ID | 설명 | 예시
+:----: | :----: | :----:
+PCD_PAY_RST | 요청결과 | success / error 
+PCD_PAY_CODE | 요청결과 코드 | 0000 : 성공 / 실패시 실패코드 
+PCD_PAY_MSG | 요청결과 메세지 | 계좌조회 성공 등 
+PCD_PAY_TYPE | 결제수단 | transfer
+PCD_PAYER_ID | 결제 키 | NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09
+PCD_PAYER_NAME | 예금주명 | 홍길동 
+PCD_PAYER_HP | 휴대폰번호 | 010- * * * * -3333
+PCD_PAY_BANK | 은행코드 | 081
+PCD_PAY_BANKNAME | 은행명 | KEB하나은행
+PCD_PAY_BANKNUM | 계좌번호 | 460- ******** -121
+PCD_PAY_BANK | 결제 은행코드 | 081
+PCD_PAY_BANKNUM | 결제 계좌번호 | 123- ******** -021
+
+<br><br><br>
 ## 서비스가능 은행 및 점검시간 
 
 은행명 | 코드 | 평일, 토요일 | 공휴일
