@@ -788,22 +788,22 @@ Host: testcpay.payple.kr
 Content-Type: application/json
 Cache-Control: no-cache
 {
-   "PCD_CST_ID": RES.cst_id,                           // 가맹점 인증요청 시 리턴받은 cst_id
-   "PCD_CUST_KEY": RES.custKey,                        // 가맹점 인증요청 시 리턴받은 custKey
-   "PCD_AUTH_KEY": RES.AuthKey,                        // 가맹점 인증요청 시 리턴받은 AuthKey
-   "PCD_PAYER_ID": "d0toSS9sT084bVJSNThScnFXQm9Gdz09", // 결제(빌링) KEY
-   "PCD_PAYER_NO": 122323                              // 사용자 필드, 결과에 그대로 리턴
+   "PCD_CST_ID": RES.cst_id,                           
+   "PCD_CUST_KEY": RES.custKey,                        
+   "PCD_AUTH_KEY": RES.AuthKey,                        
+   "PCD_PAYER_ID": "d0toSS9sT084bVJSNThScnFXQm9Gdz09", 
+   "PCD_PAYER_NO": 122323                             
 }
 ```
 * Request 파라미터 설명 
 
 파라미터 ID | 설명 | 필수 | 비고
 :----: | :----: | :----: | :----:
-PCD_CST_ID | 가맹점 ID | O | 
-PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
-PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
-PCD_PAYER_ID | 결제(빌링) KEY | O | 
-PCD_PAYER_NO | 사용자 필드, 결과에 그대로 리턴 | O | 
+PCD_CST_ID | 가맹점 ID | O | 가맹점 인증요청 시 리턴받은 cst_id
+PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 가맹점 인증요청 시 리턴받은 custKey
+PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 가맹점 인증요청 시 리턴받은 AuthKey
+PCD_PAYER_ID | 결제(빌링) KEY | O | 결제(빌링) KEY
+PCD_PAYER_NO | 사용자 필드, 결과에 그대로 리턴 | O | 사용자 필드, 결과에 그대로 리턴
 
 * Response 예시 
 ```html
