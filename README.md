@@ -835,10 +835,6 @@ PCD_PAYER_HP | 휴대폰번호 | 010- * * * * -3333
 PCD_PAY_BANK | 은행코드 | 081
 PCD_PAY_BANKNAME | 은행명 | KEB하나은행
 PCD_PAY_BANKNUM | 계좌번호 | 460- ******** -121
-PCD_PAY_BANK | 결제 은행코드 | 081
-PCD_PAY_BANKNUM | 결제 계좌번호 | 123- ******** -021
-
-
 
 <br><br><br>
 ## 결제결과 수신  
