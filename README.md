@@ -802,8 +802,8 @@ Cache-Control: no-cache
 PCD_CST_ID | 가맹점 ID | O | 가맹점 인증요청 시 리턴받은 cst_id
 PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 가맹점 인증요청 시 리턴받은 custKey
 PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 가맹점 인증요청 시 리턴받은 AuthKey
-PCD_PAYER_ID | 결제(빌링) KEY | O | 결제(빌링) KEY
-PCD_PAYER_NO | 사용자 필드, 결과에 그대로 리턴 | O | 사용자 필드, 결과에 그대로 리턴
+PCD_PAYER_ID | 결제(빌링) KEY | O | 
+PCD_PAYER_NO | 사용자 필드, 결과에 그대로 리턴 | O | 
 
 * Response 예시 
 ```html
