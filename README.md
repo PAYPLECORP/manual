@@ -517,8 +517,8 @@ Host: PCD_PAY_HOST
 Content-Type: application/json
 Cache-Control: no-cache
 {
-  "PCD_CST_ID": "test",	// 또는 인코딩된 "PCD_CST_ID": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09"
-  "PCD_CUST_KEY": "abcd1234567890", // 또는 인코딩된 "PCD_CUST_KEY": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09"
+  "PCD_CST_ID": 인코딩된 "PCD_CST_ID": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09"
+  "PCD_CUST_KEY": 인코딩된 "PCD_CUST_KEY": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09"
   "PCD_AUTH_KEY" : "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
   "PCD_PAY_WORK" : "LINKREG",
   "PCD_PAY_TYPE" : "transfer",
