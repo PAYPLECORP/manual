@@ -30,6 +30,7 @@ ARS 인증만으로 계좌등록과 결제가 완료되기 때문에 별도 앱�
   * custKey (API 통신전문 변조를 방지하기 위한 비밀키)
 <br><br><br>
 #### 호출정보
+:----: | :----: | :----: | :----:
 구분 | 테스트 | 운영
 ---- | ---- | ----
 URL | https://testcpay.payple.kr/php/auth.php | https://cpay.payple.kr/php/auth.php
