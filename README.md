@@ -1,5 +1,5 @@
 # 페이플 - 계좌 간편결제, 정기결제  
-[페이플](#페이플) 계좌간편결제는 최초 1회 계좌등록 후 비밀번호만으로 결제 가능한 서비스입니다.<br> 
+페이플 계좌간편결제는 최초 1회 계좌등록 후 비밀번호만으로 결제 가능한 서비스입니다.<br> 
 ARS 인증만으로 계좌등록과 결제가 완료되기 때문에 별도 앱설치, 보안카드, 공인인증서 등이 필요없습니다.<br>
 그리고 페이플은 계좌간편결제 뿐 아니라 정기구독 서비스를 위한 계좌정기결제, PG의 실시간계좌이체를 대체하는 단건결제 서비스도 제공하고 있습니다. 
 
@@ -40,7 +40,7 @@ KEY | custKey : abcd1234567890 | custKey : ID 매칭 Key
 * 호출을 위한 [각 언어별 샘플](/sample/language)을 확인해보세요. 
 
 ```
-* 가맹점 인증요청 - Request 
+######가맹점 인증요청 - Request 
 * obj.payple_auth_file = '/pg/auth'; 에 설정 할 가맹점인증요청 파일 (ex: auth)을 생성합니다.
 
 ```html
@@ -110,7 +110,7 @@ $(document).ready( function () {
         obj.PCD_PAYER_AUTHTYPE = 'pwd';
         /* (필수) 가맹점 인증요청 파일 (Node.JS : auth => [app.js] app.post('/pg/auth', ...) */
 	/* auth 파일 생성은 1.1 
-        obj.payple_auth_file = '/pg/auth'; // 절대경로 포함 파일명 (예: /절대경로/payple_auth_file)
+        obj.payple_auth_file = '[/pg/auth](#가맹점 인증요청)'; // 절대경로 포함 파일명 (예: /절대경로/payple_auth_file)
 	/* End : 가맹점 인증요청 파일 */
 	
         /* 결과를 콜백 함수로 받고자 하는 경우 함수 설정 추가 */
