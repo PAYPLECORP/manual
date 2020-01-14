@@ -5,7 +5,7 @@ ARS 인증만으로 계좌등록과 결제가 완료되기 때문에 별도 앱�
 
 <br><br><br>
 ## 결제서비스별 흐름도 
-#페이플 각 결제서비스의 흐름도입니다. 동일한 조건으로 모든 결제서비스를 이용할 수 있습니다. <br>
+페이플 각 결제서비스의 흐름도입니다. 동일한 조건으로 모든 결제서비스를 이용할 수 있습니다. <br>
 ![Alt text](/img/flow.jpg)
 
 
@@ -40,7 +40,7 @@ KEY | custKey : abcd1234567890 | custKey : ID 매칭 Key
 * 호출을 위한 [각 언어별 샘플](/sample/language)을 확인해보세요. 
 
 ```
-######가맹점 인증요청 - Request 
+* 가맹점 인증요청 - Request 
 * obj.payple_auth_file = '/pg/auth'; 에 설정 할 가맹점인증요청 파일 (ex: auth)을 생성합니다.
 
 ```html
@@ -109,8 +109,8 @@ $(document).ready( function () {
         obj.PCD_PAY_WORK = pay_work;
         obj.PCD_PAYER_AUTHTYPE = 'pwd';
         /* (필수) 가맹점 인증요청 파일 (Node.JS : auth => [app.js] app.post('/pg/auth', ...) */
-	/* auth 파일 생성은 1.1 
-        obj.payple_auth_file = '[/pg/auth](#가맹점 인증요청)'; // 절대경로 포함 파일명 (예: /절대경로/payple_auth_file)
+	/* auth 파일 생성은 1.1 */ 
+        obj.payple_auth_file = '/pg/auth'; // 절대경로 포함 파일명 (예: /절대경로/payple_auth_file)
 	/* End : 가맹점 인증요청 파일 */
 	
         /* 결과를 콜백 함수로 받고자 하는 경우 함수 설정 추가 */
