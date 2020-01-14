@@ -32,37 +32,15 @@ KEY | custKey : abcd1234567890 | custKey : ID 매칭 Key
 비고 | - 인증은 진행되지만 출금은 되지 않습니다.<br>- 최소금액 1,000원 이상으로 테스트 해주세요. | - 실제 출금이 되며, 최소금액 1,000원부터 출금 가능합니다. 수수료도 발생합니다.<br>**- AWS(아마존웹서비스)에서 AUTH0004 오류 발생 시 가맹점 서버도메인의 REFERER 추가가 필요할 수 있습니다.**<br>**- 카페24, 가비아 등 서버호스팅 이용 시 호스팅사에 페이플 URL(테스트, 운영) 방화벽 오픈을 요청하셔야 할 수 있습니다.**   
 * 호출을 위한 [각 언어별 샘플](/sample/language)을 확인해보세요. 
 <br><br><br>
-#### 호출예시 
-* 계좌등록 간편결제 - Request 
-```html
-POST /php/auth.php HTTP/1.1
-Host: testcpay.payple.kr
-Content-Type: application/json
-<!-- AWS 이용 가맹점인 경우 REFERER 추가 -->
-Referer: http://가맹점 도메인 
-<!-- End : AWS 이용 가맹점인 경우 REFERER 추가 -->
-Cache-Control: no-cache
-{
-  "cst_id": "test",
-  "custKey": "abcd1234567890",
-  "PCD_SIMPLE_FLAG": "Y"
-}
+## 결제요청 
+### 1. 최초결제 - 공통 
 
+<br><br><br>
+### 1-1. 가맹점 인증 요청 파일 생성
 ```
-* 계좌등록 간편결제 - Response
-```html
-{
-  "result": "success",
-  "result_msg": "사용자 인증완료",
-  "cst_id": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09",
-  "custKey": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09",
-  "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
-  "return_url": "https://cpay.payple.kr/php/SimplePayAct.php?ACT_=PAYM",
-  "cPayHost": "https://cpay.payple.kr",
-  "cPayUrl": "/php/SimplePayAct.php?ACT_=PAYM"
-}
-```
-* 단건결제 - Request 
+* 가맹점 인증요청 - Request 
+* obj.payple_auth_file = '/pg/auth'; 에 설정 할 가맹점인증요청 파일 (ex: auth)을 생성합니다.
+
 ```html
 POST /php/auth.php HTTP/1.1
 Host: testcpay.payple.kr
@@ -76,63 +54,7 @@ Cache-Control: no-cache
   "custKey": "abcd1234567890"
 }
 ```
-* 단건결제 - Response
-```html
-{
-  "result": "success",
-  "result_msg": "사용자 인증완료",
-  "cst_id": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09",
-  "custKey": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09",
-  "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
-  "return_url": "https://cpay.payple.kr/php/PayAct.php?ACT_=PAYM",
-  "cPayHost": "https://cpay.payple.kr",
-  "cPayUrl": "/php/SimplePayAct.php?ACT_=PAYM"
-}
-```
-* 정기결제 - Request 
-```html
-POST /php/auth.php HTTP/1.1
-Host: testcpay.payple.kr
-Content-Type: application/json
-<!-- AWS 이용 가맹점인 경우 REFERER 추가 -->
-Referer: http://가맹점 도메인 
-<!-- End : AWS 이용 가맹점인 경우 REFERER 추가 -->
-Cache-Control: no-cache
-{
-  "cst_id": "test",
-  "custKey": "abcd1234567890",
-  "PCD_REGULER_FLAG": "Y"
-}
-```
-* 정기결제 - Response
-```html
-{
-  "result": "success",
-  "result_msg": "사용자 인증완료",
-  "cst_id": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09",
-  "custKey": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09",
-  "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
-  "return_url": "https://cpay.payple.kr/php/RePayAct.php?ACT_=PAYM",
-  "cPayHost": "https://cpay.payple.kr",
-  "cPayUrl": "/php/SimplePayAct.php?ACT_=PAYM"
-}
-```
-* 링크결제 - Request 
-```html
-POST /php/auth.php HTTP/1.1
-Host: testcpay.payple.kr
-Content-Type: application/json
-<!-- AWS 이용 가맹점인 경우 REFERER 추가 -->
-Referer: http://가맹점 도메인 
-<!-- End : AWS 이용 가맹점인 경우 REFERER 추가 -->
-Cache-Control: no-cache
-{
-  "cst_id": "test",
-  "custKey": "abcd1234567890",
-  "PCD_PAY_WORK": "LINKREG"
-}
-```
-* 링크결제 - Response
+* 가맹점인증요청 결과 - Response
 ```html
 {
   "result": "success",
@@ -141,97 +63,13 @@ Cache-Control: no-cache
   "custKey": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09",
   "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
   "PCD_PAY_HOST": "https://testcpay.payple.kr",
-  "PCD_PAY_URL": "/php/link/api/LinkRegAct.php?ACT_=LINKREG",
-  "return_url": "https://cpay.payple.kr/php/link/api/LinkRegAct.php?ACT_=LINKREG"
+  "PCD_PAY_URL": "/php/?ACT_=PAYM",
+  "return_url": "https://testcpay.payple.kr/php/?ACT_=PAYM"
 }
 ```
-* 현금영수증 발행 - Request 
-```html
-POST /php/auth.php HTTP/1.1
-Host: testcpay.payple.kr
-Content-Type: application/json
-<!-- AWS 이용 가맹점인 경우 REFERER 추가 -->
-Referer: http://가맹점 도메인 
-<!-- End : AWS 이용 가맹점인 경우 REFERER 추가 -->
-Cache-Control: no-cache
-{
-  "cst_id": "test",
-  "custKey": "abcd1234567890",
-  "PCD_PAY_WORK": "TSREG"
-}
-```
-* 현금영수증 발행 - Response
-```html
-{
-  "result": "success|error",
-  "result_msg": "사용자 인증완료",
-  "cst_id": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09",
-  "custKey": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09",
-  "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
-  "PCD_PAY_HOST": "https://testcpay.payple.kr",
-  "PCD_PAY_URL": "/php/taxsave/api/tsAct.php?ACT_=TSREG",
-  "return_url": "https://cpay.payple.kr/php/taxsave/api/tsAct.php?ACT_=TSREG"
-}
-```
-* 현금영수증 취소 - Request 
-```html
-POST /php/auth.php HTTP/1.1
-Host: testcpay.payple.kr
-Content-Type: application/json
-<!-- AWS 이용 가맹점인 경우 REFERER 추가 -->
-Referer: http://가맹점 도메인 
-<!-- End : AWS 이용 가맹점인 경우 REFERER 추가 -->
-Cache-Control: no-cache
-{
-  "cst_id": "test",
-  "custKey": "abcd1234567890",
-  "PCD_PAY_WORK": "TSCANCEL"
-}
-```
-* 현금영수증 취소 - Response
-```html
-{
-  "result": "success|error",
-  "result_msg": "사용자 인증완료",
-  "cst_id": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09",
-  "custKey": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09",
-  "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
-  "PCD_PAY_HOST": "https://testcpay.payple.kr",
-  "PCD_PAY_URL": "/php/taxsave/api/tsAct.php?ACT_=TSCANCEL",
-  "return_url": "https://cpay.payple.kr/php/taxsave/api/tsAct.php?ACT_=TSCANCEL"
-}
-```
-* 기 등록계좌 해지 - Request 
-```html
-POST /php/auth.php HTTP/1.1
-Host: testcpay.payple.kr
-Content-Type: application/json
-<!-- AWS 이용 가맹점인 경우 REFERER 추가 -->
-Referer: http://가맹점 도메인 
-<!-- End : AWS 이용 가맹점인 경우 REFERER 추가 -->
-Cache-Control: no-cache
-{
-  "cst_id": "test",
-  "custKey": "abcd1234567890",
-  "PCD_PAY_WORK": "PUSERDEL"
-}
-```
-* 기 등록계좌 해지 - Response
-```html
-{
-  "result": "success",
-  "result_msg": "사용자 인증완료",
-  "cst_id": "UFVNNVZpZk4reWo5UFRualUwcGV4dz09",
-  "custKey": "T3JzRkp5L1FTcEFDa1FQdHo5Um1UZz09",
-  "AuthKey": "a688ccb3555c25cd722483f03e23065c3d0251701ad6da895eb2d830bc06e34d",
-  "PCD_PAY_HOST": "https://testcpay.payple.kr",
-  "PCD_PAY_URL": "/php/cPayUser/api/cPayUserAct.php?ACT_=PUSERDEL",
-  "return_url": "https://cpay.payple.kr/php/cPayUser/api/cPayUserAct.php?ACT_=PUSERDEL"
-}
-```
+
 <br><br><br>
-## 결제요청 
-### 1. 최초결제 - 공통  
+### 1-2. 결제창 호출
 * 페이플은 자바스크립트만을 이용해 모든 결제절차를 진행합니다. <br><br> 
 ![Alt text](/img/onetime_01.png) <br><br>
 * 간편결제, 정기결제에서 최초결제없이 **계좌등록만 하기 위해서는 obj.PCD_PAY_WORK = 'AUTH'** 로 세팅하시면 됩니다.<br><br>
@@ -269,6 +107,7 @@ $(document).ready( function () {
         obj.PCD_PAY_WORK = pay_work;
         obj.PCD_PAYER_AUTHTYPE = 'pwd';
         /* (필수) 가맹점 인증요청 파일 (Node.JS : auth => [app.js] app.post('/pg/auth', ...) */
+	/* auth 파일 생성은 1.1 
         obj.payple_auth_file = '/pg/auth'; // 절대경로 포함 파일명 (예: /절대경로/payple_auth_file)
 	/* End : 가맹점 인증요청 파일 */
 	
@@ -348,7 +187,7 @@ PCD_TAXSAVE_FLAG | 현금영수증 발행 여부<br> | O | Y=발행 / N=미발�
 PCD_SIMPLE_FLAG | 간편결제 여부 | - | 
 
 <br><br>
-#### 1-1. 결제생성 후 승인(PCD_PAY_WORK : CERT) 
+#### 1-3. 결제생성 후 승인(PCD_PAY_WORK : CERT) 
 * 가맹점의 최종 승인 후에 결제를 진행하며 REST Request 방식으로 진행합니다. 
 * Request 예시 
 ```html
@@ -376,7 +215,7 @@ PCD_PAY_REQKEY | 최종 승인요청용 키 | O |
 PCD_PAYER_ID | 결제고객 고유 ID | O | 
 
 <br><br>
-#### 1-2. 즉시 승인(PCD_PAY_WORK : PAY) 
+#### 1-4. 즉시 승인(PCD_PAY_WORK : PAY) 
 * 가맹점의 최종 승인없이 즉시 결제를 진행하며 별도 Request 는 없습니다.  
 
 <br><br><br>
