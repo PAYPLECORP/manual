@@ -96,6 +96,8 @@ $(document).ready( function () {
         var buyer_email = "dev@payple.kr";
         var buy_goods = "휴대폰";
         var buy_total = "1000";
+	var pay_istax = "";
+	var pay_taxtotal = "10";
         var order_num = "test0553941001540967923";
         var is_reguler = "N";
         var pay_year = "";
@@ -131,6 +133,8 @@ $(document).ready( function () {
         obj.PCD_PAYER_EMAIL = buyer_email;
         obj.PCD_PAY_GOODS = buy_goods;
         obj.PCD_PAY_TOTAL = buy_total;
+	obj.PCD_PAY_ISTAX = pay_istax;
+	obj.PCD_PAY_TAXTOTAL = pay_taxtotal;
         obj.PCD_PAY_OID = order_num;     
         obj.PCD_REGULER_FLAG = is_reguler;
         obj.PCD_PAY_YEAR = pay_year; 
@@ -150,6 +154,8 @@ $(document).ready( function () {
         obj.PCD_PAYER_EMAIL = buyer_email;
         obj.PCD_PAY_GOODS = buy_goods; 
         obj.PCD_PAY_TOTAL = buy_total;
+	obj.PCD_PAY_ISTAX = pay_istax;
+	obj.PCD_PAY_TAXTOTAL = pay_taxtotal;
         obj.PCD_PAY_OID = order_num; 
         obj.PCD_REGULER_FLAG = is_reguler;
         obj.PCD_PAY_YEAR = pay_year;       
@@ -181,6 +187,8 @@ PCD_PAYER_HP | 결제고객 휴대폰번호 | - |
 PCD_PAYER_EMAIL | 결제고객 이메일 | - | 
 PCD_PAY_GOODS | 상품명 | O | 
 PCD_PAY_TOTAL | 결제금액 | O | 
+PCD_PAY_ISTAX | 과세설정 | - | Default: Y, 비과세: N | 
+PCD_PAY_TAXTOTAL | 복합과세 부가세 | - | 복합과세 주문건(과세+면세)에 필요한 항목이며 가맹점에서 전송한 값을 부가세로 설정합니다. | 
 PCD_PAY_OID | 주문번호 | - | 미입력시 임의생성 
 PCD_REGULER_FLAG | 정기결제 여부 | - | 
 PCD_PAY_YEAR | 정기결제 적용연도 | - | PCD_REGULER_FLAG : 'Y' 일때 필수
@@ -266,6 +274,8 @@ Cache-Control: no-cache
    "PCD_PAY_YEAR": "2018",	
    "PCD_PAY_MONTH": "04",	
    "PCD_PAY_TOTAL": "1000",
+   “PCD_PAY_ISTAX”: “Y”,
+   “PCD_PAY_TAXTOTAL”: 10,
    "PCD_PAY_OID": "test201804000001",
    "PCD_TAXSAVE_FLAG": "Y",
    "PCD_TAXSAVE_TRADE": "personal",
@@ -287,6 +297,8 @@ PCD_PAY_GOODS | 상품명 | O |
 PCD_PAY_YEAR | 과금연도 | O | 
 PCD_PAY_MONTH | 과금월 | O | 
 PCD_PAY_TOTAL | 결제금액 | O | 
+PCD_PAY_ISTAX | - | C | 1 | Y | 과세설정(Default: Y, 비과세: N) | 
+PCD_PAY_TAXTOTAL | - | N | 20 | 10 | 복합과세 주문건(과세+면세)에 필요한 항목이며 가맹점에서 전송한 값을 부가세로 설정합니다. | 
 PCD_PAY_OID | 주문번호 | O | 
 PCD_TAXSAVE_FLAG | 현금영수증 발행 여부 | O | Y=발행 / N=미발행
 PCD_TAXSAVE_TRADE | 현금영수증 발행 타입 | - | personal=소득공제 / company=지출증빙
@@ -305,6 +317,8 @@ PCD_PAYER_EMAIL | 결제고객 이메일 | O |
   "PCD_PAYER_ID" => "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09",
   "PCD_PAY_GOODS" => "정기구독",
   "PCD_PAY_TOTAL" => 1000,
+  “PCD_PAY_ISTAX”: “Y”,
+  “PCD_PAY_TAXTOTAL”: 10,
   "PCD_PAY_BANK" => "011",
   "PCD_PAY_BANKNAME" => "농협",
   "PCD_PAY_BANKNUM" => "460-********-121",
@@ -327,6 +341,8 @@ PCD_PAY_TYPE | 결제수단 | transfer
 PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | 2324
 PCD_PAY_GOODS | 상품명 | 정기구독  
 PCD_PAY_TOTAL | 결제금액 | 1000 
+PCD_PAY_ISTAX | - | C | 1 | Y | 과세설정(Default: Y, 비과세: N)
+PCD_PAY_TAXTOTAL | - | N | 20 | 10 | 복합과세 주문건(과세+면세)에 필요한 항목이며 가맹점에서 전송한 값을 부가세로 설정합니다.
 PCD_PAY_BANK | 은행코드 | 011
 PCD_PAY_BANKNAME | 은행명 | 농협
 PCD_PAY_BANKNUM | 계좌번호 | 460- ******** -121
