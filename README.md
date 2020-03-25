@@ -342,7 +342,7 @@ PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | 2324
 PCD_PAY_GOODS | 상품명 | 정기구독  
 PCD_PAY_TOTAL | 결제금액 | 1000 
 PCD_PAY_ISTAX | 과세설정 | 과세설정(Default: Y, 비과세: N)
-PCD_PAY_TAXTOTAL | 복합과세  | 복합과세 주문건(과세+면세)에 필요한 항목이며 가맹점에서 전송한 값을 부가세로 설정합니다.
+PCD_PAY_TAXTOTAL | 복합과세 부가세  | 복합과세 주문건(과세+면세)에 필요한 항목이며 가맹점에서 전송한 값을 부가세로 설정합니다.
 PCD_PAY_BANK | 은행코드 | 011
 PCD_PAY_BANKNAME | 은행명 | 농협
 PCD_PAY_BANKNUM | 계좌번호 | 460- ******** -121
