@@ -297,8 +297,8 @@ PCD_PAY_GOODS | 상품명 | O |
 PCD_PAY_YEAR | 과금연도 | O | 
 PCD_PAY_MONTH | 과금월 | O | 
 PCD_PAY_TOTAL | 결제금액 | O | 
-PCD_PAY_ISTAX | - | O |  과세설정(Default: Y, 비과세: N) | 
-PCD_PAY_TAXTOTAL | - | N  |  복합과세 주문건(과세+면세)에 필요한 항목이며 가맹점에서 전송한 값을 부가세로 설정합니다. | 
+PCD_PAY_ISTAX | - | - |  과세설정(Default: Y, 비과세: N) | 
+PCD_PAY_TAXTOTAL | - | -  |  복합과세 주문건(과세+면세)에 필요한 항목이며 가맹점에서 전송한 값을 부가세로 설정합니다. | 
 PCD_PAY_OID | 주문번호 | O | 
 PCD_TAXSAVE_FLAG | 현금영수증 발행 여부 | O | Y=발행 / N=미발행
 PCD_TAXSAVE_TRADE | 현금영수증 발행 타입 | - | personal=소득공제 / company=지출증빙
