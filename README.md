@@ -719,8 +719,12 @@ $PCD_PAY_TOTAL = (isset($_POST['PCD_PAY_TOTAL'])) ? $_POST['PCD_PAY_TOTAL'] : ""
 $PCD_PAY_BANK = (isset($_POST['PCD_PAY_BANK'])) ? $_POST['PCD_PAY_BANK'] : "";
 $PCD_PAY_BANKNAME = (isset($_POST['PCD_PAY_BANKNAME'])) ? $_POST['PCD_PAY_BANKNAME'] : "";
 $PCD_PAY_BANKNUM = (isset($_POST['PCD_PAY_BANKNUM'])) ? $_POST['PCD_PAY_BANKNUM'] : "";
-$PCD_PAY_TIME = (isset($_POST['PCD_PAY_TIME'])) ? $_POST['PCD_PAY_TIME'] : "";         
-$PCD_TAXSAVE_RST = (isset($_POST['PCD_TAXSAVE_RST'])) ? $_POST['PCD_TAXSAVE_RST'] : "";   
+$PCD_PAY_TIME = (isset($_POST['PCD_PAY_TIME'])) ? $_POST['PCD_PAY_TIME'] : ""; 
+$PCD_TAXSAVE_FLAG = (isset($_POST['PCD_TAXSAVE_FLAG'])) ? $_POST['PCD_TAXSAVE_FLAG'] : "";
+$PCD_TAXSAVE_RST = (isset($_POST['PCD_TAXSAVE_RST'])) ? $_POST['PCD_TAXSAVE_RST'] : "";
+$PCD_TAXSAVE_MGTNUM = (isset($_POST['PCD_TAXSAVE_MGTNUM'])) $_POST['PCD_TAXSAVE_MGTNUM'] : "";
+$PCD_USER_DEFINE1 = (isset($_POST['PCD_USER_DEFINE1'])) ? $_POST['PCD_USER_DEFINE1'] : "";
+$PCD_USER_DEFINE2 = (isset($_POST['PCD_USER_DEFINE2'])) ? $_POST['PCD_USER_DEFINE2'] : "";
 ?>
 ```
 
@@ -747,7 +751,11 @@ PCD_PAY_BANK | 은행코드 | 011
 PCD_PAY_BANKNAME | 은행명 | 농협
 PCD_PAY_BANKNUM | 계좌번호 | 460- ******** -121
 PCD_PAY_TIME | 결제완료 시간 | 20180110152911
+PCD_TAXSAVE_FLAG | 현금영수증 발행 여부 | Y / N
 PCD_TAXSAVE_RST | 현금영수증 발행 결과 | Y / N 
+PCD_TAXSAVE_MGTNUM | 현금영수증 발행번호 | test1234454444443
+PCD_USER_DEFINE1 | 사용자정의1 |    
+PCD_USER_DEFINE2 | 사용자정의2 |     
 
 <br><br><br>
 ## 결제결과 조회  
