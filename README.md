@@ -865,6 +865,88 @@ PCD_REGULER_FLAG | 정기결제 여부 | Y / N
 ## 계좌이체 환불
 계좌이체 금액을 환불할 수 있는 API입니다. 건마다 수수료가 발생되기 때문에 가맹점에서 서비스를 원하실 경우 페이플 고객센터(help@payple.kr)로 별도 신청해 주세요.
 
+* Request 예시 
+```html
+POST /php/auth.php HTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "cst_id": "test",
+  "custKey": "abcd1234567890",
+  "PCD_PAYCANCEL_FLAG": "Y"
+}
+
+POST /php/account/api/cPayCAct.php HTTTP/1.1
+Host: testcpay.payple.kr
+Content-Type: application/json
+Cache-Control: no-cache
+{
+  "PCD_CST_ID" : RES.cst_id,     // (필수) 가맹점 인증요청으로 내려받은 cst_id(가맹점 ID)
+  "PCD_CUST_KEY" : RES.custKey,	 // (필수) 가맹점 인증요청으로 내려받은 custKey(가맹점 상점 KEY)
+  "PCD_AUTH_KEY" : RES.authKey,  // (필수) 가맹점 인증요청으로 내려받은 AuthKey
+  "PCD_REFUND_KEY" : "a41ce010ede9fcbfb3be86b24858806596a9db68b79d138b147c3e563e1829a0",  // (필수) 환불서비스 KEY
+  "PCD_PAYCANCEL_FLAG": "Y",	     // (필수) 결제취소(환불)요청 여부 (Y)
+  "PCD_PAY_OID": "test201804000001", // (필수) 주문(결제) 번호
+  "PCD_REGULER_FLAG": "Y",     // (선택) 정기결제 여부 (Y|N)
+  "PCD_PAY_YEAR": 2018,	       // (선택) 정기결제 구분 년도
+  "PCD_PAY_MONTH": "05",       // (선택) 정기결제 구분 월
+  "PCD_PAY_DATE": 20180502,    // (필수) 결제일자 (YYYYMMDD) - 환불요청대상 결제일자
+  "PCD_REFUND_TOTAL": 1000     // (필수) 환불요청금액
+}
+```
+
+* Request 파라미터 설명 
+
+파라미터 ID | 설명 | 필수 | 비고
+:----: | :----: | :----: | :----:
+PCD_CST_ID | 가맹점 ID | O | 
+PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
+PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
+PCD_REFUND_KEY | 환불서비스 Key | O | 
+PCD_PAYCANCEL_FLAG | 결제취소 요청여부 | O | 
+PCD_PAY_OID | 주문(결제)번호 | O | 
+PCD_REGULER_FLAG | 정기결제 여부 | - | 정기결제
+PCD_PAY_YEAR | 정기결제 과금연도 | - | 정기결제
+PCD_PAY_MONTH | 정기결제 과금월 | - | 정기결제
+PCD_PAY_DATE | 결제요청일자(YYYYMMDD) | O | 
+PCD_REFUND_TOTAL | 환불요청금액 | O | 
+
+* Response 예시 
+```html
+{
+  "PCD_PAY_RST" => "success|error",        // 출금요청 결과
+  "PCD_PAY_MSG" => "환불성공|환불실패...",  // 결과 메세지
+  "PCD_PAY_OID" => "test201804000001",	  // 주문(결제) 번호
+  "PCD_PAY_TYPE" => "transfer",		  // 결제 방법 (transfer | card)
+  "PCD_PAYER_NO" => "1234",	         // 결제자 고유번호
+  "PCD_PAYER_ID" => "NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09"	
+   // 결제자 고유ID (본인인증 된 결제회원 고유 KEY / 등록된 계좌 or 신용카드 가 있을 경우 return )
+  "PCD_REGULER_FLAG" => "Y",      // 정기출금 여부 (Y|N)
+  "PCD_PAY_YEAR" => "2018",       // (정기) 결제 구분 년도
+  "PCD_PAY_MONTH" => "05",        // (정기) 결제 구분 월
+  "PCD_PAY_GOODS" => "간편구독",  // 결제 상품명
+  "PCD_REFUND_TOTAL" => 1000     // 환불 금액
+}
+```
+
+* Response 파라미터 설명 
+
+파라미터 ID | 설명 | 예시
+:----: | :----: | :----:
+PCD_PAY_RST | 결제요청 결과 | success / error 
+PCD_PAY_MSG | 결제요청 결과 메세지 | 출금이체완료 | 실패 등 
+PCD_PAY_OID | 주문번호 | test201804000001
+PCD_PAY_TYPE | 결제수단 | transfer
+PCD_PAYER_NO | 결제고객 고유번호 | 1234 
+PCD_PAYER_ID | 결제 키 | NS9qNTgzU2xRNHR2RmFBWWFBTWk5UT09
+PCD_REGULER_FLAG | 정기출금 여부 | Y 
+PCD_PAY_YEAR | 과금연도<br>(정기결제) | 2018 
+PCD_PAY_MONTH | 과금월<br>(정기결제) | 05
+PCD_PAY_GOODS | 상품명 | 간편구독 
+PCD_PAY_TOTAL | 결제금액 | 1000
+
+
 <br><br><br>
 ## 서비스가능 은행 및 점검시간 
 
