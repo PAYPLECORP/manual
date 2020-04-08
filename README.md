@@ -180,7 +180,7 @@ PCD_PAY_TYPE | 결제수단 | O |
 PCD_PAY_WORK | 결제요청 방식 | O | - AUTH : 계좌등록만 진행<br>- CERT : 가맹점 최종승인 후 계좌등록+결제 진행<br>- PAY : 가맹점 최종승인없이 계좌등록+결제 진행 
 PCD_PAYER_AUTHTYPE | 간편결제 인증방식 | - | - PCD_SIMPLE_FLAG : 'Y' 일때 필수<br>- pwd : 결제비밀번호
 PCD_RST_URL | 결제(요청)결과 RETURN URL | O | - 결제결과를 콜백 함수가 아닌 URL로 수신할 경우만 해당<br>- 모바일에서 팝업방식은 상대경로, 다이렉트 방식은 절대경로로 설정  
-PCD_PAYER_ID | 결제 키 | O | 해당 키를 통해 결제요청
+PCD_PAYER_ID | 결제 키 | O | 해당 키를 통해 결제요청 (PCD_SIMPLE_FLAG가 Y일 때 필수)
 PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | maxlength=10
 PCD_PAYER_NAME | 결제고객 이름 | - | 
 PCD_PAYER_HP | 결제고객 휴대폰번호 | - |  
@@ -222,7 +222,7 @@ PCD_CST_ID | 가맹점 ID | O |
 PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
 PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
 PCD_PAY_REQKEY | 최종 승인요청용 키 | O | 
-PCD_PAYER_ID | 결제고객 고유 ID | O | 
+PCD_PAYER_ID | 결제고객 고유 ID | O | (PCD_SIMPLE_FLAG가 Y일 때 필수)
 
 <br><br>
 #### 1-4. 즉시 승인(PCD_PAY_WORK : PAY) 
@@ -292,7 +292,7 @@ PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O |
 PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
 PCD_PAY_TYPE | 결제수단 | O | 
 PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | 
-PCD_PAYER_ID | 결제 키 | O | 해당 키를 통해 결제요청
+PCD_PAYER_ID | 결제 키 | O | 해당 키를 통해 결제요청 (PCD_SIMPLE_FLAG가 Y일 때 필수)
 PCD_PAY_GOODS | 상품명 | O | 
 PCD_PAY_YEAR | 과금연도 | O | 
 PCD_PAY_MONTH | 과금월 | O | 
