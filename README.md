@@ -222,7 +222,7 @@ PCD_CST_ID | 가맹점 ID | O |
 PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O | 
 PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
 PCD_PAY_REQKEY | 최종 승인요청용 키 | O | 
-PCD_PAYER_ID | 결제고객 고유 ID | O | (PCD_SIMPLE_FLAG가 Y일 때 필수)
+PCD_PAYER_ID | 결제고객 고유 ID | O | 
 
 <br><br>
 #### 1-4. 즉시 승인(PCD_PAY_WORK : PAY) 
@@ -292,7 +292,7 @@ PCD_CUST_KEY | 가맹점 식별을 위한 비밀키 | O |
 PCD_AUTH_KEY | 결제요청을 위한 Transaction 키 | O | 
 PCD_PAY_TYPE | 결제수단 | O | 
 PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | O | 
-PCD_PAYER_ID | 결제 키 | O | 해당 키를 통해 결제요청 (PCD_SIMPLE_FLAG가 Y일 때 필수)
+PCD_PAYER_ID | 결제 키 | O | 해당 키를 통해 결제요청 
 PCD_PAY_GOODS | 상품명 | O | 
 PCD_PAY_YEAR | 과금연도 | O | 
 PCD_PAY_MONTH | 과금월 | O | 
