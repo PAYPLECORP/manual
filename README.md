@@ -47,9 +47,8 @@ KEY | custKey : abcd1234567890 | custKey : ID 매칭 Key
 POST /php/auth.php HTTP/1.1
 Host: testcpay.payple.kr
 Content-Type: application/json
-<!-- AWS 이용 가맹점인 경우 REFERER 추가 -->
+<!-- AWS 이용 가맹점인 경우 특히 필수입니다. -->
 Referer: http://가맹점 도메인 
-<!-- End : AWS 이용 가맹점인 경우 REFERER 추가 -->
 Cache-Control: no-cache
 {
   "cst_id": "test",
