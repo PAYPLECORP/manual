@@ -1,18 +1,24 @@
 <?
 $simple_flag = isset($_POST['simple_flag']) ? $_POST['simple_flag'] : "N";
+$pay_type = isset($_POST['pay_type']) ? $_POST['pay_type'] : "transfer";
+$card_ver = (isset($_POST['card_ver']) && $_POST['card_ver'] == '02') ? '02' : '01';
 $buyer_no = isset($_POST['buyer_no']) ? $_POST['buyer_no'] : "";
 $payple_payer_id = isset($_POST['payple_payer_id']) ? $_POST['payple_payer_id'] : "";
 $buyer_name = isset($_POST['buyer_name']) ? $_POST['buyer_name'] : "";
 $buyer_hp = isset($_POST['buyer_hp']) ? $_POST['buyer_hp'] : "";
 $buyer_email = isset($_POST['buyer_email']) ? $_POST['buyer_email'] : "";
-$buy_goods = isset($_POST['buy_goods']) ? $_POST['buy_goods'] : "";
-$buy_total = isset($_POST['buy_total']) ? preg_replace("/([^0-9]+)/", "", $_POST['buy_total']) : "";
+$buy_goods = isset($_POST['buy_goods']) ? addslashes($_POST['buy_goods']) : "";
+$buy_total = isset($_POST['buy_total']) ? preg_replace("/([^0-9\.]+)/", "", $_POST['buy_total']) : "";
+$buy_taxtotal = isset($_POST['buy_taxtotal']) ? preg_replace("/([^0-9]+)/", "", $_POST['buy_taxtotal']) : "";
+$buy_istax = (isset($_POST['buy_istax']) && $_POST['buy_istax'] == 'N') ? 'N' : 'Y';
 $order_num = isset($_POST['order_num']) ? $_POST['order_num'] : "";
 $is_reguler = isset($_POST['is_reguler']) ? $_POST['is_reguler'] : "";
 $pay_year = isset($_POST['pay_year']) ? preg_replace("/([^0-9]+)/", "", $_POST['pay_year']) : "";
 $pay_month = isset($_POST['pay_month']) ? preg_replace("/([^0-9]+)/", "", $_POST['pay_month']) : "";
 $is_taxsave = isset($_POST['is_taxsave']) ? $_POST['is_taxsave'] : "";
 $work_type = isset($_POST['work_type']) ? $_POST['work_type'] : "CERT";
+$auth_type = isset($_POST['auth_type']) ? $_POST['auth_type'] : "sms";
+$is_direct = isset($_POST['is_direct']) ? $_POST['is_direct'] : "N";
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,52 +33,50 @@ $work_type = isset($_POST['work_type']) ? $_POST['work_type'] : "CERT";
 $(document).ready( function () {
 
 	//#########################################################################################################################################################################
-	/*
-	 * Payple ID, KEY, AUTH_URL 가져오기
-	 */
-	 
-	var cfg = new Object();
-	
-	$.get("/cPayPayple/payple.cgi", function(data) {
-		cfg = eval("("+data+")");
-	});
+	var getResult = function (res) {
+		alert("callback : " + res.PCD_PAY_MSG);
+	};
 	
 	//#########################################################################################################################################################################
 
 	$('#payAction').on('click', function (event) {
 
-	    var pay_work = "<?=$work_type?>";
-	    var payple_payer_id = "<?=$payple_payer_id?>";
-	    var buyer_no = "<?=$buyer_no?>";
-	    var buyer_name = "<?=$buyer_name?>";
-	    var buyer_hp = "<?=$buyer_hp?>";
-	    var buyer_email = "<?=$buyer_email?>";
-	    var buy_goods = "<?=$buy_goods?>";
-	    var buy_total = "<?=$buy_total?>";
-	    var order_num = "<?=$order_num?>";
-	    var is_reguler = "<?=$is_reguler?>";
-	    var pay_year = "<?=$pay_year?>";
-	    var pay_month = "<?=$pay_month?>";
-	    var is_taxsave = "<?=$is_taxsave?>";
-	    var simple_flag = "<?=$simple_flag?>";
+	   	var pay_type = "<?=$pay_type?>";
+		var pay_work = "<?=$work_type?>";
+	    	var payple_payer_id = "<?=$payple_payer_id?>";
+	    	var buyer_no = "<?=$buyer_no?>";
+	    	var buyer_name = "<?=$buyer_name?>";
+	    	var buyer_hp = "<?=$buyer_hp?>";
+		var buyer_email = "<?=$buyer_email?>";
+		var buy_goods = "<?=$buy_goods?>";
+		var buy_total = Number("<?=$buy_total?>");
+		var buy_taxtotal = Number("<?=$buy_taxtotal?>");
+		var buy_istax = "<?=$buy_istax?>";
+		var order_num = "<?=$order_num?>";
+		var is_reguler = "<?=$is_reguler?>";
+		var pay_year = "<?=$pay_year?>";
+		var pay_month = "<?=$pay_month?>";
+		var is_taxsave = "<?=$is_taxsave?>";
+		var simple_flag = "<?=$simple_flag?>";
+		var card_ver = "<?=$card_ver?>";
+		var auth_type = "<?=$auth_type?>";
+		var is_direct = "<?=$is_direct?>";
+		var pcd_rst_ur = "";
+		var server_name = "<?=$SERVER_NAME?>";
 		
-	    var obj = new Object();
+	    	var obj = new Object();
 
 		//#########################################################################################################################################################################
 		/*
 		 * DEFAULT SET 1
 		 */
-		 		
-		//-- 소스상에 표시하지 마시고 반드시 Server Side Script 를 이용하여 불러오시기 바랍니다. --//
-		obj.PCD_CST_ID = cfg.PCD_CST_ID;
-		obj.PCD_CUST_KEY = cfg.PCD_CUST_KEY;
-		obj.PCD_AUTH_URL = cfg.PCD_AUTH_URL;
+		obj.PCD_CPAY_VER = "1.0.1";								// (필수) 결제창 버전 (Default : 1.0.0)
+		obj.PCD_PAY_TYPE = pay_type;								// (필수) 결제 방법 (transfer | card)
+		obj.PCD_PAY_WORK = pay_work;								// (필수) 결제요청 업무구분 (AUTH : 본인인증+계좌등록, CERT: 본인인증+계좌등록+결제요청등록(최종 결제승인요청 필요), PAY: 본인인증+계좌등록+결제완료)
+
+		// 카드결제 시 필수
+		obj.PCD_CARD_VER = card_ver;								// DEFAULT: 01 (01: 정기결제 플렛폼, 02: 일반결제 플렛폼)
 		
-		//#########################################################################################################################################################################
-
-		obj.PCD_CPAY_VER = "1.0.1";    // (필수) 결제창 버전
-		obj.PCD_PAY_TYPE = 'transfer'; // (필수) 결제 수단 
-
 		//#########################################################################################################################################################################
 		/*
 		 * 1. 결제자 인증 
@@ -80,13 +84,13 @@ $(document).ready( function () {
 		 */
 		 	if (pay_work == 'AUTH') {
 			 	
-				obj.PCD_PAY_WORK = 'AUTH';          // (필수) 결제요청 업무구분 (AUTH : 본인인증+계좌등록, CERT: 본인인증+계좌등록+결제요청등록(최종 결제승인요청 필요), PAY: 본인인증+계좌등록+결제완료)
-				obj.PCD_PAYER_NO = buyer_no;        // (선택) 가맹점 회원 고유번호 (결과전송 시 입력값 그대로 RETURN)
-				obj.PCD_PAYER_NAME = buyer_name;    // (선택) 결제자 이름
-				obj.PCD_PAYER_HP = buyer_hp;        // (선택) 결제자 휴대폰 번호
-				obj.PCD_PAYER_EMAIL = buyer_email;  // (선택) 결제자 Email
-				obj.PCD_REGULER_FLAG = is_reguler;  // (선택) 정기결제 여부 (Y|N)
-				obj.PCD_SIMPLE_FLAG = simple_flag;  // (선택) 간편결제 여부 (Y|N)
+				obj.PCD_PAYER_NO = buyer_no;						// (선택) 가맹점 회원 고유번호 (결과전송 시 입력값 그대로 RETURN)
+				obj.PCD_PAYER_NAME = buyer_name;					// (선택) 결제자 이름
+				obj.PCD_PAYER_HP = buyer_hp;						// (선택) 결제자 휴대폰 번호
+				obj.PCD_PAYER_EMAIL = buyer_email;					// (선택) 결제자 Email
+				obj.PCD_TAXSAVE_FLAG = is_taxsave;					// (선택) 현금영수증 발행여부
+				obj.PCD_REGULER_FLAG = is_reguler;					// (선택) 정기결제 여부 (Y|N)
+				obj.PCD_SIMPLE_FLAG = simple_flag;					// (선택) 간편결제 여부 (Y|N)
 				
 		 	}
 		
@@ -100,18 +104,19 @@ $(document).ready( function () {
 			
 				if (simple_flag != 'Y' || payple_payer_id == '') {
 	
-					obj.PCD_PAY_WORK = 'CERT';           // (필수) 결제요청 업무구분 (AUTH : 본인인증+계좌등록, CERT: 본인인증+계좌등록+결제요청등록(최종 결제승인요청 필요), PAY: 본인인증+계좌등록+결제완료)
-					obj.PCD_PAYER_NO = buyer_no;         // (선택) 가맹점 회원 고유번호 (결과전송 시 입력값 그대로 RETURN)
-					obj.PCD_PAYER_NAME = buyer_name;     // (선택) 결제자 이름
-					obj.PCD_PAYER_HP = buyer_hp;         // (선택) 결제자 휴대폰 번호
-					obj.PCD_PAYER_EMAIL = buyer_email;   // (선택) 결제자 Email
-					obj.PCD_PAY_GOODS = buy_goods;       // (필수) 결제 상품
-					obj.PCD_PAY_TOTAL = buy_total;       // (필수) 결제 금액
-					obj.PCD_PAY_OID = order_num;         // 주문번호 (미입력 시 임의 생성)
-					obj.PCD_REGULER_FLAG = is_reguler;   // (선택) 정기결제 여부 (Y|N)
-					obj.PCD_PAY_YEAR = pay_year;         // (PCD_REGULER_FLAG = Y 일때 필수) [정기결제] 결제 구분 년도 (PCD_REGULER_FLAG : 'Y' 일때 필수)
-					obj.PCD_PAY_MONTH = pay_month;       // (PCD_REGULER_FLAG = Y 일때 필수) [정기결제] 결제 구분 월 (PCD_REGULER_FLAG : 'Y' 일때 필수)
-					obj.PCD_TAXSAVE_FLAG = is_taxsave;   // (선택) 현금영수증 발행 여부 (Y|N)
+					obj.PCD_PAYER_NO = buyer_no;						// (선택) 가맹점 회원 고유번호 (결과전송 시 입력값 그대로 RETURN)
+					obj.PCD_PAYER_NAME = buyer_name;					// (선택) 결제자 이름
+					obj.PCD_PAYER_HP = buyer_hp;						// (선택) 결제자 휴대폰 번호
+					obj.PCD_PAYER_EMAIL = buyer_email;					// (선택) 결제자 Email
+					obj.PCD_PAY_GOODS = buy_goods;						// (필수) 결제 상품
+					obj.PCD_PAY_TOTAL = buy_total;						// (필수) 결제 금액
+					obj.PCD_PAY_TAXTOTAL = buy_taxtotal;					// (선택) 부가세 (복합과세인 경우 필수)
+					obj.PCD_PAY_ISTAX = buy_istax;						// (선택) 과세여부 (과세: Y | 비과세(면세): N)
+					obj.PCD_PAY_OID = order_num;						// 주문번호 (미입력 시 임의 생성)
+					obj.PCD_REGULER_FLAG = is_reguler;					// (선택) 정기결제 여부 (Y|N)
+					obj.PCD_PAY_YEAR = pay_year;						// (PCD_REGULER_FLAG = Y 일때 필수) [정기결제] 결제 구분 년도 (PCD_REGULER_FLAG : 'Y' 일때 필수)
+					obj.PCD_PAY_MONTH = pay_month;						// (PCD_REGULER_FLAG = Y 일때 필수) [정기결제] 결제 구분 월 (PCD_REGULER_FLAG : 'Y' 일때 필수)
+					obj.PCD_TAXSAVE_FLAG = is_taxsave;					// (선택) 현금영수증 발행 여부 (Y|N)
 				
 				}
 			
@@ -119,19 +124,19 @@ $(document).ready( function () {
 			
 				if (simple_flag == 'Y' && payple_payer_id != '') {
 	
-					obj.PCD_PAY_WORK = 'CERT';            // (필수) 결제요청 업무구분 (AUTH : 본인인증+계좌등록, CERT: 본인인증+계좌등록+결제요청등록(최종 결제승인요청 필요), PAY: 본인인증+계좌등록+결제완료)				
-					obj.PCD_SIMPLE_FLAG = 'Y';            // 간편결제 여부 (Y|N)
+					obj.PCD_SIMPLE_FLAG = 'Y';						// 간편결제 여부 (Y|N)
 					//-- PCD_PAYER_ID 는 소스상에 표시하지 마시고 반드시 Server Side Script 를 이용하여 불러오시기 바랍니다. --//		
-					obj.PCD_PAYER_ID = payple_payer_id;   // 결제자 고유ID (본인인증 된 결제회원 고유 KEY)
-					//-------------------------------------------------------------------------------------//
-					obj.PCD_PAYER_NO = buyer_no;          // (선택) 가맹점 회원 고유번호 (결과전송 시 입력값 그대로 RETURN)
-					obj.PCD_PAY_GOODS = buy_goods;        // (필수) 결제 상품
-					obj.PCD_PAY_TOTAL = buy_total;        // (필수) 결제 금액
-					obj.PCD_PAY_OID = order_num;          // 주문번호 (미입력 시 임의 생성)
-					obj.PCD_REGULER_FLAG = is_reguler;    // (선택) 정기결제 여부 (Y|N)
-					obj.PCD_PAY_YEAR = pay_year;          // (PCD_REGULER_FLAG = Y 일때 필수) [정기결제] 결제 구분 년도 (PCD_REGULER_FLAG : 'Y' 일때 필수)
-					obj.PCD_PAY_MONTH = pay_month;        // (PCD_REGULER_FLAG = Y 일때 필수) [정기결제] 결제 구분 월 (PCD_REGULER_FLAG : 'Y' 일때 필수)
-					obj.PCD_TAXSAVE_FLAG = is_taxsave;    // (선택) 현금영수증 발행 여부 (Y|N)
+					obj.PCD_PAYER_ID = payple_payer_id;					// 결제자 고유ID (본인인증 된 결제회원 고유 KEY)
+					obj.PCD_PAYER_NO = buyer_no;						// (선택) 가맹점 회원 고유번호 (결과전송 시 입력값 그대로 RETURN)
+					obj.PCD_PAY_GOODS = buy_goods;						// (필수) 결제 상품
+					obj.PCD_PAY_TOTAL = buy_total;						// (필수) 결제 금액
+					obj.PCD_PAY_TAXTOTAL = buy_taxtotal;					// (선택) 부가세(복합과세인 경우 필수)
+					obj.PCD_PAY_ISTAX = buy_istax;						// (선택) 과세여부 (과세: Y | 비과세(면세): N)
+					obj.PCD_PAY_OID = order_num;						// 주문번호 (미입력 시 임의 생성)
+					obj.PCD_REGULER_FLAG = is_reguler;					// (선택) 정기결제 여부 (Y|N)
+					obj.PCD_PAY_YEAR = pay_year;						// (PCD_REGULER_FLAG = Y 일때 필수) [정기결제] 결제 구분 년도 (PCD_REGULER_FLAG : 'Y' 일때 필수)
+					obj.PCD_PAY_MONTH = pay_month;						// (PCD_REGULER_FLAG = Y 일때 필수) [정기결제] 결제 구분 월 (PCD_REGULER_FLAG : 'Y' 일때 필수)
+					obj.PCD_TAXSAVE_FLAG = is_taxsave;					// (선택) 현금영수증 발행 여부 (Y|N)
 				
 				}
 
@@ -144,7 +149,9 @@ $(document).ready( function () {
 		 */
 		obj.PCD_PAYER_AUTHTYPE = 'pwd';                  // (선택) [간편결제/정기결제] 본인인증 방식
 		obj.PCD_RST_URL = '/order_result.html';          // (필수) 결제(요청)결과 RETURN URL
-
+		obj.payple_auth_file = '/auth.php';	// (필수) 가맹점이 직접 생성한 인증파일
+		obj.callbackFunction = getResult;
+		
 		PaypleCpayAuthCheck(obj);
 		
 		event.preventDefault();
