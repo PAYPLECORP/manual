@@ -925,10 +925,10 @@ PCD_REFUND_TOTAL | 환불요청금액 | O |
   "PCD_REGULER_FLAG" => "Y",      // 정기출금 여부 (Y|N)
   "PCD_PAY_YEAR" => "2018",       // (정기) 결제 구분 년도
   "PCD_PAY_MONTH" => "05",        // (정기) 결제 구분 월
-  "PCD_PAY_GOODS" => "간편구독",   // 결제 상품명
+  "PCD_PAY_GOODS" => "간편구독",  // 결제 상품명
   "PCD_REFUND_TOTAL" => 1000,     // 환불 금액
-  "PCD_TAXSAVE_RST" => "0000",	  // 현금영수증 발행취소 결과 코드
-  "PCD_TAXSAVE_MSG" => "현금영수증 발행취소 성공"    // 현금영수증 발행취소 결과 메세지
+  "PCD_TAXSAVE_RST" => "0000 | -10002122",
+  "PCD_TAXSAVE_MSG" => "현금영수증 발행취소 성공 | 현금영수증 발행취소 실패.."
 }
 ```
 
@@ -947,8 +947,8 @@ PCD_PAY_YEAR | 과금연도<br>(정기결제) | 2018
 PCD_PAY_MONTH | 과금월<br>(정기결제) | 05
 PCD_PAY_GOODS | 상품명 | 간편구독 
 PCD_PAY_TOTAL | 결제금액 | 1000
-PCD_TAXSAVE_RST | 현금영수증 발행취소 결과 | 0000 / -140002301
-PCD_TAXSAVE_MSG | 현금영수증 발행취소 결과 메세지 | 현금영수증 발행취소 성공 / 실패 등
+PCD_TAXSAVE_RST | 현금영수증 발행취소 결과코드 | 0000 | -10002122
+PCD_TAXSAVE_MSG | 현금영수증 발행취소 결과 메시지 | 현금영수증 발행취소 성공 | 현금영수증 발행취소 실패..
 
 
 <br><br><br>
