@@ -354,7 +354,7 @@ PCD_TAXSAVE_RST | 현금영수증 발행 결과 | Y / N
 PCD_PAYER_EMAIL | 결제고객 이메일 | dev@payple.kr
 
 <br><br><br>
-### 5. 링크결제 - 링크생성 
+### 5. 링크결제 - 링크결제 URL 생성 
 * 링크결제의 링크생성은 별도 UI 없이 REST Request 방식으로 진행됩니다. 
 * Request 예시 
 ```html
@@ -369,7 +369,7 @@ Cache-Control: no-cache
   "PCD_PAY_WORK": "LINKREG"
 }
 
-<!-- 링크생성 요청  -->
+<!-- 링크결제 URL 생성 요청  -->
 POST PCD_PAY_URL HTTP/1.1
 Host: PCD_PAY_HOST
 Content-Type: application/json
