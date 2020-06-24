@@ -416,7 +416,8 @@ PCD_TAXSAVE_FLAG | 현금영수증 발행 여부 | O | Y=발행 / N=미발행
   "PCD_REGULER_FLAG" => "Y",
   "PCD_PAY_YEAR" => 2018,
   "PCD_PAY_MONTH" => 11,
-  "PCD_TAXSAVE_RST" => "Y"
+  "PCD_TAXSAVE_RST" => "Y",
+  "PCD_LINK_URL" => "https://testlink.payple.kr/MjoxNTkyMzgy...."
 }
 ```
 * Response 파라미터 설명
@@ -432,6 +433,7 @@ PCD_REGULER_FLAG | 정기결제 여부 | Y / N
 PCD_PAY_YEAR | 과금연도<br>(정기결제) | 2018 
 PCD_PAY_MONTH | 과금월<br>(정기결제) | 08
 PCD_TAXSAVE_RST | 현금영수증 발행 결과 | Y / N
+PCD_LINK_URL | 링크결제 URL | https://testlink.payple.kr/MjoxNTkyMzgy...
 
 <br><br><br>
 ### 6. 현금영수증 - 발행
