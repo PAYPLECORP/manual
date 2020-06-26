@@ -382,9 +382,6 @@ Cache-Control: no-cache
   "PCD_PAY_TYPE" : "transfer",
   "PCD_PAY_GOODS" : "테스트상품",
   "PCD_PAY_TOTAL" : 150000,
-  "PCD_REGULER_FLAG" : "Y",
-  "PCD_PAY_YEAR" : 2018,
-  "PCD_PAY_MONTH" : 11,
   "PCD_TAXSAVE_FLAG" : "Y"
 }
 ```
@@ -400,9 +397,9 @@ PCD_PAY_WORK | 업무구분 | O | 링크결제
 PCD_PAY_TYPE | 결제수단 | O | 계좌출금 
 PCD_PAY_GOODS | 상품명 | O | 
 PCD_PAY_TOTAL | 결제금액 | O | 
-PCD_REGULER_FLAG | 정기결제 여부 | - | Y=정기결제 / N=단건결제  
-PCD_PAY_YEAR | 정기결제 과금연도 | - | PCD_REGULER_FLAG : 'Y' 일때 필수
-PCD_PAY_MONTH | 정기결제 과금월 | - | PCD_REGULER_FLAG : 'Y' 일때 필수
+PCD_REGULER_FLAG | - | - | 삭제예정
+PCD_PAY_YEAR | - | - | 삭제예정
+PCD_PAY_MONTH | - | - | 삭제예정
 PCD_TAXSAVE_FLAG | 현금영수증 발행 여부 | O | Y=발행 / N=미발행
 
 * Response 예시 
@@ -413,9 +410,9 @@ PCD_TAXSAVE_FLAG | 현금영수증 발행 여부 | O | Y=발행 / N=미발행
   "PCD_PAY_TYPE" => "transfer",
   "PCD_PAY_GOODS" => "테스트상품",
   "PCD_PAY_TOTAL" => 150000,
-  "PCD_REGULER_FLAG" => "Y",
-  "PCD_PAY_YEAR" => 2018,
-  "PCD_PAY_MONTH" => 11,
+  "PCD_REGULER_FLAG" => "N",
+  "PCD_PAY_YEAR" => '',
+  "PCD_PAY_MONTH" => '',
   "PCD_TAXSAVE_RST" => "Y",
   "PCD_LINK_URL" => "https://testlink.payple.kr/MjoxNTkyMzgy...."
 }
@@ -429,9 +426,9 @@ PCD_LINK_MSG | 링크생성 요청 결과 메세지 | 링크생성완료 / 실�
 PCD_PAY_TYPE | 결제수단 | 계좌출금 
 PCD_PAY_GOODS | 상품명 | 링크결제 상품  
 PCD_PAY_TOTAL | 결제금액 | 1000 
-PCD_REGULER_FLAG | 정기결제 여부 | Y / N
-PCD_PAY_YEAR | 과금연도<br>(정기결제) | 2018 
-PCD_PAY_MONTH | 과금월<br>(정기결제) | 08
+PCD_REGULER_FLAG | - | 삭제예정
+PCD_PAY_YEAR | - | 삭제예정
+PCD_PAY_MONTH | - | 삭제예정
 PCD_TAXSAVE_RST | 현금영수증 발행 결과 | Y / N
 PCD_LINK_URL | 링크결제 URL | https://testlink.payple.kr/MjoxNTkyMzgy...
 
