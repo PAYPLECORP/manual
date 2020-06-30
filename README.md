@@ -112,7 +112,7 @@ $(document).ready( function () {
         obj.PCD_PAYER_AUTHTYPE = 'pwd';
         /* (필수) 가맹점 인증요청 파일 (Node.JS : auth => [app.js] app.post('/pg/auth', ...) */
 	/* auth 파일 생성은 1.1 참조 */ 
-        obj.payple_auth_file = '/pg/auth'; // 절대경로 포함 파일명 (예: /절대경로/payple_auth_file)
+        obj.payple_auth_file = '/pg/auth'; // 절대경로 포함 파일명 (예: /절대경로/가맹점이 생성한 인증파일)
 	/* End : 가맹점 인증요청 파일 */
 	
         /* 결과를 콜백 함수로 받고자 하는 경우 함수 설정 추가 */
