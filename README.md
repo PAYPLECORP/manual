@@ -429,7 +429,7 @@ PCD_LINK_MSG | 링크생성 요청 결과 메세지 | 링크생성완료 / 실�
 PCD_PAY_TYPE | 결제수단 | 계좌출금 
 PCD_PAY_GOODS | 상품명 | 링크결제 상품  
 PCD_PAY_TOTAL | 결제금액 | 1000 
-PCD_REGULER_FLAG | 월 중복결제 방지 | N
+PCD_REGULER_FLAG | 월 중복결제 방지 | Y / N
 PCD_PAY_YEAR | 년도 | 2020
 PCD_PAY_MONTH | 월 | 06
 PCD_TAXSAVE_RST | 현금영수증 발행 결과 | Y / N
