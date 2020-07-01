@@ -175,7 +175,7 @@ $(document).ready( function () {
 
 파라미터 ID | 설명 | 필수 | 비고
 :----: | :----: | :----: | ----
-PCD_CPAY_VER | 결제창 버전 | O | 
+PCD_CPAY_VER | 결제창 버전 | O | 최신 : 1.0.1
 PCD_PAY_TYPE | 결제수단 | O | 
 PCD_PAY_WORK | 결제요청 방식 | O | - AUTH : 계좌등록만 진행<br>- CERT : 가맹점 최종승인 후 계좌등록+결제 진행<br>- PAY : 가맹점 최종승인없이 계좌등록+결제 진행 
 PCD_SIMPLE_FLAG | 간편결제 여부 | - | Y / N
