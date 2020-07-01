@@ -186,7 +186,7 @@ PCD_PAYER_NO | 가맹점의 결제고객 고유번호 | - | maxlength=10
 PCD_PAYER_NAME | 결제고객 이름 | - | 
 PCD_PAYER_HP | 결제고객 휴대폰번호 | - |  
 PCD_PAYER_EMAIL | 결제고객 이메일 | - | 
-PCD_PAY_GOODS | 상품명 | O | 
+PCD_PAY_GOODS | 상품명 | O | - 이모티콘을 제외한 상품명을 입력해주세요.<br>- 이모티콘으로 인해 일부 카드사에서 오류가 발생할 수 있습니다.
 PCD_PAY_TOTAL | 결제금액 | O | 
 PCD_PAY_ISTAX | 과세설정 | - | Default: Y, 비과세: N | 
 PCD_PAY_TAXTOTAL | 복합과세 부가세 | - | 복합과세 주문건(과세+면세)에 필요한 항목이며 가맹점에서 전송한 값을 부가세로 설정합니다. | 
