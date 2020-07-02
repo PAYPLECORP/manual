@@ -41,7 +41,7 @@ KEY | custKey : abcd1234567890 | custKey : ID 매칭 Key
 
 
 * 가맹점 인증요청 - Request 
-* obj.payple_auth_file = '/pg/auth'; 에 설정 할 가맹점인증요청 파일 (ex: auth)을 생성합니다.
+* obj.payple_auth_file = ''; 에 설정 할 가맹점인증요청 파일 (ex: auth)을 생성합니다.
 
 ```html
 POST /php/auth.php HTTP/1.1
@@ -110,9 +110,9 @@ $(document).ready( function () {
         obj.PCD_PAY_TYPE = 'transfer';
         obj.PCD_PAY_WORK = pay_work;
         obj.PCD_PAYER_AUTHTYPE = 'pwd';
-        /* (필수) 가맹점 인증요청 파일 (Node.JS : auth => [app.js] app.post('/pg/auth', ...) */
 	
-	/* 파일 생성은 가맹점 인증요청 - Request(1.1) 참조 */ 
+        /* (필수) 가맹점 인증요청 파일 (Node.JS : auth => [app.js] app.post('/pg/auth', ...) */
+	/* 파일 생성은 가맹점 인증요청 - Request 참조 */ 
         obj.payple_auth_file = ''; // 인증요청을 수행하는 가맹점 인증요청 파일 (예: /절대경로/가맹점이 생성한 인증파일) 
 	/* End : 가맹점 인증요청 파일 */
 	
